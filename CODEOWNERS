@@ -1,0 +1,38 @@
+# Auto-assigns PR reviewers per folder.
+# Replace the placeholder @handles below with real GitHub usernames/teams.
+# More specific paths further down override earlier ones (GitHub CODEOWNERS rule).
+
+# Frozen interfaces — every change needs Cobbinah's sign-off
+/src/main/java/edu/ug/nexusb/core/            @cobbinah-placeholder
+/src/test/java/edu/ug/nexusb/core/            @cobbinah-placeholder
+/docs/interfaces.md                           @cobbinah-placeholder
+
+# Sub-team A — data layer
+/src/main/java/edu/ug/nexusb/data/            @subteam-a-placeholder
+/src/test/java/edu/ug/nexusb/data/            @subteam-a-placeholder
+/data/                                        @subteam-a-placeholder
+/docs/data_dictionary.md                      @subteam-a-placeholder
+
+# Sub-team B — linear structures
+/src/main/java/edu/ug/nexusb/linear/          @subteam-b-placeholder
+/src/test/java/edu/ug/nexusb/linear/          @subteam-b-placeholder
+
+# Sub-team C — trees
+/src/main/java/edu/ug/nexusb/trees/           @subteam-c-placeholder
+/src/test/java/edu/ug/nexusb/trees/           @subteam-c-placeholder
+
+# Sub-team D — graphs
+/src/main/java/edu/ug/nexusb/graphs/          @subteam-d-placeholder
+/src/test/java/edu/ug/nexusb/graphs/          @subteam-d-placeholder
+
+# Sub-team E — algorithms and benchmarking
+/src/main/java/edu/ug/nexusb/algorithms/      @subteam-e-placeholder
+/src/test/java/edu/ug/nexusb/algorithms/      @subteam-e-placeholder
+/src/main/java/edu/ug/nexusb/bench/           @subteam-e-placeholder
+/src/test/java/edu/ug/nexusb/bench/           @subteam-e-placeholder
+
+# App wiring — shared, defaults to Cobbinah as integrator
+/src/main/java/edu/ug/nexusb/app/             @cobbinah-placeholder
+
+# Dev log ownership
+/docs/dev_log.md                              @irene-placeholder
