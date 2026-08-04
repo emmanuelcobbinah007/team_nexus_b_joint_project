@@ -15,17 +15,25 @@ to keep that true. Read once, then work normally.
 
 ## 2. Branches
 
-| Branch | Purpose |
-|---|---|
-| `main` | Always builds, always green. Protected. |
-| `feat/<subteam>/<thing>` | New work — e.g. `feat/graphs/dijkstra` |
-| `fix/<subteam>/<thing>` | Corrections, and the only kind of branch after the feature freeze |
+Exactly six branches exist. No others get created — not `feat/...`, not
+`fix/...`, not a personal scratch branch. If you need to experiment, do it on
+your own sub-team branch.
 
-Sub-teams are `data`, `linear`, `trees`, `graphs`, `algorithms`, `bench`, `app`.
+| Branch | Sub-team | Owns |
+|---|---|---|
+| `main` | — | Always builds, always green. Protected. |
+| `sub-team-a` | A | `data/` — loader, DAO, entities, console menu |
+| `sub-team-b` | B | `linear/` — list, stack, queue, deque, heap |
+| `sub-team-c` | C | `trees/` — BST, balanced tree, B-tree, hash table, set/map |
+| `sub-team-d` | D | `graphs/` — graph, disjoint set, BFS/DFS/Dijkstra/Prim/Kruskal |
+| `sub-team-e` | E | `algorithms/`, `bench/` — sorts, searches, greedy, DP, benchmark |
 
-**Merge into `main` at least twice a week even if the feature is incomplete.**
-Small merges are boring; week-long branches turn integration into a rescue
-operation.
+Commit directly to your own sub-team branch as you work — small, frequent
+commits, no ceremony. **Open a PR from your branch into `main` at least twice
+a week, even if the feature is incomplete.** Small merges are boring;
+week-long divergence turns integration into a rescue operation. Changes to
+`core/` or another sub-team's package go through the group chat first, since
+they cross a branch boundary.
 
 ## 3. Commits
 
