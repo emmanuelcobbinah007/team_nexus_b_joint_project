@@ -46,3 +46,11 @@ this file — update it whenever a schema changes.
 | status | string | e.g. `available`, `in_use`, `offline` |
 
 Schema mirrored in [`data/schema.sql`](../data/schema.sql). Keep both in sync.
+
+## Index-number-derived parameters
+
+The three algorithm parameters required by the brief (hash table initial
+size, dataset generation seed, condition/priority weight factor) are derived
+from the team roster's index numbers and documented in
+[`parameters.md`](parameters.md), along with the formulas and code locations
+where each is consumed.
