@@ -1,4 +1,4 @@
-package gh.ug.smartops.structures;
+package edu.ug.nexusb.linear;
 
 /**
  * Custom double-ended queue, used in the scheduling engine to let an urgent

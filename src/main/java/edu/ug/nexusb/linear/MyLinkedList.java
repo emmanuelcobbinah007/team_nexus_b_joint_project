@@ -1,4 +1,7 @@
-package gh.ug.smartops.structures;
+package edu.ug.nexusb.linear;
+
+import edu.ug.nexusb.core.MyIterable;
+import edu.ug.nexusb.core.MyIterator;
 
 /**
  * Custom singly or doubly linked list (implementer's choice — decide and
@@ -9,7 +12,7 @@ package gh.ug.smartops.structures;
  *
  * @param <T> the element type stored in this list
  */
-public interface MyLinkedList<T> {
+public interface MyLinkedList<T> extends MyIterable<T> {
 
     /**
      * Inserts an element at the head of the list.
@@ -56,5 +59,6 @@ public interface MyLinkedList<T> {
      * @return a fresh iterator positioned before the first element,
      *         traversing head-to-tail
      */
+    @Override
     MyIterator<T> iterator();
 }

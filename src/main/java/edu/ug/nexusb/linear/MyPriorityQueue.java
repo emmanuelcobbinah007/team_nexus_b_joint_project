@@ -1,6 +1,7 @@
-package gh.ug.smartops.structures;
+package edu.ug.nexusb.linear;
 
-import java.util.Comparator;
+import edu.ug.nexusb.core.KeyNotFoundException;
+import edu.ug.nexusb.core.MyComparator;
 
 /**
  * Custom binary heap-backed priority queue.
@@ -55,7 +56,23 @@ public interface MyPriorityQueue<T> {
      * @return the comparator used to order elements (defines priority
      *         direction: urgency, deadline, weighted score, etc.)
      */
-    Comparator<? super T> comparator();
+    MyComparator<? super T> comparator();
+
+    /**
+     * Notifies the queue that {@code value}'s priority has improved (its
+     * comparator-order key got smaller / higher-priority) and restores the
+     * heap property (sift-up from the element's current position).
+     *
+     * <p>Exists solely because Dijkstra needs it when a shorter route to an
+     * already-discovered facility is found — nothing in this module calls
+     * it directly. Do not remove it as "unused"; Sub-team D's shortest-path
+     * implementation depends on it. See {@code docs/interfaces.md}.
+     *
+     * @param value the element whose priority has decreased; must already
+     *              be present in the queue, compared with {@code equals()}
+     * @throws KeyNotFoundException if {@code value} is not currently in the queue
+     */
+    void decreaseKey(T value);
 
     /**
      * @return true if the priority queue has no elements
