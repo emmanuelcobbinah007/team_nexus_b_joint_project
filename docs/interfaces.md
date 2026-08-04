@@ -84,6 +84,11 @@ from configuration, never a literal.
 
 ## T020 — Sub-team D: graphs
 
+Lives in `edu.ug.nexusb.graphs`, not `edu.ug.nexusb.core` — like every other
+sub-team's contracts, it is not part of the small set of types actually
+shared across packages (see "Shared types" above, which *does* live in
+`core`).
+
 | Type | Notes |
 |---|---|
 | `Edge` | Immutable record. Rejects negative weights in its compact constructor, because Dijkstra's correctness argument depends on non-negative weights. |

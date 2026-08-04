@@ -1,4 +1,4 @@
-package edu.ug.nexusb.core;
+package edu.ug.nexusb.graphs;
 
 /**
  * An immutable, directed, weighted connection from one facility to another.
