@@ -1,4 +1,4 @@
-package gh.ug.smartops.structures;
+package edu.ug.nexusb.linear;
 
 /**
  * Custom LIFO stack, used in this project for the examiner console's

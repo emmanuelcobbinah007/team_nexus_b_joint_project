@@ -1,4 +1,4 @@
-package gh.ug.smartops.structures;
+package edu.ug.nexusb.linear;
 
 /**
  * Fixed-capacity queue that reuses freed slots by wrapping the front/rear

@@ -1,4 +1,4 @@
-package gh.ug.smartops.structures;
+package edu.ug.nexusb.linear;
 
 /**
  * Custom FIFO queue. This is the base contract used for the plain (unbounded)
