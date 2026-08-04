@@ -1,0 +1,37 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: mvn test
+        run: mvn -B test
+
+      - name: No java.util collections in core logic
+        run: |
+          # The brief bans built-in collections (ArrayList, HashMap, PriorityQueue,
+          # Stack, LinkedList, ...) anywhere in core logic. bench/ and data/ are
+          # explicitly allowed (file parsing, DB support, plotting/export,
+          # test scaffolding). Catching a forgotten import here in Week 2 is
+          # cheap; an examiner finding it in Week 4 is expensive.
+          if grep -RnE 'import java\.util\.(ArrayList|HashMap|HashSet|LinkedHashMap|LinkedHashSet|LinkedList|PriorityQueue|Stack|TreeMap|TreeSet|ArrayDeque|Vector)\b' \
+              --include='*.java' src/main \
+              | grep -vE '^src/main/java/edu/ug/nexusb/(bench|data)/'; then
+            echo "::error::Built-in java.util collection import found in core logic (see above)."
+            exit 1
+          fi
