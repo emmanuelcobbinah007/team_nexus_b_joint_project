@@ -1,4 +1,8 @@
-package edu.ug.nexusb.core;
+package edu.ug.nexusb.graphs;
+
+import edu.ug.nexusb.core.Instrumented;
+import edu.ug.nexusb.core.KeyNotFoundException;
+import edu.ug.nexusb.core.MyIterable;
 
 /**
  * A directed, weighted graph over facility vertices, identified by ID.

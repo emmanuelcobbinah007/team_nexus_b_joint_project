@@ -1,4 +1,9 @@
-package edu.ug.nexusb.core;
+package edu.ug.nexusb.graphs;
+
+import edu.ug.nexusb.core.KeyNotFoundException;
+import edu.ug.nexusb.core.MyIterable;
+import edu.ug.nexusb.core.MyIterator;
+import edu.ug.nexusb.core.StructureException;
 
 /**
  * The output of a single-source traversal or shortest-path computation

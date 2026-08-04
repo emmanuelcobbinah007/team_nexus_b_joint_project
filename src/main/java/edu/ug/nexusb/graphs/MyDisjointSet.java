@@ -1,4 +1,7 @@
-package edu.ug.nexusb.core;
+package edu.ug.nexusb.graphs;
+
+import edu.ug.nexusb.core.Instrumented;
+import edu.ug.nexusb.core.KeyNotFoundException;
 
 /**
  * A union-find structure over facility identifiers: which facilities form
