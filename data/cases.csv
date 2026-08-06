@@ -1,1 +1,21 @@
-case_id,patient_id,severity,facility_id,timestamp,status
+# DEPRECATED — superseded by request.csv. Do not add data to this file.
+#
+# This was an early placeholder (header-only, never populated) before
+# Sub-team A uploaded real synthetic case data as request.csv, with a
+# different column layout (requestId, source, sourceLocationId,
+# destination, destinationLocationId, category, urgency, urgencyLabel,
+# responseWindowMinutes, timeSubmitted, deadline, status). request.csv is
+# now the canonical source for case/request data — use that file, not
+# this one.
+#
+# Kept in the repo (rather than deleted) only so anyone who goes looking
+# for cases.csv finds an explanation instead of a silent gap. Not read by
+# any loader.
+#
+# Note: request.csv's location IDs (F0xx) do not currently resolve
+# against locations.csv — see the note left in facilities.csv. This
+# doesn't block using request.csv for its own fields; it only matters
+# once something needs to join a request back to a facility record.
+#
+# Original placeholder header, for reference only:
+# case_id,patient_id,severity,facility_id,timestamp,status

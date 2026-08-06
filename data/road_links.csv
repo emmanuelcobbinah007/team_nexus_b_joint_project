@@ -1,1 +1,14 @@
-link_id,from_facility_id,to_facility_id,distance_km,avg_travel_time_min
+# DEPRECATED — superseded by roads.csv. Do not add data to this file.
+#
+# This was an early placeholder (header-only, never populated) before
+# Sub-team A uploaded real road-link data as roads.csv, with a different
+# column layout (edge_id, from_id, to_id, distance_km, base_time_min,
+# traffic_weight, road_condition, is_one_way). roads.csv is now the
+# canonical source for road/edge data — use that file, not this one.
+#
+# Kept in the repo (rather than deleted) only so anyone who goes looking
+# for road_links.csv finds an explanation instead of a silent gap. Not
+# read by any loader.
+#
+# Original placeholder header, for reference only:
+# link_id,from_facility_id,to_facility_id,distance_km,avg_travel_time_min
