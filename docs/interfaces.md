@@ -58,24 +58,56 @@ at O(n log n). Having both makes a clean experiment and a strong defense answer.
 
 ## T019 — Sub-team C: trees and hashing
 
+Lives in `edu.ug.nexusb.trees`, not `edu.ug.nexusb.core` — same reasoning as
+T020: none of these four are part of the small set of types actually shared
+across every package (see "Shared types" above, which *does* live in `core`).
+
 | Interface | Notes |
 |---|---|
-| `MyMap<K,V>` | The contract shared by the hash table and the tree-backed map. |
-| `MySet<T>` | Visited-marking in traversals, duplicate detection on load. Thin wrapper over the hash table. |
-| `MyHashTable<K,V>` | Extends `MyMap` with observability. |
-| `MyTree<K,V>` | Shared by BST, balanced tree and B-tree. |
+| `MyMap<K,V>` | The base contract shared by the hash table and the tree-backed map, so both can be swapped and benchmarked against each other through identical operations. |
+| `MySet<T>` | Visited-marking in traversals (BFS/DFS depend on this), duplicate detection on load. Extends `MyIterable<T>` directly rather than exposing a separate accessor, since a set's only natural iteration view is its own elements. |
+| `MyHashTable<K,V>` | Extends `MyMap` with observability, backed by separate chaining. |
+| `MyTree<K,V>` | Extends `MyMap`, shared by BST, balanced tree and B-tree. |
+
+**Why `get`/`remove` return `null` on a miss instead of throwing.** Lookups are
+a hot path in the dispatch engine (case-by-reference, facility-by-ID).
+Forcing every miss through an exception there would be awkward for callers
+that expect misses to be routine — unlike `MyGraph.weightOf`, where a missing
+edge genuinely is exceptional. Since `null` means "not found," `null` keys
+(`MyMap`) and `null` elements (`MySet`) are both rejected outright with
+`IllegalArgumentException`, so a stored `null` is never ambiguous with a miss.
+
+**Why `add`/`remove` on `MySet` return `boolean`.** Directly serves the
+duplicate-detection-on-load use case: a caller can tell inline whether it
+just hit a duplicate, without a separate `contains` check first. `MySet` also
+has `clear()`, because BFS/DFS need a fresh, empty visited-set on every
+traversal run rather than reallocating a new `MySet` on every call.
 
 **Why the hash table exposes its internals.** `collisionCount()`,
 `loadFactor()`, `longestBucket()` and `resizeCount()` are not diagnostics — they
 are the Week 4 load-factor experiment. `resizeCount()` in particular is what
 lets the report explain the timing spikes in the graph rather than merely
-showing them. All four exist from the first commit for that reason.
+showing them. All four exist from the first commit for that reason, alongside
+`capacity()`, which lets a test confirm the table actually started at the
+seeded `INITIAL_TABLE_SIZE` and grew as expected rather than back-deriving
+capacity from `loadFactor()` and `size()`. Implementations are expected to
+widen `Instrumented.resetCounters()` to also zero `collisionCount()` and
+`resizeCount()` — the T021 harness resets counters before each of its three
+timed repetitions, and without this widening, collision/resize counts from
+one repetition would leak into the next one's measurement. This does not
+change the `Instrumented` contract itself or affect any other structure that
+implements it; it is behavior local to `MyHashTable`.
 
 **Why one `MyTree` for three trees.** The BST-versus-balanced-tree experiment is
 only a fair comparison if both run through the same interface and the same
-harness. `height()` is the measurement; `isBalanced()` doubles as a test oracle
-after randomised insertion. `rangeKeys()` is the operation a hash table cannot
+harness. `height()` is the measurement (edge-count convention: `-1` for an
+empty tree, `0` for a single node); `isBalanced()` doubles as a test oracle
+after randomised insertion (trivially `true` for a B-tree, which is balanced
+by construction). `rangeKeys()` — inclusive of both bounds, empty if the
+range holds no keys or `from > to` — is the operation a hash table cannot
 perform, and the reason the indexing engine keeps a tree as well as a table.
+Ordering is pluggable via `comparator()` rather than requiring `K` to
+implement `Comparable`, the same choice already made for `MyPriorityQueue`.
 
 **Initial table size** is the first index-number-derived parameter and must come
 from configuration, never a literal.
@@ -144,3 +176,4 @@ would produce six sets of numbers that cannot legitimately share an axis.
 | Date | Change | Approved by |
 |---|---|---|
 | 30 Jul 2026 | Initial freeze — 25 types in `core` | Cobbinah Emmanuel |
+| 6 Aug 2026 | T019 frozen — `MyMap`, `MySet`, `MyHashTable`, `MyTree` added in `edu.ug.nexusb.trees` | Cobbinah Emmanuel |
