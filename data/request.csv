@@ -1,0 +1,321 @@
+requestId,source,sourceLocationId,destination,destinationLocationId,category,urgency,urgencyLabel,responseWindowMinutes,timeSubmitted,deadline,status
+REQ0001,Achimota Hospital,F007,Ridge Hospital,F002,Fracture / Suspected Fracture,2,High,30,2026-07-04 04:46:00,2026-07-04 05:16:00,En Route
+REQ0002,Ningo CHPS Compound,F050,Dansoman Polyclinic,F009,Administrative Records Transfer,4,Low,240,2026-07-29 17:29:00,2026-07-29 21:29:00,En Route
+REQ0003,Kotobabi Health Centre,F069,Tema General Hospital,F004,Fracture / Suspected Fracture,2,High,30,2026-07-18 20:54:00,2026-07-18 21:24:00,Missed Window
+REQ0004,Krowor Ambulance Station,F026,Ashaiman Polyclinic,F005,Trauma / Road Traffic Accident,1,Critical,15,2026-07-30 00:04:00,2026-07-30 00:19:00,Assigned
+REQ0005,Ayawaso East Ambulance Station,F030,La General Hospital,F006,Referral - Specialist Review,3,Medium,90,2026-07-10 08:52:00,2026-07-10 10:22:00,En Route
+REQ0006,Ningo CHPS Compound,F050,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-02 20:05:00,2026-07-02 21:35:00,Cancelled
+REQ0007,Weija Gbawe Ambulance Station,F032,Mamprobi Polyclinic,F008,Acute Abdominal Pain,2,High,30,2026-07-24 08:36:00,2026-07-24 09:06:00,Completed
+REQ0008,Ashaiman Zongo CHPS Compound,F044,Korle Bu Teaching Hospital,F001,Chest Pain / Cardiac,1,Critical,15,2026-07-23 20:13:00,2026-07-23 20:28:00,Completed
+REQ0009,Korle Bu Central Laboratory,F013,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-27 01:00:00,2026-07-27 02:30:00,Cancelled
+REQ0010,Ashaiman Zongo CHPS Compound,F044,Achimota Hospital,F007,Chest Pain / Cardiac,1,Critical,15,2026-07-30 10:02:00,2026-07-30 10:17:00,En Route
+REQ0011,Ledzokuku Ambulance Station,F025,Madina Polyclinic,F015,Trauma / Road Traffic Accident,1,Critical,15,2026-08-03 17:38:00,2026-08-03 17:53:00,Completed
+REQ0012,Ga West Ambulance Station,F016,Korle Bu Teaching Hospital,F001,Paediatric Fever (Severe),2,High,30,2026-07-18 23:04:00,2026-07-18 23:34:00,Missed Window
+REQ0013,Ablekuma North Ambulance Station,F027,Tema General Hospital,F004,Administrative Records Transfer,4,Low,240,2026-07-02 16:24:00,2026-07-02 20:24:00,Completed
+REQ0014,Ridge Hospital,F002,Korle Bu Teaching Hospital,F001,Acute Abdominal Pain,2,High,30,2026-08-03 05:06:00,2026-08-03 05:36:00,Completed
+REQ0015,Ashaiman Ambulance Station,F021,Mamprobi Polyclinic,F008,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-08-04 01:10:00,2026-08-04 05:10:00,Pending
+REQ0016,Accra Metro Ambulance Station,F023,Ashaiman Polyclinic,F005,Post-Operative Transfer,3,Medium,90,2026-07-26 03:17:00,2026-07-26 04:47:00,Completed
+REQ0017,Ridge Hospital,F002,Mamprobi Polyclinic,F008,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-25 18:45:00,2026-07-25 22:45:00,En Route
+REQ0018,Ga West Ambulance Station,F016,Ashaiman Polyclinic,F005,Blood Sample / Lab Transfer,3,Medium,90,2026-07-25 15:00:00,2026-07-25 16:30:00,Completed
+REQ0019,Central Blood Bank Accra,F012,Adenta Municipal Hospital,F014,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-19 09:37:00,2026-07-19 13:37:00,Completed
+REQ0020,Mamprobi Polyclinic,F008,Tema General Hospital,F004,Antenatal Check Transfer,3,Medium,90,2026-07-19 16:58:00,2026-07-19 18:28:00,Completed
+REQ0021,Amasaman Government Hospital,F011,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-03 18:52:00,2026-07-03 19:07:00,Completed
+REQ0022,Kotobabi Health Centre,F069,Tema General Hospital,F004,Severe Burns,2,High,30,2026-08-03 03:40:00,2026-08-03 04:10:00,Pending
+REQ0023,Ridge Hospital,F002,Adenta Municipal Hospital,F014,Blood Sample / Lab Transfer,3,Medium,90,2026-07-22 16:35:00,2026-07-22 18:05:00,Completed
+REQ0024,Prampram CHPS Compound,F051,Mamprobi Polyclinic,F008,Paediatric Fever (Severe),2,High,30,2026-07-09 13:17:00,2026-07-09 13:47:00,Completed
+REQ0025,Ablekuma North Ambulance Station,F027,Dansoman Polyclinic,F009,Post-Operative Transfer,3,Medium,90,2026-07-05 13:06:00,2026-07-05 14:36:00,Assigned
+REQ0026,Prampram CHPS Compound,F051,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-27 01:04:00,2026-07-27 05:04:00,Assigned
+REQ0027,Odorkor CHPS Compound,F072,Ridge Hospital,F002,Scheduled Follow-up Visit,4,Low,240,2026-07-04 15:30:00,2026-07-04 19:30:00,Completed
+REQ0028,Mallam CHPS Compound,F045,Tema General Hospital,F004,Paediatric Fever (Severe),2,High,30,2026-07-05 01:19:00,2026-07-05 01:49:00,Completed
+REQ0029,Anyaa Health Centre,F057,Achimota Hospital,F007,Acute Abdominal Pain,2,High,30,2026-07-11 00:45:00,2026-07-11 01:15:00,Pending
+REQ0030,Ayawaso East Ambulance Station,F030,Korle Bu Teaching Hospital,F001,Administrative Records Transfer,4,Low,240,2026-07-16 15:38:00,2026-07-16 19:38:00,Completed
+REQ0031,Ga East Ambulance Station,F017,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-08-04 14:23:00,2026-08-04 15:53:00,Completed
+REQ0032,Ashaiman Ambulance Station,F021,Ashaiman Polyclinic,F005,Fracture / Suspected Fracture,2,High,30,2026-07-04 17:56:00,2026-07-04 18:26:00,Completed
+REQ0033,Darkuman CHPS Compound,F061,Achimota Hospital,F007,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-19 11:10:00,2026-07-19 15:10:00,Pending
+REQ0034,Gbawe CHPS Compound,F047,Dansoman Polyclinic,F009,Fracture / Suspected Fracture,2,High,30,2026-07-27 00:30:00,2026-07-27 01:00:00,Completed
+REQ0035,Nungua Health Centre,F040,Amasaman Government Hospital,F011,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-06 08:14:00,2026-07-06 12:14:00,Completed
+REQ0036,Korle Bu Central Laboratory,F013,Achimota Hospital,F007,Dialysis Transport,3,Medium,90,2026-07-18 00:59:00,2026-07-18 02:29:00,Assigned
+REQ0037,Sakumono Health Centre,F042,Amasaman Government Hospital,F011,Blood Sample / Lab Transfer,3,Medium,90,2026-08-04 21:40:00,2026-08-04 23:10:00,Assigned
+REQ0038,Teshie CHPS Compound,F041,Tema General Hospital,F004,Stroke Symptoms,1,Critical,15,2026-08-05 09:55:00,2026-08-05 10:10:00,Assigned
+REQ0039,Alajo CHPS Compound,F070,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-07-04 17:45:00,2026-07-04 19:15:00,Pending
+REQ0040,Nima CHPS Compound,F067,Tema General Hospital,F004,Obstetric Emergency,1,Critical,15,2026-07-11 13:35:00,2026-07-11 13:50:00,Missed Window
+REQ0041,Anyaa Health Centre,F057,Tema General Hospital,F004,Referral - Specialist Review,3,Medium,90,2026-07-29 04:02:00,2026-07-29 05:32:00,Pending
+REQ0042,Accra Metro Ambulance Station,F023,Tema General Hospital,F004,Chest Pain / Cardiac,1,Critical,15,2026-07-21 00:31:00,2026-07-21 00:46:00,Completed
+REQ0043,Sakumono Health Centre,F042,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-10 14:22:00,2026-07-10 14:37:00,Assigned
+REQ0044,Mamprobi Polyclinic,F008,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-12 06:36:00,2026-07-12 07:06:00,Cancelled
+REQ0045,Sakumono Health Centre,F042,Dansoman Polyclinic,F009,Medication Pickup,4,Low,240,2026-07-25 20:32:00,2026-07-26 00:32:00,Assigned
+REQ0046,Ga East Ambulance Station,F017,Dansoman Polyclinic,F009,Severe Bleeding,1,Critical,15,2026-08-05 20:56:00,2026-08-05 21:11:00,Completed
+REQ0047,Alajo CHPS Compound,F070,Madina Polyclinic,F015,Scheduled Follow-up Visit,4,Low,240,2026-07-02 21:38:00,2026-07-03 01:38:00,Completed
+REQ0048,Madina Polyclinic,F015,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-24 17:20:00,2026-07-24 21:20:00,Completed
+REQ0049,Ledzokuku Ambulance Station,F025,Amasaman Government Hospital,F011,Antenatal Check Transfer,3,Medium,90,2026-07-19 15:54:00,2026-07-19 17:24:00,Pending
+REQ0050,Ridge Hospital,F002,Madina Polyclinic,F015,Breathing Difficulty,2,High,30,2026-07-21 13:10:00,2026-07-21 13:40:00,Assigned
+REQ0051,Maamobi CHPS Compound,F068,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-12 04:47:00,2026-07-12 05:02:00,Assigned
+REQ0052,Abokobi CHPS Compound,F053,Ashaiman Polyclinic,F005,Post-Operative Transfer,3,Medium,90,2026-07-28 23:26:00,2026-07-29 00:56:00,Completed
+REQ0053,Awoshie CHPS Compound,F059,Ridge Hospital,F002,Stroke Symptoms,1,Critical,15,2026-07-24 00:09:00,2026-07-24 00:24:00,Pending
+REQ0054,Ayawaso East Ambulance Station,F030,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-26 22:50:00,2026-07-27 00:20:00,Missed Window
+REQ0055,Ashaiman Ambulance Station,F021,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-25 21:47:00,2026-07-25 22:17:00,Completed
+REQ0056,Taifa CHPS Compound,F038,37 Military Hospital,F003,Obstetric Emergency,1,Critical,15,2026-07-13 03:21:00,2026-07-13 03:36:00,Pending
+REQ0057,Katamanso CHPS Compound,F049,Korle Bu Teaching Hospital,F001,Scheduled Follow-up Visit,4,Low,240,2026-08-01 02:10:00,2026-08-01 06:10:00,Completed
+REQ0058,Mamprobi Polyclinic,F008,Achimota Hospital,F007,Fracture / Suspected Fracture,2,High,30,2026-07-07 22:15:00,2026-07-07 22:45:00,Assigned
+REQ0059,Ofankor CHPS Compound,F035,Amasaman Government Hospital,F011,Blood Sample / Lab Transfer,3,Medium,90,2026-08-03 00:41:00,2026-08-03 02:11:00,Missed Window
+REQ0060,Teshie CHPS Compound,F041,Tema General Hospital,F004,Scheduled Follow-up Visit,4,Low,240,2026-07-19 08:34:00,2026-07-19 12:34:00,Cancelled
+REQ0061,Amasaman Health Centre,F033,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-09 03:12:00,2026-07-09 03:42:00,Completed
+REQ0062,Dome CHPS Compound,F039,Ridge Hospital,F002,Paediatric Fever (Severe),2,High,30,2026-07-19 14:28:00,2026-07-19 14:58:00,Completed
+REQ0063,Dome CHPS Compound,F039,Madina Polyclinic,F015,Fracture / Suspected Fracture,2,High,30,2026-07-30 04:54:00,2026-07-30 05:24:00,Pending
+REQ0064,Adenta Municipal Hospital,F014,Mamprobi Polyclinic,F008,Dialysis Transport,3,Medium,90,2026-07-10 11:14:00,2026-07-10 12:44:00,Completed
+REQ0065,La General Hospital,F006,Madina Polyclinic,F015,Severe Bleeding,1,Critical,15,2026-07-29 17:59:00,2026-07-29 18:14:00,Assigned
+REQ0066,Odorkor CHPS Compound,F072,Ashaiman Polyclinic,F005,Medication Pickup,4,Low,240,2026-07-27 10:27:00,2026-07-27 14:27:00,Missed Window
+REQ0067,Anyaa Health Centre,F057,Dansoman Polyclinic,F009,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-26 12:05:00,2026-07-26 16:05:00,Completed
+REQ0068,Ablekuma Health Centre,F036,Ashaiman Polyclinic,F005,Scheduled Follow-up Visit,4,Low,240,2026-07-02 23:14:00,2026-07-03 03:14:00,Completed
+REQ0069,Odorkor CHPS Compound,F072,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-17 12:14:00,2026-07-17 12:29:00,Completed
+REQ0070,Central Blood Bank Accra,F012,La General Hospital,F006,Severe Bleeding,1,Critical,15,2026-07-07 12:12:00,2026-07-07 12:27:00,En Route
+REQ0071,Korle Bu Central Laboratory,F013,Ridge Hospital,F002,Post-Operative Transfer,3,Medium,90,2026-07-27 09:12:00,2026-07-27 10:42:00,Completed
+REQ0072,Kotobabi Health Centre,F069,Korle Bu Teaching Hospital,F001,Post-Operative Transfer,3,Medium,90,2026-07-05 08:08:00,2026-07-05 09:38:00,Missed Window
+REQ0073,Gbawe CHPS Compound,F047,Ridge Hospital,F002,Acute Abdominal Pain,2,High,30,2026-07-08 03:29:00,2026-07-08 03:59:00,Missed Window
+REQ0074,Korle Bu Central Laboratory,F013,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-08-02 07:37:00,2026-08-02 08:07:00,Completed
+REQ0075,Bortianor Health Centre,F046,Adenta Municipal Hospital,F014,Breathing Difficulty,2,High,30,2026-07-20 14:35:00,2026-07-20 15:05:00,Missed Window
+REQ0076,Adenta Municipal Hospital,F014,Ridge Hospital,F002,Routine Clinic Transfer,4,Low,240,2026-07-12 15:58:00,2026-07-12 19:58:00,Pending
+REQ0077,Sowutuom CHPS Compound,F060,Achimota Hospital,F007,Referral - Specialist Review,3,Medium,90,2026-07-28 18:19:00,2026-07-28 19:49:00,En Route
+REQ0078,Nungua Health Centre,F040,Dansoman Polyclinic,F009,Scheduled Follow-up Visit,4,Low,240,2026-08-02 05:05:00,2026-08-02 09:05:00,Pending
+REQ0079,Ablekuma West Ambulance Station,F028,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-09 08:56:00,2026-07-09 09:26:00,Pending
+REQ0080,Dodowa Health Centre,F052,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-07-30 21:03:00,2026-07-30 21:33:00,Pending
+REQ0081,Mamprobi Polyclinic,F008,Amasaman Government Hospital,F011,Blood Sample / Lab Transfer,3,Medium,90,2026-07-28 08:21:00,2026-07-28 09:51:00,Cancelled
+REQ0082,Gbawe CHPS Compound,F047,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-07-30 14:28:00,2026-07-30 14:43:00,Cancelled
+REQ0083,Awoshie CHPS Compound,F059,Adenta Municipal Hospital,F014,Severe Burns,2,High,30,2026-07-07 13:22:00,2026-07-07 13:52:00,Missed Window
+REQ0084,Kwabenya CHPS Compound,F037,Weija Government Hospital,F010,Fracture / Suspected Fracture,2,High,30,2026-07-01 17:34:00,2026-07-01 18:04:00,En Route
+REQ0085,Maamobi CHPS Compound,F068,37 Military Hospital,F003,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-12 16:21:00,2026-07-12 20:21:00,Completed
+REQ0086,Mamprobi Polyclinic,F008,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-07-25 21:49:00,2026-07-25 23:19:00,Pending
+REQ0087,Nungua Health Centre,F040,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-15 02:05:00,2026-07-15 02:20:00,En Route
+REQ0088,Central Blood Bank Accra,F012,37 Military Hospital,F003,Trauma / Road Traffic Accident,1,Critical,15,2026-07-08 17:32:00,2026-07-08 17:47:00,Assigned
+REQ0089,Adenta Ambulance Station,F020,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-07-09 12:07:00,2026-07-09 12:37:00,Assigned
+REQ0090,Osu Health Centre,F065,Dansoman Polyclinic,F009,Scheduled Follow-up Visit,4,Low,240,2026-08-02 07:50:00,2026-08-02 11:50:00,Completed
+REQ0091,Korle Bu Teaching Hospital,F001,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-05 05:29:00,2026-07-05 05:59:00,Assigned
+REQ0092,Ashaiman Zongo CHPS Compound,F044,Ashaiman Polyclinic,F005,Scheduled Follow-up Visit,4,Low,240,2026-07-18 22:17:00,2026-07-19 02:17:00,Completed
+REQ0093,Dome CHPS Compound,F039,Achimota Hospital,F007,Routine Clinic Transfer,4,Low,240,2026-07-10 18:30:00,2026-07-10 22:30:00,Completed
+REQ0094,Bortianor Health Centre,F046,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-19 13:18:00,2026-07-19 13:33:00,Completed
+REQ0095,Teshie CHPS Compound,F041,Korle Bu Teaching Hospital,F001,Antenatal Check Transfer,3,Medium,90,2026-07-08 13:38:00,2026-07-08 15:08:00,Completed
+REQ0096,Sakumono Health Centre,F042,Dansoman Polyclinic,F009,Acute Abdominal Pain,2,High,30,2026-07-17 01:26:00,2026-07-17 01:56:00,Assigned
+REQ0097,Okaikwei North Ambulance Station,F031,Mamprobi Polyclinic,F008,Paediatric Fever (Severe),2,High,30,2026-07-11 14:55:00,2026-07-11 15:25:00,En Route
+REQ0098,Ayawaso East Ambulance Station,F030,37 Military Hospital,F003,Routine Clinic Transfer,4,Low,240,2026-07-09 10:35:00,2026-07-09 14:35:00,Completed
+REQ0099,Bortianor Health Centre,F046,37 Military Hospital,F003,Severe Bleeding,1,Critical,15,2026-07-22 23:39:00,2026-07-22 23:54:00,Completed
+REQ0100,Ningo CHPS Compound,F050,Amasaman Government Hospital,F011,Antenatal Check Transfer,3,Medium,90,2026-07-18 02:07:00,2026-07-18 03:37:00,Completed
+REQ0101,Awoshie CHPS Compound,F059,Ridge Hospital,F002,Antenatal Check Transfer,3,Medium,90,2026-07-03 03:37:00,2026-07-03 05:07:00,Completed
+REQ0102,Ledzokuku Ambulance Station,F025,Weija Government Hospital,F010,Acute Abdominal Pain,2,High,30,2026-08-05 07:53:00,2026-08-05 08:23:00,En Route
+REQ0103,Ablekuma West Ambulance Station,F028,Amasaman Government Hospital,F011,Routine Clinic Transfer,4,Low,240,2026-07-26 05:30:00,2026-07-26 09:30:00,Completed
+REQ0104,Nungua Health Centre,F040,Mamprobi Polyclinic,F008,Severe Burns,2,High,30,2026-07-24 04:24:00,2026-07-24 04:54:00,En Route
+REQ0105,Krowor Ambulance Station,F026,Ridge Hospital,F002,Stroke Symptoms,1,Critical,15,2026-08-02 03:04:00,2026-08-02 03:19:00,Pending
+REQ0106,La General Hospital,F006,Amasaman Government Hospital,F011,Acute Abdominal Pain,2,High,30,2026-07-12 18:43:00,2026-07-12 19:13:00,En Route
+REQ0107,Ga South Ambulance Station,F018,Amasaman Government Hospital,F011,Scheduled Follow-up Visit,4,Low,240,2026-07-03 04:56:00,2026-07-03 08:56:00,Pending
+REQ0108,Kwabenya CHPS Compound,F037,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-07-12 19:14:00,2026-07-12 19:29:00,Completed
+REQ0109,Tabora Health Centre,F058,Amasaman Government Hospital,F011,Stroke Symptoms,1,Critical,15,2026-07-08 06:02:00,2026-07-08 06:17:00,Missed Window
+REQ0110,Mallam CHPS Compound,F045,Ashaiman Polyclinic,F005,Obstetric Emergency,1,Critical,15,2026-07-22 22:51:00,2026-07-22 23:06:00,Completed
+REQ0111,Ussher Town CHPS Compound,F064,La General Hospital,F006,Administrative Records Transfer,4,Low,240,2026-07-15 08:57:00,2026-07-15 12:57:00,Completed
+REQ0112,Sowutuom CHPS Compound,F060,Amasaman Government Hospital,F011,Breathing Difficulty,2,High,30,2026-07-03 17:02:00,2026-07-03 17:32:00,Completed
+REQ0113,Mallam CHPS Compound,F045,Weija Government Hospital,F010,Antenatal Check Transfer,3,Medium,90,2026-07-25 11:44:00,2026-07-25 13:14:00,Missed Window
+REQ0114,Korle Bu Teaching Hospital,F001,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-04 10:13:00,2026-07-04 14:13:00,Pending
+REQ0115,Nima CHPS Compound,F067,Adenta Municipal Hospital,F014,Stroke Symptoms,1,Critical,15,2026-07-13 01:25:00,2026-07-13 01:40:00,Missed Window
+REQ0116,Ningo CHPS Compound,F050,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-26 23:24:00,2026-07-26 23:54:00,Completed
+REQ0117,Jamestown CHPS Compound,F063,Adenta Municipal Hospital,F014,Dialysis Transport,3,Medium,90,2026-08-04 19:50:00,2026-08-04 21:20:00,Pending
+REQ0118,Haatso Health Centre,F054,Weija Government Hospital,F010,Chest Pain / Cardiac,1,Critical,15,2026-07-08 04:42:00,2026-07-08 04:57:00,Completed
+REQ0119,Prampram CHPS Compound,F051,Tema General Hospital,F004,Stroke Symptoms,1,Critical,15,2026-07-26 22:40:00,2026-07-26 22:55:00,Pending
+REQ0120,Chorkor Health Centre,F062,Amasaman Government Hospital,F011,Breathing Difficulty,2,High,30,2026-07-20 14:02:00,2026-07-20 14:32:00,En Route
+REQ0121,Achimota Hospital,F007,La General Hospital,F006,Severe Burns,2,High,30,2026-07-03 03:11:00,2026-07-03 03:41:00,En Route
+REQ0122,Trobu Health Centre,F056,Amasaman Government Hospital,F011,Chest Pain / Cardiac,1,Critical,15,2026-07-02 00:43:00,2026-07-02 00:58:00,Completed
+REQ0123,Ga South Ambulance Station,F018,Ridge Hospital,F002,Blood Sample / Lab Transfer,3,Medium,90,2026-07-09 18:08:00,2026-07-09 19:38:00,Pending
+REQ0124,La General Hospital,F006,Ridge Hospital,F002,Antenatal Check Transfer,3,Medium,90,2026-08-04 22:23:00,2026-08-04 23:53:00,Cancelled
+REQ0125,Madina Polyclinic,F015,37 Military Hospital,F003,Routine Clinic Transfer,4,Low,240,2026-07-20 08:43:00,2026-07-20 12:43:00,Completed
+REQ0126,Ga East Ambulance Station,F017,Korle Bu Teaching Hospital,F001,Blood Sample / Lab Transfer,3,Medium,90,2026-07-11 04:35:00,2026-07-11 06:05:00,Completed
+REQ0127,Korle Bu Central Laboratory,F013,Weija Government Hospital,F010,Blood Sample / Lab Transfer,3,Medium,90,2026-07-22 02:20:00,2026-07-22 03:50:00,Cancelled
+REQ0128,Kotobabi Health Centre,F069,Achimota Hospital,F007,Fracture / Suspected Fracture,2,High,30,2026-07-10 04:18:00,2026-07-10 04:48:00,Assigned
+REQ0129,Oyibi Health Centre,F048,Tema General Hospital,F004,Administrative Records Transfer,4,Low,240,2026-07-09 17:19:00,2026-07-09 21:19:00,Missed Window
+REQ0130,Ayawaso East Ambulance Station,F030,Ridge Hospital,F002,Dialysis Transport,3,Medium,90,2026-07-04 09:31:00,2026-07-04 11:01:00,Missed Window
+REQ0131,Ga East Ambulance Station,F017,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-09 01:42:00,2026-07-09 05:42:00,Completed
+REQ0132,Achimota Hospital,F007,Tema General Hospital,F004,Severe Burns,2,High,30,2026-07-07 17:52:00,2026-07-07 18:22:00,Assigned
+REQ0133,Maamobi CHPS Compound,F068,Ridge Hospital,F002,Breathing Difficulty,2,High,30,2026-07-05 22:38:00,2026-07-05 23:08:00,Assigned
+REQ0134,Chorkor Health Centre,F062,Madina Polyclinic,F015,Paediatric Fever (Severe),2,High,30,2026-07-20 03:18:00,2026-07-20 03:48:00,En Route
+REQ0135,Nima CHPS Compound,F067,Madina Polyclinic,F015,Severe Burns,2,High,30,2026-07-18 12:52:00,2026-07-18 13:22:00,En Route
+REQ0136,Bortianor Health Centre,F046,Madina Polyclinic,F015,Obstetric Emergency,1,Critical,15,2026-07-15 01:49:00,2026-07-15 02:04:00,Cancelled
+REQ0137,Weija Gbawe Ambulance Station,F032,Tema General Hospital,F004,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-17 09:11:00,2026-07-17 13:11:00,Assigned
+REQ0138,37 Military Hospital,F003,Korle Bu Teaching Hospital,F001,Fracture / Suspected Fracture,2,High,30,2026-07-26 23:00:00,2026-07-26 23:30:00,En Route
+REQ0139,Kwabenya CHPS Compound,F037,Amasaman Government Hospital,F011,Post-Operative Transfer,3,Medium,90,2026-07-30 04:02:00,2026-07-30 05:32:00,Completed
+REQ0140,Central Blood Bank Accra,F012,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-07-03 22:47:00,2026-07-03 23:17:00,Completed
+REQ0141,Jamestown CHPS Compound,F063,Korle Bu Teaching Hospital,F001,Scheduled Follow-up Visit,4,Low,240,2026-07-13 01:39:00,2026-07-13 05:39:00,En Route
+REQ0142,Ga West Ambulance Station,F016,Tema General Hospital,F004,Acute Abdominal Pain,2,High,30,2026-08-02 22:13:00,2026-08-02 22:43:00,Pending
+REQ0143,Nungua Health Centre,F040,Weija Government Hospital,F010,Administrative Records Transfer,4,Low,240,2026-07-24 20:58:00,2026-07-25 00:58:00,Completed
+REQ0144,Labadi Health Centre,F066,37 Military Hospital,F003,Obstetric Emergency,1,Critical,15,2026-07-22 00:50:00,2026-07-22 01:05:00,Missed Window
+REQ0145,Oyibi Health Centre,F048,Madina Polyclinic,F015,Referral - Specialist Review,3,Medium,90,2026-07-27 01:44:00,2026-07-27 03:14:00,Missed Window
+REQ0146,La Nkwantanang Ambulance Station,F024,Mamprobi Polyclinic,F008,Severe Burns,2,High,30,2026-07-31 17:55:00,2026-07-31 18:25:00,Completed
+REQ0147,Ussher Town CHPS Compound,F064,Tema General Hospital,F004,Stroke Symptoms,1,Critical,15,2026-07-12 11:34:00,2026-07-12 11:49:00,Completed
+REQ0148,Oyibi Health Centre,F048,Adenta Municipal Hospital,F014,Paediatric Fever (Severe),2,High,30,2026-07-01 00:52:00,2026-07-01 01:22:00,Completed
+REQ0149,Dome CHPS Compound,F039,Amasaman Government Hospital,F011,Chest Pain / Cardiac,1,Critical,15,2026-07-19 17:18:00,2026-07-19 17:33:00,Assigned
+REQ0150,Ablekuma North Ambulance Station,F027,Ridge Hospital,F002,Scheduled Follow-up Visit,4,Low,240,2026-07-26 21:16:00,2026-07-27 01:16:00,Completed
+REQ0151,Ussher Town CHPS Compound,F064,Ridge Hospital,F002,Severe Bleeding,1,Critical,15,2026-07-08 21:17:00,2026-07-08 21:32:00,Missed Window
+REQ0152,Ablekuma West Ambulance Station,F028,Korle Bu Teaching Hospital,F001,Scheduled Follow-up Visit,4,Low,240,2026-07-16 11:22:00,2026-07-16 15:22:00,Completed
+REQ0153,Dansoman Polyclinic,F009,Madina Polyclinic,F015,Post-Operative Transfer,3,Medium,90,2026-08-04 01:02:00,2026-08-04 02:32:00,Completed
+REQ0154,Korle Bu Teaching Hospital,F001,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-19 15:51:00,2026-07-19 19:51:00,Pending
+REQ0155,Katamanso CHPS Compound,F049,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-14 10:45:00,2026-07-14 14:45:00,Completed
+REQ0156,Kotobabi Health Centre,F069,Weija Government Hospital,F010,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-25 22:04:00,2026-07-26 02:04:00,En Route
+REQ0157,Osu Health Centre,F065,Adenta Municipal Hospital,F014,Obstetric Emergency,1,Critical,15,2026-08-01 14:36:00,2026-08-01 14:51:00,Cancelled
+REQ0158,Ayawaso East Ambulance Station,F030,Tema General Hospital,F004,Scheduled Follow-up Visit,4,Low,240,2026-07-11 06:39:00,2026-07-11 10:39:00,Missed Window
+REQ0159,Mamprobi Polyclinic,F008,Dansoman Polyclinic,F009,Blood Sample / Lab Transfer,3,Medium,90,2026-07-10 10:04:00,2026-07-10 11:34:00,Completed
+REQ0160,Accra Metro Ambulance Station,F023,Ridge Hospital,F002,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-27 10:10:00,2026-07-27 14:10:00,Completed
+REQ0161,Tabora Health Centre,F058,Ashaiman Polyclinic,F005,Severe Burns,2,High,30,2026-07-09 11:26:00,2026-07-09 11:56:00,Cancelled
+REQ0162,Weija Government Hospital,F010,Ridge Hospital,F002,Trauma / Road Traffic Accident,1,Critical,15,2026-07-24 08:50:00,2026-07-24 09:05:00,Completed
+REQ0163,Taifa CHPS Compound,F038,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-08 16:16:00,2026-07-08 20:16:00,Missed Window
+REQ0164,Darkuman CHPS Compound,F061,Tema General Hospital,F004,Referral - Specialist Review,3,Medium,90,2026-07-18 07:00:00,2026-07-18 08:30:00,En Route
+REQ0165,Sowutuom CHPS Compound,F060,Weija Government Hospital,F010,Severe Bleeding,1,Critical,15,2026-07-06 09:51:00,2026-07-06 10:06:00,Completed
+REQ0166,Dodowa Health Centre,F052,Achimota Hospital,F007,Administrative Records Transfer,4,Low,240,2026-07-08 22:38:00,2026-07-09 02:38:00,Completed
+REQ0167,Pokuase Health Centre,F034,Dansoman Polyclinic,F009,Blood Sample / Lab Transfer,3,Medium,90,2026-08-04 05:42:00,2026-08-04 07:12:00,Completed
+REQ0168,Darkuman CHPS Compound,F061,Korle Bu Teaching Hospital,F001,Acute Abdominal Pain,2,High,30,2026-07-14 12:03:00,2026-07-14 12:33:00,Pending
+REQ0169,Weija Government Hospital,F010,Amasaman Government Hospital,F011,Dialysis Transport,3,Medium,90,2026-07-05 06:58:00,2026-07-05 08:28:00,Completed
+REQ0170,Accra Metro Ambulance Station,F023,La General Hospital,F006,Stroke Symptoms,1,Critical,15,2026-07-31 06:42:00,2026-07-31 06:57:00,Missed Window
+REQ0171,Madina Polyclinic,F015,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-03 22:46:00,2026-07-03 23:01:00,Missed Window
+REQ0172,Chorkor Health Centre,F062,Madina Polyclinic,F015,Stroke Symptoms,1,Critical,15,2026-08-05 20:40:00,2026-08-05 20:55:00,Completed
+REQ0173,Kotobabi Health Centre,F069,Madina Polyclinic,F015,Paediatric Fever (Severe),2,High,30,2026-08-05 20:02:00,2026-08-05 20:32:00,Assigned
+REQ0174,Oyibi Health Centre,F048,Tema General Hospital,F004,Chest Pain / Cardiac,1,Critical,15,2026-07-22 12:58:00,2026-07-22 13:13:00,En Route
+REQ0175,Ashaiman Ambulance Station,F021,Ashaiman Polyclinic,F005,Severe Burns,2,High,30,2026-07-13 17:51:00,2026-07-13 18:21:00,Pending
+REQ0176,Weija Government Hospital,F010,Korle Bu Teaching Hospital,F001,Routine Clinic Transfer,4,Low,240,2026-07-21 08:46:00,2026-07-21 12:46:00,Completed
+REQ0177,Weija Government Hospital,F010,Adenta Municipal Hospital,F014,Antenatal Check Transfer,3,Medium,90,2026-07-06 10:19:00,2026-07-06 11:49:00,En Route
+REQ0178,Mallam CHPS Compound,F045,Amasaman Government Hospital,F011,Administrative Records Transfer,4,Low,240,2026-07-20 21:52:00,2026-07-21 01:52:00,Completed
+REQ0179,Ablekuma West Ambulance Station,F028,Achimota Hospital,F007,Severe Burns,2,High,30,2026-08-01 11:05:00,2026-08-01 11:35:00,Assigned
+REQ0180,Central Blood Bank Accra,F012,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-07-13 16:42:00,2026-07-13 18:12:00,Cancelled
+REQ0181,Ga Central Ambulance Station,F019,Adenta Municipal Hospital,F014,Severe Bleeding,1,Critical,15,2026-07-10 07:19:00,2026-07-10 07:34:00,Missed Window
+REQ0182,37 Military Hospital,F003,Mamprobi Polyclinic,F008,Routine Clinic Transfer,4,Low,240,2026-07-02 14:08:00,2026-07-02 18:08:00,Completed
+REQ0183,Maamobi CHPS Compound,F068,Ridge Hospital,F002,Trauma / Road Traffic Accident,1,Critical,15,2026-07-19 20:26:00,2026-07-19 20:41:00,Pending
+REQ0184,Pokuase Health Centre,F034,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-13 18:26:00,2026-07-13 18:56:00,Completed
+REQ0185,Nungua Health Centre,F040,Mamprobi Polyclinic,F008,Dialysis Transport,3,Medium,90,2026-07-04 07:59:00,2026-07-04 09:29:00,Completed
+REQ0186,Sowutuom CHPS Compound,F060,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-23 14:01:00,2026-07-23 18:01:00,Completed
+REQ0187,Ashaiman Zongo CHPS Compound,F044,Weija Government Hospital,F010,Breathing Difficulty,2,High,30,2026-07-16 04:13:00,2026-07-16 04:43:00,Assigned
+REQ0188,Madina Polyclinic,F015,Ashaiman Polyclinic,F005,Acute Abdominal Pain,2,High,30,2026-07-02 18:11:00,2026-07-02 18:41:00,Missed Window
+REQ0189,Osu Health Centre,F065,Korle Bu Teaching Hospital,F001,Medication Pickup,4,Low,240,2026-07-10 00:51:00,2026-07-10 04:51:00,Pending
+REQ0190,Ablekuma Health Centre,F036,37 Military Hospital,F003,Paediatric Fever (Severe),2,High,30,2026-07-08 11:36:00,2026-07-08 12:06:00,Pending
+REQ0191,Katamanso CHPS Compound,F049,Madina Polyclinic,F015,Medication Pickup,4,Low,240,2026-07-16 21:49:00,2026-07-17 01:49:00,Completed
+REQ0192,Alajo CHPS Compound,F070,Ridge Hospital,F002,Medication Pickup,4,Low,240,2026-07-27 00:42:00,2026-07-27 04:42:00,Completed
+REQ0193,Nungua Health Centre,F040,Korle Bu Teaching Hospital,F001,Medication Pickup,4,Low,240,2026-07-16 16:28:00,2026-07-16 20:28:00,Assigned
+REQ0194,Odorkor CHPS Compound,F072,Dansoman Polyclinic,F009,Post-Operative Transfer,3,Medium,90,2026-07-16 22:50:00,2026-07-17 00:20:00,Assigned
+REQ0195,Ashongman Health Centre,F055,La General Hospital,F006,Stroke Symptoms,1,Critical,15,2026-07-21 05:23:00,2026-07-21 05:38:00,Pending
+REQ0196,Ablekuma North Ambulance Station,F027,Tema General Hospital,F004,Dialysis Transport,3,Medium,90,2026-07-11 10:42:00,2026-07-11 12:12:00,En Route
+REQ0197,Accra Metro Ambulance Station,F023,Ridge Hospital,F002,Acute Abdominal Pain,2,High,30,2026-08-02 16:38:00,2026-08-02 17:08:00,Assigned
+REQ0198,Weija Government Hospital,F010,Amasaman Government Hospital,F011,Scheduled Follow-up Visit,4,Low,240,2026-08-04 20:08:00,2026-08-05 00:08:00,Pending
+REQ0199,Ningo CHPS Compound,F050,Ridge Hospital,F002,Obstetric Emergency,1,Critical,15,2026-07-13 12:13:00,2026-07-13 12:28:00,Completed
+REQ0200,Ashaiman Zongo CHPS Compound,F044,Dansoman Polyclinic,F009,Severe Bleeding,1,Critical,15,2026-07-09 21:08:00,2026-07-09 21:23:00,Completed
+REQ0201,Amasaman Health Centre,F033,Adenta Municipal Hospital,F014,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-27 22:41:00,2026-07-28 02:41:00,En Route
+REQ0202,Taifa CHPS Compound,F038,Adenta Municipal Hospital,F014,Trauma / Road Traffic Accident,1,Critical,15,2026-07-13 09:57:00,2026-07-13 10:12:00,Pending
+REQ0203,Ablekuma West Ambulance Station,F028,Madina Polyclinic,F015,Referral - Specialist Review,3,Medium,90,2026-07-16 00:19:00,2026-07-16 01:49:00,En Route
+REQ0204,Haatso Health Centre,F054,Mamprobi Polyclinic,F008,Trauma / Road Traffic Accident,1,Critical,15,2026-07-28 13:35:00,2026-07-28 13:50:00,Completed
+REQ0205,Ga East Ambulance Station,F017,Adenta Municipal Hospital,F014,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-17 08:52:00,2026-07-17 12:52:00,En Route
+REQ0206,Adenta Municipal Hospital,F014,La General Hospital,F006,Severe Bleeding,1,Critical,15,2026-07-12 08:16:00,2026-07-12 08:31:00,Missed Window
+REQ0207,Gbawe CHPS Compound,F047,Korle Bu Teaching Hospital,F001,Antenatal Check Transfer,3,Medium,90,2026-07-24 15:19:00,2026-07-24 16:49:00,Pending
+REQ0208,Maamobi CHPS Compound,F068,Tema General Hospital,F004,Severe Bleeding,1,Critical,15,2026-07-09 21:11:00,2026-07-09 21:26:00,Completed
+REQ0209,Korle Bu Central Laboratory,F013,Ridge Hospital,F002,Administrative Records Transfer,4,Low,240,2026-07-26 08:02:00,2026-07-26 12:02:00,Assigned
+REQ0210,Ga South Ambulance Station,F018,Adenta Municipal Hospital,F014,Dialysis Transport,3,Medium,90,2026-07-22 05:34:00,2026-07-22 07:04:00,Completed
+REQ0211,Tabora Health Centre,F058,La General Hospital,F006,Severe Burns,2,High,30,2026-07-14 19:48:00,2026-07-14 20:18:00,Assigned
+REQ0212,Accra Metro Ambulance Station,F023,37 Military Hospital,F003,Paediatric Fever (Severe),2,High,30,2026-07-12 16:32:00,2026-07-12 17:02:00,Cancelled
+REQ0213,Jamestown CHPS Compound,F063,Mamprobi Polyclinic,F008,Scheduled Follow-up Visit,4,Low,240,2026-07-25 18:33:00,2026-07-25 22:33:00,Completed
+REQ0214,Nima CHPS Compound,F067,Madina Polyclinic,F015,Severe Burns,2,High,30,2026-07-24 08:16:00,2026-07-24 08:46:00,Missed Window
+REQ0215,Weija Gbawe Ambulance Station,F032,Weija Government Hospital,F010,Chest Pain / Cardiac,1,Critical,15,2026-07-18 09:40:00,2026-07-18 09:55:00,En Route
+REQ0216,Nungua Health Centre,F040,Madina Polyclinic,F015,Obstetric Emergency,1,Critical,15,2026-07-03 10:12:00,2026-07-03 10:27:00,Pending
+REQ0217,Amasaman Health Centre,F033,Weija Government Hospital,F010,Severe Burns,2,High,30,2026-07-19 12:23:00,2026-07-19 12:53:00,Pending
+REQ0218,Ga West Ambulance Station,F016,Achimota Hospital,F007,Post-Operative Transfer,3,Medium,90,2026-07-11 13:00:00,2026-07-11 14:30:00,Completed
+REQ0219,Anyaa Health Centre,F057,Amasaman Government Hospital,F011,Antenatal Check Transfer,3,Medium,90,2026-07-06 09:14:00,2026-07-06 10:44:00,Completed
+REQ0220,Ayawaso West Ambulance Station,F029,Adenta Municipal Hospital,F014,Routine Clinic Transfer,4,Low,240,2026-08-01 07:17:00,2026-08-01 11:17:00,Pending
+REQ0221,La General Hospital,F006,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-17 18:47:00,2026-07-17 22:47:00,Assigned
+REQ0222,Abokobi CHPS Compound,F053,Weija Government Hospital,F010,Severe Burns,2,High,30,2026-07-31 14:42:00,2026-07-31 15:12:00,Completed
+REQ0223,Ablekuma Health Centre,F036,Dansoman Polyclinic,F009,Stroke Symptoms,1,Critical,15,2026-07-17 03:37:00,2026-07-17 03:52:00,Assigned
+REQ0224,Dodowa Health Centre,F052,Adenta Municipal Hospital,F014,Blood Sample / Lab Transfer,3,Medium,90,2026-07-02 09:01:00,2026-07-02 10:31:00,Pending
+REQ0225,Ayawaso West Ambulance Station,F029,37 Military Hospital,F003,Acute Abdominal Pain,2,High,30,2026-07-12 11:54:00,2026-07-12 12:24:00,Assigned
+REQ0226,Korle Bu Teaching Hospital,F001,37 Military Hospital,F003,Paediatric Fever (Severe),2,High,30,2026-08-05 04:38:00,2026-08-05 05:08:00,Pending
+REQ0227,Taifa CHPS Compound,F038,Tema General Hospital,F004,Fracture / Suspected Fracture,2,High,30,2026-07-09 11:08:00,2026-07-09 11:38:00,Completed
+REQ0228,Darkuman CHPS Compound,F061,Amasaman Government Hospital,F011,Breathing Difficulty,2,High,30,2026-07-08 13:15:00,2026-07-08 13:45:00,Assigned
+REQ0229,Ledzokuku Ambulance Station,F025,Ridge Hospital,F002,Chest Pain / Cardiac,1,Critical,15,2026-07-14 04:46:00,2026-07-14 05:01:00,Assigned
+REQ0230,Ofankor CHPS Compound,F035,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-20 01:45:00,2026-07-20 02:00:00,Completed
+REQ0231,Ayawaso West Ambulance Station,F029,Amasaman Government Hospital,F011,Scheduled Follow-up Visit,4,Low,240,2026-07-13 18:10:00,2026-07-13 22:10:00,Assigned
+REQ0232,Ashaiman Ambulance Station,F021,Ridge Hospital,F002,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-12 01:36:00,2026-07-12 05:36:00,Pending
+REQ0233,Sowutuom CHPS Compound,F060,Tema General Hospital,F004,Referral - Specialist Review,3,Medium,90,2026-07-21 06:57:00,2026-07-21 08:27:00,Cancelled
+REQ0234,Ussher Town CHPS Compound,F064,Amasaman Government Hospital,F011,Trauma / Road Traffic Accident,1,Critical,15,2026-07-06 07:54:00,2026-07-06 08:09:00,Missed Window
+REQ0235,Osu Health Centre,F065,Weija Government Hospital,F010,Referral - Specialist Review,3,Medium,90,2026-07-01 10:40:00,2026-07-01 12:10:00,Completed
+REQ0236,Ablekuma North Ambulance Station,F027,Adenta Municipal Hospital,F014,Acute Abdominal Pain,2,High,30,2026-07-29 16:29:00,2026-07-29 16:59:00,Completed
+REQ0237,Achimota Hospital,F007,Ridge Hospital,F002,Acute Abdominal Pain,2,High,30,2026-07-02 15:02:00,2026-07-02 15:32:00,Pending
+REQ0238,Ledzokuku Ambulance Station,F025,Weija Government Hospital,F010,Blood Sample / Lab Transfer,3,Medium,90,2026-08-03 18:22:00,2026-08-03 19:52:00,Assigned
+REQ0239,La General Hospital,F006,Amasaman Government Hospital,F011,Medication Pickup,4,Low,240,2026-08-01 14:29:00,2026-08-01 18:29:00,Pending
+REQ0240,Sakumono Health Centre,F042,Weija Government Hospital,F010,Blood Sample / Lab Transfer,3,Medium,90,2026-07-06 20:34:00,2026-07-06 22:04:00,Completed
+REQ0241,Dodowa Health Centre,F052,Adenta Municipal Hospital,F014,Post-Operative Transfer,3,Medium,90,2026-07-06 18:54:00,2026-07-06 20:24:00,Missed Window
+REQ0242,Pokuase Health Centre,F034,Tema General Hospital,F004,Administrative Records Transfer,4,Low,240,2026-08-04 09:50:00,2026-08-04 13:50:00,Pending
+REQ0243,Trobu Health Centre,F056,37 Military Hospital,F003,Blood Sample / Lab Transfer,3,Medium,90,2026-08-05 00:36:00,2026-08-05 02:06:00,Assigned
+REQ0244,Dansoman Polyclinic,F009,Achimota Hospital,F007,Antenatal Check Transfer,3,Medium,90,2026-07-26 09:34:00,2026-07-26 11:04:00,Assigned
+REQ0245,Oyibi Health Centre,F048,Korle Bu Teaching Hospital,F001,Paediatric Fever (Severe),2,High,30,2026-07-11 00:01:00,2026-07-11 00:31:00,Missed Window
+REQ0246,Tabora Health Centre,F058,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-14 10:40:00,2026-07-14 14:40:00,Completed
+REQ0247,Ablekuma West Ambulance Station,F028,Korle Bu Teaching Hospital,F001,Administrative Records Transfer,4,Low,240,2026-07-08 05:54:00,2026-07-08 09:54:00,Pending
+REQ0248,Sowutuom CHPS Compound,F060,Madina Polyclinic,F015,Chest Pain / Cardiac,1,Critical,15,2026-07-25 00:32:00,2026-07-25 00:47:00,Completed
+REQ0249,Ningo CHPS Compound,F050,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-08-03 12:27:00,2026-08-03 12:42:00,Assigned
+REQ0250,Mallam CHPS Compound,F045,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-07-27 02:10:00,2026-07-27 02:25:00,Missed Window
+REQ0251,Ashaiman Zongo CHPS Compound,F044,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-12 03:35:00,2026-07-12 04:05:00,Completed
+REQ0252,Tema Ambulance Station,F022,Korle Bu Teaching Hospital,F001,Fracture / Suspected Fracture,2,High,30,2026-07-22 13:44:00,2026-07-22 14:14:00,Missed Window
+REQ0253,Dodowa Health Centre,F052,Tema General Hospital,F004,Scheduled Follow-up Visit,4,Low,240,2026-08-01 01:30:00,2026-08-01 05:30:00,Completed
+REQ0254,Ablekuma West Ambulance Station,F028,Ridge Hospital,F002,Severe Burns,2,High,30,2026-07-13 09:48:00,2026-07-13 10:18:00,Completed
+REQ0255,Labadi Health Centre,F066,Korle Bu Teaching Hospital,F001,Trauma / Road Traffic Accident,1,Critical,15,2026-07-22 22:20:00,2026-07-22 22:35:00,Pending
+REQ0256,Ayawaso East Ambulance Station,F030,Ridge Hospital,F002,Obstetric Emergency,1,Critical,15,2026-07-26 20:59:00,2026-07-26 21:14:00,Pending
+REQ0257,Weija Government Hospital,F010,Amasaman Government Hospital,F011,Chest Pain / Cardiac,1,Critical,15,2026-07-27 20:40:00,2026-07-27 20:55:00,Completed
+REQ0258,Adenta Ambulance Station,F020,Madina Polyclinic,F015,Medication Pickup,4,Low,240,2026-07-05 05:37:00,2026-07-05 09:37:00,Completed
+REQ0259,Taifa CHPS Compound,F038,Achimota Hospital,F007,Trauma / Road Traffic Accident,1,Critical,15,2026-07-16 18:06:00,2026-07-16 18:21:00,Completed
+REQ0260,Ga South Ambulance Station,F018,Madina Polyclinic,F015,Referral - Specialist Review,3,Medium,90,2026-07-29 19:49:00,2026-07-29 21:19:00,Completed
+REQ0261,Chorkor Health Centre,F062,Adenta Municipal Hospital,F014,Dialysis Transport,3,Medium,90,2026-07-15 01:55:00,2026-07-15 03:25:00,Cancelled
+REQ0262,Nungua Health Centre,F040,Dansoman Polyclinic,F009,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-25 11:57:00,2026-07-25 15:57:00,Completed
+REQ0263,Gbawe CHPS Compound,F047,Weija Government Hospital,F010,Stroke Symptoms,1,Critical,15,2026-07-07 08:09:00,2026-07-07 08:24:00,Pending
+REQ0264,Ayawaso East Ambulance Station,F030,Madina Polyclinic,F015,Scheduled Follow-up Visit,4,Low,240,2026-07-23 07:06:00,2026-07-23 11:06:00,Completed
+REQ0265,Pokuase Health Centre,F034,37 Military Hospital,F003,Routine Clinic Transfer,4,Low,240,2026-08-01 09:46:00,2026-08-01 13:46:00,Missed Window
+REQ0266,Ridge Hospital,F002,Mamprobi Polyclinic,F008,Breathing Difficulty,2,High,30,2026-07-26 20:06:00,2026-07-26 20:36:00,Completed
+REQ0267,Trobu Health Centre,F056,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-07 04:33:00,2026-07-07 04:48:00,En Route
+REQ0268,Ga South Ambulance Station,F018,Weija Government Hospital,F010,Trauma / Road Traffic Accident,1,Critical,15,2026-07-16 01:21:00,2026-07-16 01:36:00,Cancelled
+REQ0269,Jamestown CHPS Compound,F063,Adenta Municipal Hospital,F014,Fracture / Suspected Fracture,2,High,30,2026-07-09 06:33:00,2026-07-09 07:03:00,Missed Window
+REQ0270,Katamanso CHPS Compound,F049,La General Hospital,F006,Medication Pickup,4,Low,240,2026-07-21 02:04:00,2026-07-21 06:04:00,Completed
+REQ0271,Dansoman Polyclinic,F009,Ashaiman Polyclinic,F005,Acute Abdominal Pain,2,High,30,2026-07-11 14:24:00,2026-07-11 14:54:00,Completed
+REQ0272,Ablekuma West Ambulance Station,F028,Dansoman Polyclinic,F009,Administrative Records Transfer,4,Low,240,2026-07-18 06:53:00,2026-07-18 10:53:00,Completed
+REQ0273,Adenta Municipal Hospital,F014,Tema General Hospital,F004,Post-Operative Transfer,3,Medium,90,2026-08-04 02:29:00,2026-08-04 03:59:00,Completed
+REQ0274,Haatso Health Centre,F054,Mamprobi Polyclinic,F008,Severe Burns,2,High,30,2026-07-03 21:37:00,2026-07-03 22:07:00,Pending
+REQ0275,Sakumono Health Centre,F042,Dansoman Polyclinic,F009,Routine Clinic Transfer,4,Low,240,2026-07-18 20:53:00,2026-07-19 00:53:00,Missed Window
+REQ0276,Jamestown CHPS Compound,F063,Weija Government Hospital,F010,Administrative Records Transfer,4,Low,240,2026-07-12 03:28:00,2026-07-12 07:28:00,En Route
+REQ0277,Sakumono Health Centre,F042,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-03 21:52:00,2026-07-04 01:52:00,En Route
+REQ0278,Amasaman Health Centre,F033,Achimota Hospital,F007,Post-Operative Transfer,3,Medium,90,2026-07-29 08:23:00,2026-07-29 09:53:00,En Route
+REQ0279,Labadi Health Centre,F066,La General Hospital,F006,Medication Pickup,4,Low,240,2026-07-22 05:49:00,2026-07-22 09:49:00,Assigned
+REQ0280,Kaneshie CHPS Compound,F071,Adenta Municipal Hospital,F014,Trauma / Road Traffic Accident,1,Critical,15,2026-07-25 07:41:00,2026-07-25 07:56:00,En Route
+REQ0281,Gbawe CHPS Compound,F047,Ridge Hospital,F002,Dialysis Transport,3,Medium,90,2026-07-26 08:22:00,2026-07-26 09:52:00,Completed
+REQ0282,Haatso Health Centre,F054,37 Military Hospital,F003,Severe Burns,2,High,30,2026-07-18 19:40:00,2026-07-18 20:10:00,Pending
+REQ0283,37 Military Hospital,F003,Achimota Hospital,F007,Antenatal Check Transfer,3,Medium,90,2026-07-11 15:45:00,2026-07-11 17:15:00,Completed
+REQ0284,Tema Ambulance Station,F022,37 Military Hospital,F003,Severe Burns,2,High,30,2026-08-02 11:39:00,2026-08-02 12:09:00,En Route
+REQ0285,Ningo CHPS Compound,F050,La General Hospital,F006,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-26 16:44:00,2026-07-26 20:44:00,Assigned
+REQ0286,La Nkwantanang Ambulance Station,F024,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-02 03:22:00,2026-07-02 03:52:00,Pending
+REQ0287,Dome CHPS Compound,F039,Ridge Hospital,F002,Breathing Difficulty,2,High,30,2026-07-20 02:50:00,2026-07-20 03:20:00,En Route
+REQ0288,Ashaiman Polyclinic,F005,La General Hospital,F006,Antenatal Check Transfer,3,Medium,90,2026-07-09 08:51:00,2026-07-09 10:21:00,Pending
+REQ0289,Maamobi CHPS Compound,F068,Weija Government Hospital,F010,Referral - Specialist Review,3,Medium,90,2026-08-03 22:33:00,2026-08-04 00:03:00,Missed Window
+REQ0290,Nima CHPS Compound,F067,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-30 09:41:00,2026-07-30 13:41:00,Pending
+REQ0291,Kwabenya CHPS Compound,F037,Dansoman Polyclinic,F009,Referral - Specialist Review,3,Medium,90,2026-07-18 10:23:00,2026-07-18 11:53:00,Missed Window
+REQ0292,Ledzokuku Ambulance Station,F025,Weija Government Hospital,F010,Fracture / Suspected Fracture,2,High,30,2026-07-28 06:33:00,2026-07-28 07:03:00,Completed
+REQ0293,Ussher Town CHPS Compound,F064,Amasaman Government Hospital,F011,Dialysis Transport,3,Medium,90,2026-07-06 04:42:00,2026-07-06 06:12:00,Pending
+REQ0294,Chorkor Health Centre,F062,Mamprobi Polyclinic,F008,Blood Sample / Lab Transfer,3,Medium,90,2026-07-21 11:51:00,2026-07-21 13:21:00,Completed
+REQ0295,Adenta Municipal Hospital,F014,Korle Bu Teaching Hospital,F001,Fracture / Suspected Fracture,2,High,30,2026-07-16 17:42:00,2026-07-16 18:12:00,Completed
+REQ0296,37 Military Hospital,F003,Mamprobi Polyclinic,F008,Scheduled Follow-up Visit,4,Low,240,2026-07-14 15:04:00,2026-07-14 19:04:00,Cancelled
+REQ0297,Chorkor Health Centre,F062,37 Military Hospital,F003,Dialysis Transport,3,Medium,90,2026-08-04 04:33:00,2026-08-04 06:03:00,Missed Window
+REQ0298,Teshie CHPS Compound,F041,Mamprobi Polyclinic,F008,Obstetric Emergency,1,Critical,15,2026-07-28 17:04:00,2026-07-28 17:19:00,Assigned
+REQ0299,37 Military Hospital,F003,Adenta Municipal Hospital,F014,Referral - Specialist Review,3,Medium,90,2026-07-12 12:18:00,2026-07-12 13:48:00,Assigned
+REQ0300,Osu Health Centre,F065,Ridge Hospital,F002,Dialysis Transport,3,Medium,90,2026-07-10 22:27:00,2026-07-10 23:57:00,Completed
+REQ0301,Krowor Ambulance Station,F026,Mamprobi Polyclinic,F008,Severe Bleeding,1,Critical,15,2026-07-18 19:15:00,2026-07-18 19:30:00,Missed Window
+REQ0302,Ofankor CHPS Compound,F035,Amasaman Government Hospital,F011,Medication Pickup,4,Low,240,2026-07-16 09:45:00,2026-07-16 13:45:00,Missed Window
+REQ0303,Korle Bu Central Laboratory,F013,Weija Government Hospital,F010,Severe Burns,2,High,30,2026-07-19 18:46:00,2026-07-19 19:16:00,Assigned
+REQ0304,La Nkwantanang Ambulance Station,F024,37 Military Hospital,F003,Medication Pickup,4,Low,240,2026-07-29 02:05:00,2026-07-29 06:05:00,Completed
+REQ0305,Amasaman Government Hospital,F011,Ashaiman Polyclinic,F005,Post-Operative Transfer,3,Medium,90,2026-07-11 13:31:00,2026-07-11 15:01:00,Assigned
+REQ0306,Ayawaso West Ambulance Station,F029,Tema General Hospital,F004,Acute Abdominal Pain,2,High,30,2026-07-02 03:33:00,2026-07-02 04:03:00,Completed
+REQ0307,La General Hospital,F006,Mamprobi Polyclinic,F008,Routine Clinic Transfer,4,Low,240,2026-07-07 08:36:00,2026-07-07 12:36:00,Completed
+REQ0308,Ga South Ambulance Station,F018,Achimota Hospital,F007,Fracture / Suspected Fracture,2,High,30,2026-07-29 16:10:00,2026-07-29 16:40:00,Assigned
+REQ0309,Adenta Ambulance Station,F020,Madina Polyclinic,F015,Post-Operative Transfer,3,Medium,90,2026-08-01 04:14:00,2026-08-01 05:44:00,Completed
+REQ0310,La General Hospital,F006,Dansoman Polyclinic,F009,Medication Pickup,4,Low,240,2026-07-28 01:56:00,2026-07-28 05:56:00,Completed
+REQ0311,Bortianor Health Centre,F046,Tema General Hospital,F004,Dialysis Transport,3,Medium,90,2026-07-19 08:01:00,2026-07-19 09:31:00,Completed
+REQ0312,Labadi Health Centre,F066,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-19 22:56:00,2026-07-20 00:26:00,Completed
+REQ0313,Nima CHPS Compound,F067,Dansoman Polyclinic,F009,Stroke Symptoms,1,Critical,15,2026-07-21 03:59:00,2026-07-21 04:14:00,Pending
+REQ0314,Ashaiman Ambulance Station,F021,Dansoman Polyclinic,F009,Stroke Symptoms,1,Critical,15,2026-07-16 15:16:00,2026-07-16 15:31:00,Completed
+REQ0315,Alajo CHPS Compound,F070,Weija Government Hospital,F010,Acute Abdominal Pain,2,High,30,2026-07-26 20:12:00,2026-07-26 20:42:00,Completed
+REQ0316,Tema General Hospital,F004,Adenta Municipal Hospital,F014,Blood Sample / Lab Transfer,3,Medium,90,2026-07-13 16:47:00,2026-07-13 18:17:00,Assigned
+REQ0317,Ningo CHPS Compound,F050,Weija Government Hospital,F010,Referral - Specialist Review,3,Medium,90,2026-07-30 04:51:00,2026-07-30 06:21:00,Missed Window
+REQ0318,Prampram CHPS Compound,F051,Adenta Municipal Hospital,F014,Severe Burns,2,High,30,2026-07-10 01:13:00,2026-07-10 01:43:00,Missed Window
+REQ0319,Okaikwei North Ambulance Station,F031,37 Military Hospital,F003,Trauma / Road Traffic Accident,1,Critical,15,2026-07-26 17:07:00,2026-07-26 17:22:00,Assigned
+REQ0320,Trobu Health Centre,F056,Tema General Hospital,F004,Fracture / Suspected Fracture,2,High,30,2026-07-20 01:33:00,2026-07-20 02:03:00,Assigned
