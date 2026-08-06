@@ -1,1 +1,26 @@
-facility_id,name,type,latitude,longitude,capacity
+# SUPERSEDED — but not yet a clean swap. Read before using either file.
+#
+# This was an early placeholder (header-only, never populated) before
+# Sub-team A uploaded real facility data as locations.csv. locations.csv
+# is the intended canonical source going forward, but it currently has an
+# unresolved gap:
+#
+#   locations.csv has no facility ID column, and roads.csv/resources.csv/
+#   request.csv already reference facility IDs (F001-F117) against a
+#   different, currently-missing master facility list — only 4 of the 71
+#   facility names used in request.csv actually exist in locations.csv.
+#   Row-order ID assignment was checked and does NOT line up (verified
+#   2026-08-06). Adding IDs to locations.csv requires either recovering
+#   the original ID'd list Franca generated roads/resources/request
+#   against, or regenerating those three files against locations.csv's
+#   actual 150 facilities. Either way, that's Sub-team A's call, not
+#   something to guess at here.
+#
+# Until that's resolved: locations.csv has real facility data but no
+# stable ID to join against; this file has stable ID semantics but no
+# data. Neither is a complete "facility" source on its own yet.
+#
+# Not read by any loader.
+#
+# Original placeholder header, for reference only:
+# facility_id,name,type,latitude,longitude,capacity
