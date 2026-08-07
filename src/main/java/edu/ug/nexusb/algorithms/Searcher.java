@@ -1,11 +1,11 @@
-package edu.ug.nexusb.interfaces;
+package edu.ug.nexusb.algorithms;
 
-import java.util.Comparator;
+import edu.ug.nexusb.core.MyComparator;
 
 /**
- * Interface representing searching engines (Linear and Binary Search) 
+ * Interface representing searching engines (Linear and Binary Search)
  * for the Ghana Smart Service Operations Optimizer.
- * 
+ *
  * @param <T> the type of elements being searched
  * @author Johnson Kuzagbe (Sub-group E Leader)
  */
@@ -41,5 +41,15 @@ public interface Searcher<T> {
      * @param comparator the comparator used to determine element order
      * @return the index of the target if found, or -1 if not present
      */
-    int binarySearch(T[] array, T target, Comparator<T> comparator);
+    int binarySearch(T[] array, T target, MyComparator<T> comparator);
+
+    /**
+     * Reports whether this searcher requires sorted input, making binary
+     * search's precondition explicit and testable rather than an implicit
+     * assumption a caller might violate silently.
+     *
+     * @return {@code true} for binary-search-based implementations,
+     *     {@code false} for linear search
+     */
+    boolean requiresSortedInput();
 }
