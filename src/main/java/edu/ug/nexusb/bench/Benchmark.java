@@ -1,4 +1,4 @@
-package edu.ug.nexusb.interfaces;
+package edu.ug.nexusb.bench;
 
 /**
  * Interface representing the empirical benchmarking framework for measuring 
