@@ -31,6 +31,10 @@ public class DoublyLinkedList<T> implements MyLinkedList<T>, Instrumented {
     private long comparisons;
     private long movements;
 
+    /** Creates an empty list. */
+    public DoublyLinkedList() {
+    }
+
     @Override
     public void addFirst(T value) {
         Node<T> n = new Node<>(value);
@@ -125,6 +129,8 @@ public class DoublyLinkedList<T> implements MyLinkedList<T>, Instrumented {
     }
 
     /**
+     * Returns the value stored at the head of the list.
+     *
      * @return the value stored at the head of the list
      * @throws StructureException if the list is empty
      */
@@ -134,6 +140,8 @@ public class DoublyLinkedList<T> implements MyLinkedList<T>, Instrumented {
     }
 
     /**
+     * Returns the value stored at the tail of the list.
+     *
      * @return the value stored at the tail of the list
      * @throws StructureException if the list is empty
      */

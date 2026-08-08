@@ -8,10 +8,12 @@ import edu.ug.nexusb.core.StructureException;
 /**
  * Custom dynamic (resizable) array-backed list.
  *
- * Standalone for now: no MyList<T> interface exists in core/ as of this
- * writing (docs/interfaces.md mentions it, but the file was never committed
- * — flagged to the group). Wired to MyIterable<T> and Instrumented since
- * those ARE real, committed core contracts.
+ * <p>Standalone for now: no {@code MyList<T>} interface exists in core/ as
+ * of this writing (docs/interfaces.md mentions it, but the file was never
+ * committed — flagged to the group). Wired to {@link MyIterable} and
+ * {@link Instrumented} since those ARE real, committed core contracts.
+ *
+ * @param <T> the element type stored in this list
  */
 public class DynamicArrayList<T> implements MyIterable<T>, Instrumented {
 
@@ -44,17 +46,30 @@ public class DynamicArrayList<T> implements MyIterable<T>, Instrumented {
         this.size = 0;
     }
 
-    /** @return the number of elements currently stored */
+    /**
+     * Returns how many elements are currently stored.
+     *
+     * @return the number of elements currently stored
+     */
     public int size() {
         return size;
     }
 
-    /** @return the current backing-array capacity (for resize trace tables) */
+    /**
+     * Returns the current backing-array capacity, mainly for resize trace
+     * tables in the report.
+     *
+     * @return the current backing-array capacity
+     */
     public int capacity() {
         return data.length; // for resize trace tables
     }
 
-    /** @return true if the list has no elements */
+    /**
+     * Reports whether the list has no elements.
+     *
+     * @return true if the list has no elements
+     */
     public boolean isEmpty() {
         return size == 0;
     }
@@ -93,6 +108,8 @@ public class DynamicArrayList<T> implements MyIterable<T>, Instrumented {
     }
 
     /**
+     * Returns the element stored at the given index.
+     *
      * @param index position to read, must be a valid existing index
      * @return the element currently stored at index
      * @throws IndexOutOfBoundsException if index is negative or out of range
@@ -161,6 +178,8 @@ public class DynamicArrayList<T> implements MyIterable<T>, Instrumented {
     }
 
     /**
+     * Reports whether an equal element is present anywhere in the list.
+     *
      * @param value element to search for
      * @return true if an equal element is present anywhere in the list
      */
