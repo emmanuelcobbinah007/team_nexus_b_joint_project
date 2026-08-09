@@ -1,5 +1,5 @@
 package edu.ug.nexusb.linear;
-
+  
 import java.util.NoSuchElementException;
 
 public class ArrayQueue<T> implements MyQueue<T> {
