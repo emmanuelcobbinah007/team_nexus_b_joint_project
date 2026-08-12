@@ -3,15 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>edu.ug.nexusb</groupId>
   <artifactId>nexusb-hospital-ops</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <name>NexusB Hospital Ops</name>
   <description>Triage/dispatch engine for hospital operations, built on custom data structures and algorithms.</description>
-
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -19,7 +16,6 @@
     <junit.version>5.10.2</junit.version>
     <exec.mainClass>edu.ug.nexusb.app.App</exec.mainClass>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -27,8 +23,17 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>3.46.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>5.9</version>
+    </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
