@@ -51,10 +51,5 @@ report can cite them accurately.
   built it, could be recovered (Franca and John both confirmed they don't
   have it). Treat those 46 rows as synthetic filler, not researched fact,
   until someone verifies or replaces them.
-- `docs/data_dictionary.md` still describes the original placeholder column
-  layout (`facility_id, name, type, latitude, longitude, capacity`), not
-  the actual columns in `locations.csv`/`roads.csv`/`request.csv`/
-  `resources.csv`. Needs updating once the join gap above is resolved, so
-  the dictionary describes real files rather than superseded ones.
-- _(fill in once resolved: what the synthetic data does not capture,
-  simplifications made for the DSA benchmarks)_
+- _(fill in: what the synthetic data does not capture, simplifications
+  made for the DSA benchmarks)_
