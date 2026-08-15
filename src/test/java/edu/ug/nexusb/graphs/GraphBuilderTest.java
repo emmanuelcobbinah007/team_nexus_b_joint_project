@@ -3,94 +3,83 @@ package edu.ug.nexusb.graphs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Exercises {@link GraphBuilder#buildFromRows} — the pure-logic half of
+ * T038, with no database involved. That split exists (see {@link
+ * GraphBuilder}'s own javadoc) specifically so the assembly logic can be
+ * unit-tested with plain in-memory data; these tests previously drove
+ * {@code buildFromDatabase} instead, against a hand-rolled schema
+ * (a {@code road_link} table with different columns than the real one, and
+ * no {@code v_weighted_edge} view at all) that didn't match what
+ * {@code buildFromDatabase} actually queries, and failed in CI as soon as
+ * no pre-existing {@code campus.db} happened to be lying around locally.
+ *
+ * <p>{@code buildFromDatabase} itself is covered separately, against the
+ * real schema, by {@link GraphBuilderDatabaseIntegrationTest}.
+ */
 class GraphBuilderTest {
 
-    private static final String DB_URL = "jdbc:sqlite:campus.db";
+    @Test
+    void vertexCountMatchesFacilityIdCount() {
+        List<Integer> facilityIds = idsFrom(1, 60);
 
-    static {
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("SQLite JDBC driver not found on classpath", e);
-        }
-    }
+        MyGraph graph = GraphBuilder.buildFromRows(facilityIds, List.of());
 
-    @BeforeEach
-    void setUp() throws SQLException {
-        // Initialize test database with required tables
-        try (Connection conn = DriverManager.getConnection(DB_URL)) {
-            try (Statement stmt = conn.createStatement()) {
-                // Create facility table if it doesn't exist
-                stmt.execute("CREATE TABLE IF NOT EXISTS facility (" +
-                        "facility_id TEXT PRIMARY KEY, " +
-                        "name TEXT NOT NULL, " +
-                        "latitude REAL NOT NULL, " +
-                        "longitude REAL NOT NULL" +
-                        ")");
-
-                // Create road_link table if it doesn't exist
-                stmt.execute("CREATE TABLE IF NOT EXISTS road_link (" +
-                        "link_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "from_facility TEXT NOT NULL, " +
-                        "to_facility TEXT NOT NULL, " +
-                        "distance REAL NOT NULL" +
-                        ")");
-
-                // Insert test data into facility table
-                stmt.execute("DELETE FROM facility");
-                for (int i = 1; i <= 60; i++) {
-                    stmt.execute(String.format(
-                            "INSERT INTO facility (facility_id, name, latitude, longitude) " +
-                            "VALUES ('F%03d', 'Hospital %d', %.4f, %.4f)",
-                            i, i, 5.5 + (i * 0.001), -0.2 + (i * 0.001)));
-                }
-
-                // Insert test data into road_link table
-                stmt.execute("DELETE FROM road_link");
-                for (int i = 1; i < 60; i++) {
-                    stmt.execute(String.format(
-                            "INSERT INTO road_link (from_facility, to_facility, distance) " +
-                            "VALUES ('F%03d', 'F%03d', %.2f)",
-                            i, i + 1, 1.5 * i));
-                }
-            }
-        }
+        assertEquals(60, graph.vertexCount());
+        assertTrue(graph.vertexCount() >= 50, "expected at least 50 facilities per the brief");
     }
 
     @Test
-    void vertexCountMatchesFacilityTable() throws SQLException {
-        try (Connection conn = DriverManager.getConnection(DB_URL)) {
-            MyGraph graph = GraphBuilder.buildFromDatabase(conn);
-            int facilityCount = countRows(conn, "facility");
+    void edgeCountIsAtLeastRoadRowCountAndOneWayIsRespected() {
+        List<Integer> facilityIds = idsFrom(1, 5);
+        List<GraphBuilder.RoadRow> roads = List.of(
+            new GraphBuilder.RoadRow(1, 2, 4.0, true),   // one-way: 1 edge
+            new GraphBuilder.RoadRow(2, 3, 6.0, false),  // two-way: 2 edges
+            new GraphBuilder.RoadRow(3, 4, 2.5, false)); // two-way: 2 edges
 
-            assertEquals(facilityCount, graph.vertexCount());
-            assertTrue(facilityCount >= 50, "expected at least 50 facilities per the brief");
-        }
+        MyGraph graph = GraphBuilder.buildFromRows(facilityIds, roads);
+
+        assertTrue(graph.edgeCount() >= roads.size());
+        assertEquals(5, graph.edgeCount()); // 1 + 2 + 2
+        assertTrue(graph.containsEdge("1", "2"));
+        assertTrue(graph.containsEdge("2", "3"));
+        assertTrue(graph.containsEdge("3", "2")); // two-way reverse edge exists
+        assertTrue(graph.containsEdge("3", "4"));
+        assertTrue(graph.containsEdge("4", "3"));
+        assertEquals(6.0, graph.weightOf("2", "3"));
     }
 
     @Test
-    void edgeCountIsAtLeastRoadLinkCount() throws SQLException {
-        try (Connection conn = DriverManager.getConnection(DB_URL)) {
-            MyGraph graph = GraphBuilder.buildFromDatabase(conn);
-            int roadLinkCount = countRows(conn, "road_link");
+    void emptyInputProducesAnEmptyGraph() {
+        MyGraph graph = GraphBuilder.buildFromRows(List.of(), List.of());
 
-            assertTrue(graph.edgeCount() >= roadLinkCount);
-        }
+        assertEquals(0, graph.vertexCount());
+        assertEquals(0, graph.edgeCount());
     }
 
-    private static int countRows(Connection conn, String table) throws SQLException {
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM " + table)) {
-            rs.next();
-            return rs.getInt(1);
+    @Test
+    void roadRowReferencingAnUnlistedFacilityStillAddsItAsAVertex() {
+        // GraphBuilder auto-adds edge endpoints (MyGraph.addEdge's own
+        // contract), so a road row is not required to reference only
+        // facility IDs already passed in facilityIds.
+        List<Integer> facilityIds = idsFrom(1, 1);
+        List<GraphBuilder.RoadRow> roads = List.of(new GraphBuilder.RoadRow(1, 99, 3.0, true));
+
+        MyGraph graph = GraphBuilder.buildFromRows(facilityIds, roads);
+
+        assertEquals(2, graph.vertexCount());
+        assertTrue(graph.containsVertex("99"));
+    }
+
+    private static List<Integer> idsFrom(int startInclusive, int endInclusive) {
+        List<Integer> ids = new ArrayList<>();
+        for (int i = startInclusive; i <= endInclusive; i++) {
+            ids.add(i);
         }
+        return ids;
     }
 }

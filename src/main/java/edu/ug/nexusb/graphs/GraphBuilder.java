@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -68,31 +68,43 @@ public final class GraphBuilder {
     }
 
     private static List<Integer> readFacilityIds(Connection conn) throws SQLException {
-        List<Integer> ids = new ArrayList<>();
+        // Grown by hand rather than java.util.ArrayList, same as everywhere
+        // else in core logic; List is still the return type since the
+        // interface (not the growth mechanism) is what buildFromRows and
+        // its tests depend on.
+        Integer[] ids = new Integer[16];
+        int size = 0;
         String sql = "SELECT facility_id FROM facility";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                ids.add(rs.getInt("facility_id"));
+                if (size == ids.length) {
+                    ids = Arrays.copyOf(ids, ids.length * 2);
+                }
+                ids[size++] = rs.getInt("facility_id");
             }
         }
-        return ids;
+        return List.of(Arrays.copyOf(ids, size));
     }
 
     private static List<RoadRow> readRoads(Connection conn) throws SQLException {
-        List<RoadRow> roads = new ArrayList<>();
+        RoadRow[] roads = new RoadRow[16];
+        int size = 0;
         String sql = "SELECT from_facility_id, to_facility_id, "
                 + "effective_time_min, is_one_way FROM v_weighted_edge";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                roads.add(new RoadRow(
+                if (size == roads.length) {
+                    roads = Arrays.copyOf(roads, roads.length * 2);
+                }
+                roads[size++] = new RoadRow(
                         rs.getInt("from_facility_id"),
                         rs.getInt("to_facility_id"),
                         rs.getDouble("effective_time_min"),
-                        rs.getInt("is_one_way") == 1));
+                        rs.getInt("is_one_way") == 1);
             }
         }
-        return roads;
+        return List.of(Arrays.copyOf(roads, size));
     }
 }
