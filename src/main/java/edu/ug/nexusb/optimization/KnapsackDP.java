@@ -1,13 +1,10 @@
 package edu.ug.nexusb.optimization;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Dynamic Programming implementation of the 0/1 Knapsack Problem for 
  * resource optimization in the Ghana Smart Service Operations Optimizer.
  * 
- * @author Johnson Kuzagbr
+ * @author Johnson Kuzagbe
  */
 public class KnapsackDP {
 
@@ -18,9 +15,9 @@ public class KnapsackDP {
     public static class KnapsackResult {
         public final int maxValue;
         public final int[][] dpTable;
-        public final List<Integer> selectedIndices;
+        public final int[] selectedIndices; // Changed from List<Integer> to int[]
 
-        public KnapsackResult(int maxValue, int[][] dpTable, List<Integer> selectedIndices) {
+        public KnapsackResult(int maxValue, int[][] dpTable, int[] selectedIndices) {
             this.maxValue = maxValue;
             this.dpTable = dpTable;
             this.selectedIndices = selectedIndices;
@@ -55,17 +52,24 @@ public class KnapsackDP {
         // 2. Solution Reconstruction (Backtracking through the table)
         int res = dp[n][capacity];
         int w = capacity;
-        List<Integer> selected = new ArrayList<>();
+        
+        // We use a temporary array of max possible size 'n' to store selected items
+        int[] tempSelected = new int[n];
+        int count = 0;
 
         for (int i = n; i > 0 && res > 0; i--) {
             // If the value didn't come from the row above, it means this item was included
             if (res != dp[i - 1][w]) {
-                selected.add(i - 1); // Store the index of the selected item
+                tempSelected[count++] = i - 1; // Store the index of the selected item
                 res = res - values[i - 1];
                 w = w - weights[i - 1];
             }
         }
+        
+        // Trim the array to the exact number of selected items
+        int[] finalSelected = new int[count];
+        System.arraycopy(tempSelected, 0, finalSelected, 0, count);
 
-        return new KnapsackResult(dp[n][capacity], dp, selected);
+        return new KnapsackResult(dp[n][capacity], dp, finalSelected);
     }
 }
