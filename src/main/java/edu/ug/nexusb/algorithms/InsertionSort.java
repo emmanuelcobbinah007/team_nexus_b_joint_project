@@ -1,12 +1,10 @@
 package edu.ug.nexusb.algorithms;
 
-import java.util.Comparator;
-
-import edu.ug.nexusb.interfaces.Sorter;
+import edu.ug.nexusb.core.MyComparator;
 
 public class InsertionSort<T extends Comparable<T>> implements Sorter<T> {
 
-    @Override
+    /** Convenience overload: sorts by natural ordering. Not part of {@link Sorter}. */
     public void sort(T[] array) {
         if (array == null || array.length <= 1) return;
 
@@ -23,7 +21,7 @@ public class InsertionSort<T extends Comparable<T>> implements Sorter<T> {
     }
 
     @Override
-    public void sort(T[] array, Comparator<T> comparator) {
+    public void sort(T[] array, MyComparator<T> comparator) {
         if (array == null || array.length <= 1) return;
 
         for (int i = 1; i < array.length; i++) {
@@ -36,5 +34,29 @@ public class InsertionSort<T extends Comparable<T>> implements Sorter<T> {
             }
             array[j + 1] = key;
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean isStable() {
+        return true; // only shifts elements strictly greater than key; equal elements keep their order
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean isInPlace() {
+        return true;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String bestCaseComplexity() {
+        return "O(n)"; // already-sorted input: inner while loop never runs
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String worstCaseComplexity() {
+        return "O(n^2)"; // reverse-sorted input
     }
 }

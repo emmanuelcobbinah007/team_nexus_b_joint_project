@@ -1,6 +1,6 @@
 package edu.ug.nexusb.algorithms;
 
-import java.util.Comparator;
+import edu.ug.nexusb.core.MyComparator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +44,7 @@ class InsertionSortTest {
         Integer[] array = {1, 5, 3, 2, 4};
         Integer[] expectedDescending = {5, 4, 3, 2, 1};
         
-        sorter.sort(array, Comparator.reverseOrder());
+        sorter.sort(array, (MyComparator<Integer>) (a, b) -> b - a);
         assertArrayEquals(expectedDescending, array);
     }
 }

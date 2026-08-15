@@ -1,12 +1,10 @@
 package edu.ug.nexusb.algorithms;
 
-import java.util.Comparator;
-
-import edu.ug.nexusb.interfaces.Sorter;
+import edu.ug.nexusb.core.MyComparator;
 
 public class SelectionSort<T extends Comparable<T>> implements Sorter<T> {
 
-    @Override
+    /** Convenience overload: sorts by natural ordering. Not part of {@link Sorter}. */
     public void sort(T[] array) {
         if (array == null || array.length <= 1) return;
 
@@ -22,7 +20,7 @@ public class SelectionSort<T extends Comparable<T>> implements Sorter<T> {
     }
 
     @Override
-    public void sort(T[] array, Comparator<T> comparator) {
+    public void sort(T[] array, MyComparator<T> comparator) {
         if (array == null || array.length <= 1) return;
 
         for (int i = 0; i < array.length - 1; i++) {
@@ -34,6 +32,30 @@ public class SelectionSort<T extends Comparable<T>> implements Sorter<T> {
             }
             swap(array, i, minIdx);
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean isStable() {
+        return false; // swapping the found minimum into place can reorder equal elements
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean isInPlace() {
+        return true;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String bestCaseComplexity() {
+        return "O(n^2)"; // always scans the remaining array for the minimum, regardless of input order
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String worstCaseComplexity() {
+        return "O(n^2)";
     }
 
     private void swap(T[] array, int i, int j) {
