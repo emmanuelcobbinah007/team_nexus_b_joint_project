@@ -18,3 +18,9 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Generated SQLite databases — README: "generated, not committed"
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
