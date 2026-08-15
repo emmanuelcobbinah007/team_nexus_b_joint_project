@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class DatabaseBenchmark implements Benchmark {
 
@@ -66,11 +64,22 @@ public class DatabaseBenchmark implements Benchmark {
     }
 
     /**
-     * Writes the benchmark result directly to the algorithm_runs table.
+     * Writes the benchmark result to the {@code algorithm_run} table
+     * (singular — {@code data/schema.sql} is the source of truth for the
+     * name and columns, not this class).
+     *
+     * <p>{@code repetition} is hardcoded to 1: {@link #measure} already
+     * averages over {@code trialCount} internal runs into one {@link
+     * BenchmarkResult}, so one call here produces one row. The schema's
+     * {@code repetition} column is really meant for recording each
+     * repetition as its own row (see {@code docs/interfaces.md}'s "three
+     * repetitions recorded individually rather than pre-averaged, so the
+     * report can show variance") — {@code measure}'s aggregate-then-write
+     * shape doesn't support that yet. Real gap, not fixed here.
      */
     private void writeToDatabase(BenchmarkResult result) {
-        // The table schema requires these exact fields based on the project brief
-        String sql = "INSERT INTO algorithm_runs (algorithmName, inputSize, timeNs, memoryKb, dateRun) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO algorithm_run "
+                + "(algorithm_name, input_size, repetition, elapsed_ns) VALUES (?, ?, 1, ?)";
 
         // If no JDBC driver is available for the URL, skip writing to DB (useful in test environments)
         try {
@@ -82,18 +91,16 @@ public class DatabaseBenchmark implements Benchmark {
 
         try (Connection conn = DriverManager.getConnection(dbUrl);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+
             pstmt.setString(1, result.getAlgorithmName());
-            pstmt.setInt(2, result.getInputSize()); //[cite: 3]
-            pstmt.setLong(3, result.getTimeNs()); //[cite: 3]
-            pstmt.setLong(4, result.getMemoryKb()); //[cite: 3]
-            pstmt.setString(5, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))); //[cite: 3]
-            
+            pstmt.setInt(2, result.getInputSize());
+            pstmt.setLong(3, result.getTimeNs());
+
             pstmt.executeUpdate();
             System.out.println("Benchmark saved to DB: " + result.getAlgorithmName() + " | n=" + result.getInputSize());
-            
+
         } catch (SQLException e) {
-            System.err.println("Failed to write to algorithm_runs table: " + e.getMessage());
+            System.err.println("Failed to write to algorithm_run table: " + e.getMessage());
         }
     }
 }
