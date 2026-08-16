@@ -1,0 +1,11 @@
+Algorithm,InputSize,AverageTimeNs
+LinearSearch,100,17033
+BinarySearch,100,5733
+LinearSearch,500,36700
+BinarySearch,500,2166
+LinearSearch,1000,31966
+BinarySearch,1000,2566
+LinearSearch,5000,303400
+BinarySearch,5000,5166
+LinearSearch,10000,412933
+BinarySearch,10000,5966
