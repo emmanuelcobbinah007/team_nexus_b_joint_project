@@ -1,321 +1,307 @@
-requestId,source,sourceLocationId,destination,destinationLocationId,category,urgency,urgencyLabel,responseWindowMinutes,timeSubmitted,deadline,status
-REQ0001,Achimota Hospital,F007,Ridge Hospital,F002,Fracture / Suspected Fracture,2,High,30,2026-07-04 04:46:00,2026-07-04 05:16:00,En Route
-REQ0002,Ningo CHPS Compound,F050,Dansoman Polyclinic,F009,Administrative Records Transfer,4,Low,240,2026-07-29 17:29:00,2026-07-29 21:29:00,En Route
-REQ0003,Kotobabi Health Centre,F069,Tema General Hospital,F004,Fracture / Suspected Fracture,2,High,30,2026-07-18 20:54:00,2026-07-18 21:24:00,Missed Window
-REQ0004,Krowor Ambulance Station,F026,Ashaiman Polyclinic,F005,Trauma / Road Traffic Accident,1,Critical,15,2026-07-30 00:04:00,2026-07-30 00:19:00,Assigned
-REQ0005,Ayawaso East Ambulance Station,F030,La General Hospital,F006,Referral - Specialist Review,3,Medium,90,2026-07-10 08:52:00,2026-07-10 10:22:00,En Route
-REQ0006,Ningo CHPS Compound,F050,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-02 20:05:00,2026-07-02 21:35:00,Cancelled
-REQ0007,Weija Gbawe Ambulance Station,F032,Mamprobi Polyclinic,F008,Acute Abdominal Pain,2,High,30,2026-07-24 08:36:00,2026-07-24 09:06:00,Completed
-REQ0008,Ashaiman Zongo CHPS Compound,F044,Korle Bu Teaching Hospital,F001,Chest Pain / Cardiac,1,Critical,15,2026-07-23 20:13:00,2026-07-23 20:28:00,Completed
-REQ0009,Korle Bu Central Laboratory,F013,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-27 01:00:00,2026-07-27 02:30:00,Cancelled
-REQ0010,Ashaiman Zongo CHPS Compound,F044,Achimota Hospital,F007,Chest Pain / Cardiac,1,Critical,15,2026-07-30 10:02:00,2026-07-30 10:17:00,En Route
-REQ0011,Ledzokuku Ambulance Station,F025,Madina Polyclinic,F015,Trauma / Road Traffic Accident,1,Critical,15,2026-08-03 17:38:00,2026-08-03 17:53:00,Completed
-REQ0012,Ga West Ambulance Station,F016,Korle Bu Teaching Hospital,F001,Paediatric Fever (Severe),2,High,30,2026-07-18 23:04:00,2026-07-18 23:34:00,Missed Window
-REQ0013,Ablekuma North Ambulance Station,F027,Tema General Hospital,F004,Administrative Records Transfer,4,Low,240,2026-07-02 16:24:00,2026-07-02 20:24:00,Completed
-REQ0014,Ridge Hospital,F002,Korle Bu Teaching Hospital,F001,Acute Abdominal Pain,2,High,30,2026-08-03 05:06:00,2026-08-03 05:36:00,Completed
-REQ0015,Ashaiman Ambulance Station,F021,Mamprobi Polyclinic,F008,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-08-04 01:10:00,2026-08-04 05:10:00,Pending
-REQ0016,Accra Metro Ambulance Station,F023,Ashaiman Polyclinic,F005,Post-Operative Transfer,3,Medium,90,2026-07-26 03:17:00,2026-07-26 04:47:00,Completed
-REQ0017,Ridge Hospital,F002,Mamprobi Polyclinic,F008,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-25 18:45:00,2026-07-25 22:45:00,En Route
-REQ0018,Ga West Ambulance Station,F016,Ashaiman Polyclinic,F005,Blood Sample / Lab Transfer,3,Medium,90,2026-07-25 15:00:00,2026-07-25 16:30:00,Completed
-REQ0019,Central Blood Bank Accra,F012,Adenta Municipal Hospital,F014,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-19 09:37:00,2026-07-19 13:37:00,Completed
-REQ0020,Mamprobi Polyclinic,F008,Tema General Hospital,F004,Antenatal Check Transfer,3,Medium,90,2026-07-19 16:58:00,2026-07-19 18:28:00,Completed
-REQ0021,Amasaman Government Hospital,F011,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-03 18:52:00,2026-07-03 19:07:00,Completed
-REQ0022,Kotobabi Health Centre,F069,Tema General Hospital,F004,Severe Burns,2,High,30,2026-08-03 03:40:00,2026-08-03 04:10:00,Pending
-REQ0023,Ridge Hospital,F002,Adenta Municipal Hospital,F014,Blood Sample / Lab Transfer,3,Medium,90,2026-07-22 16:35:00,2026-07-22 18:05:00,Completed
-REQ0024,Prampram CHPS Compound,F051,Mamprobi Polyclinic,F008,Paediatric Fever (Severe),2,High,30,2026-07-09 13:17:00,2026-07-09 13:47:00,Completed
-REQ0025,Ablekuma North Ambulance Station,F027,Dansoman Polyclinic,F009,Post-Operative Transfer,3,Medium,90,2026-07-05 13:06:00,2026-07-05 14:36:00,Assigned
-REQ0026,Prampram CHPS Compound,F051,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-27 01:04:00,2026-07-27 05:04:00,Assigned
-REQ0027,Odorkor CHPS Compound,F072,Ridge Hospital,F002,Scheduled Follow-up Visit,4,Low,240,2026-07-04 15:30:00,2026-07-04 19:30:00,Completed
-REQ0028,Mallam CHPS Compound,F045,Tema General Hospital,F004,Paediatric Fever (Severe),2,High,30,2026-07-05 01:19:00,2026-07-05 01:49:00,Completed
-REQ0029,Anyaa Health Centre,F057,Achimota Hospital,F007,Acute Abdominal Pain,2,High,30,2026-07-11 00:45:00,2026-07-11 01:15:00,Pending
-REQ0030,Ayawaso East Ambulance Station,F030,Korle Bu Teaching Hospital,F001,Administrative Records Transfer,4,Low,240,2026-07-16 15:38:00,2026-07-16 19:38:00,Completed
-REQ0031,Ga East Ambulance Station,F017,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-08-04 14:23:00,2026-08-04 15:53:00,Completed
-REQ0032,Ashaiman Ambulance Station,F021,Ashaiman Polyclinic,F005,Fracture / Suspected Fracture,2,High,30,2026-07-04 17:56:00,2026-07-04 18:26:00,Completed
-REQ0033,Darkuman CHPS Compound,F061,Achimota Hospital,F007,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-19 11:10:00,2026-07-19 15:10:00,Pending
-REQ0034,Gbawe CHPS Compound,F047,Dansoman Polyclinic,F009,Fracture / Suspected Fracture,2,High,30,2026-07-27 00:30:00,2026-07-27 01:00:00,Completed
-REQ0035,Nungua Health Centre,F040,Amasaman Government Hospital,F011,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-06 08:14:00,2026-07-06 12:14:00,Completed
-REQ0036,Korle Bu Central Laboratory,F013,Achimota Hospital,F007,Dialysis Transport,3,Medium,90,2026-07-18 00:59:00,2026-07-18 02:29:00,Assigned
-REQ0037,Sakumono Health Centre,F042,Amasaman Government Hospital,F011,Blood Sample / Lab Transfer,3,Medium,90,2026-08-04 21:40:00,2026-08-04 23:10:00,Assigned
-REQ0038,Teshie CHPS Compound,F041,Tema General Hospital,F004,Stroke Symptoms,1,Critical,15,2026-08-05 09:55:00,2026-08-05 10:10:00,Assigned
-REQ0039,Alajo CHPS Compound,F070,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-07-04 17:45:00,2026-07-04 19:15:00,Pending
-REQ0040,Nima CHPS Compound,F067,Tema General Hospital,F004,Obstetric Emergency,1,Critical,15,2026-07-11 13:35:00,2026-07-11 13:50:00,Missed Window
-REQ0041,Anyaa Health Centre,F057,Tema General Hospital,F004,Referral - Specialist Review,3,Medium,90,2026-07-29 04:02:00,2026-07-29 05:32:00,Pending
-REQ0042,Accra Metro Ambulance Station,F023,Tema General Hospital,F004,Chest Pain / Cardiac,1,Critical,15,2026-07-21 00:31:00,2026-07-21 00:46:00,Completed
-REQ0043,Sakumono Health Centre,F042,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-10 14:22:00,2026-07-10 14:37:00,Assigned
-REQ0044,Mamprobi Polyclinic,F008,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-12 06:36:00,2026-07-12 07:06:00,Cancelled
-REQ0045,Sakumono Health Centre,F042,Dansoman Polyclinic,F009,Medication Pickup,4,Low,240,2026-07-25 20:32:00,2026-07-26 00:32:00,Assigned
-REQ0046,Ga East Ambulance Station,F017,Dansoman Polyclinic,F009,Severe Bleeding,1,Critical,15,2026-08-05 20:56:00,2026-08-05 21:11:00,Completed
-REQ0047,Alajo CHPS Compound,F070,Madina Polyclinic,F015,Scheduled Follow-up Visit,4,Low,240,2026-07-02 21:38:00,2026-07-03 01:38:00,Completed
-REQ0048,Madina Polyclinic,F015,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-24 17:20:00,2026-07-24 21:20:00,Completed
-REQ0049,Ledzokuku Ambulance Station,F025,Amasaman Government Hospital,F011,Antenatal Check Transfer,3,Medium,90,2026-07-19 15:54:00,2026-07-19 17:24:00,Pending
-REQ0050,Ridge Hospital,F002,Madina Polyclinic,F015,Breathing Difficulty,2,High,30,2026-07-21 13:10:00,2026-07-21 13:40:00,Assigned
-REQ0051,Maamobi CHPS Compound,F068,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-12 04:47:00,2026-07-12 05:02:00,Assigned
-REQ0052,Abokobi CHPS Compound,F053,Ashaiman Polyclinic,F005,Post-Operative Transfer,3,Medium,90,2026-07-28 23:26:00,2026-07-29 00:56:00,Completed
-REQ0053,Awoshie CHPS Compound,F059,Ridge Hospital,F002,Stroke Symptoms,1,Critical,15,2026-07-24 00:09:00,2026-07-24 00:24:00,Pending
-REQ0054,Ayawaso East Ambulance Station,F030,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-26 22:50:00,2026-07-27 00:20:00,Missed Window
-REQ0055,Ashaiman Ambulance Station,F021,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-25 21:47:00,2026-07-25 22:17:00,Completed
-REQ0056,Taifa CHPS Compound,F038,37 Military Hospital,F003,Obstetric Emergency,1,Critical,15,2026-07-13 03:21:00,2026-07-13 03:36:00,Pending
-REQ0057,Katamanso CHPS Compound,F049,Korle Bu Teaching Hospital,F001,Scheduled Follow-up Visit,4,Low,240,2026-08-01 02:10:00,2026-08-01 06:10:00,Completed
-REQ0058,Mamprobi Polyclinic,F008,Achimota Hospital,F007,Fracture / Suspected Fracture,2,High,30,2026-07-07 22:15:00,2026-07-07 22:45:00,Assigned
-REQ0059,Ofankor CHPS Compound,F035,Amasaman Government Hospital,F011,Blood Sample / Lab Transfer,3,Medium,90,2026-08-03 00:41:00,2026-08-03 02:11:00,Missed Window
-REQ0060,Teshie CHPS Compound,F041,Tema General Hospital,F004,Scheduled Follow-up Visit,4,Low,240,2026-07-19 08:34:00,2026-07-19 12:34:00,Cancelled
-REQ0061,Amasaman Health Centre,F033,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-09 03:12:00,2026-07-09 03:42:00,Completed
-REQ0062,Dome CHPS Compound,F039,Ridge Hospital,F002,Paediatric Fever (Severe),2,High,30,2026-07-19 14:28:00,2026-07-19 14:58:00,Completed
-REQ0063,Dome CHPS Compound,F039,Madina Polyclinic,F015,Fracture / Suspected Fracture,2,High,30,2026-07-30 04:54:00,2026-07-30 05:24:00,Pending
-REQ0064,Adenta Municipal Hospital,F014,Mamprobi Polyclinic,F008,Dialysis Transport,3,Medium,90,2026-07-10 11:14:00,2026-07-10 12:44:00,Completed
-REQ0065,La General Hospital,F006,Madina Polyclinic,F015,Severe Bleeding,1,Critical,15,2026-07-29 17:59:00,2026-07-29 18:14:00,Assigned
-REQ0066,Odorkor CHPS Compound,F072,Ashaiman Polyclinic,F005,Medication Pickup,4,Low,240,2026-07-27 10:27:00,2026-07-27 14:27:00,Missed Window
-REQ0067,Anyaa Health Centre,F057,Dansoman Polyclinic,F009,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-26 12:05:00,2026-07-26 16:05:00,Completed
-REQ0068,Ablekuma Health Centre,F036,Ashaiman Polyclinic,F005,Scheduled Follow-up Visit,4,Low,240,2026-07-02 23:14:00,2026-07-03 03:14:00,Completed
-REQ0069,Odorkor CHPS Compound,F072,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-17 12:14:00,2026-07-17 12:29:00,Completed
-REQ0070,Central Blood Bank Accra,F012,La General Hospital,F006,Severe Bleeding,1,Critical,15,2026-07-07 12:12:00,2026-07-07 12:27:00,En Route
-REQ0071,Korle Bu Central Laboratory,F013,Ridge Hospital,F002,Post-Operative Transfer,3,Medium,90,2026-07-27 09:12:00,2026-07-27 10:42:00,Completed
-REQ0072,Kotobabi Health Centre,F069,Korle Bu Teaching Hospital,F001,Post-Operative Transfer,3,Medium,90,2026-07-05 08:08:00,2026-07-05 09:38:00,Missed Window
-REQ0073,Gbawe CHPS Compound,F047,Ridge Hospital,F002,Acute Abdominal Pain,2,High,30,2026-07-08 03:29:00,2026-07-08 03:59:00,Missed Window
-REQ0074,Korle Bu Central Laboratory,F013,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-08-02 07:37:00,2026-08-02 08:07:00,Completed
-REQ0075,Bortianor Health Centre,F046,Adenta Municipal Hospital,F014,Breathing Difficulty,2,High,30,2026-07-20 14:35:00,2026-07-20 15:05:00,Missed Window
-REQ0076,Adenta Municipal Hospital,F014,Ridge Hospital,F002,Routine Clinic Transfer,4,Low,240,2026-07-12 15:58:00,2026-07-12 19:58:00,Pending
-REQ0077,Sowutuom CHPS Compound,F060,Achimota Hospital,F007,Referral - Specialist Review,3,Medium,90,2026-07-28 18:19:00,2026-07-28 19:49:00,En Route
-REQ0078,Nungua Health Centre,F040,Dansoman Polyclinic,F009,Scheduled Follow-up Visit,4,Low,240,2026-08-02 05:05:00,2026-08-02 09:05:00,Pending
-REQ0079,Ablekuma West Ambulance Station,F028,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-09 08:56:00,2026-07-09 09:26:00,Pending
-REQ0080,Dodowa Health Centre,F052,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-07-30 21:03:00,2026-07-30 21:33:00,Pending
-REQ0081,Mamprobi Polyclinic,F008,Amasaman Government Hospital,F011,Blood Sample / Lab Transfer,3,Medium,90,2026-07-28 08:21:00,2026-07-28 09:51:00,Cancelled
-REQ0082,Gbawe CHPS Compound,F047,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-07-30 14:28:00,2026-07-30 14:43:00,Cancelled
-REQ0083,Awoshie CHPS Compound,F059,Adenta Municipal Hospital,F014,Severe Burns,2,High,30,2026-07-07 13:22:00,2026-07-07 13:52:00,Missed Window
-REQ0084,Kwabenya CHPS Compound,F037,Weija Government Hospital,F010,Fracture / Suspected Fracture,2,High,30,2026-07-01 17:34:00,2026-07-01 18:04:00,En Route
-REQ0085,Maamobi CHPS Compound,F068,37 Military Hospital,F003,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-12 16:21:00,2026-07-12 20:21:00,Completed
-REQ0086,Mamprobi Polyclinic,F008,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-07-25 21:49:00,2026-07-25 23:19:00,Pending
-REQ0087,Nungua Health Centre,F040,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-15 02:05:00,2026-07-15 02:20:00,En Route
-REQ0088,Central Blood Bank Accra,F012,37 Military Hospital,F003,Trauma / Road Traffic Accident,1,Critical,15,2026-07-08 17:32:00,2026-07-08 17:47:00,Assigned
-REQ0089,Adenta Ambulance Station,F020,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-07-09 12:07:00,2026-07-09 12:37:00,Assigned
-REQ0090,Osu Health Centre,F065,Dansoman Polyclinic,F009,Scheduled Follow-up Visit,4,Low,240,2026-08-02 07:50:00,2026-08-02 11:50:00,Completed
-REQ0091,Korle Bu Teaching Hospital,F001,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-05 05:29:00,2026-07-05 05:59:00,Assigned
-REQ0092,Ashaiman Zongo CHPS Compound,F044,Ashaiman Polyclinic,F005,Scheduled Follow-up Visit,4,Low,240,2026-07-18 22:17:00,2026-07-19 02:17:00,Completed
-REQ0093,Dome CHPS Compound,F039,Achimota Hospital,F007,Routine Clinic Transfer,4,Low,240,2026-07-10 18:30:00,2026-07-10 22:30:00,Completed
-REQ0094,Bortianor Health Centre,F046,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-19 13:18:00,2026-07-19 13:33:00,Completed
-REQ0095,Teshie CHPS Compound,F041,Korle Bu Teaching Hospital,F001,Antenatal Check Transfer,3,Medium,90,2026-07-08 13:38:00,2026-07-08 15:08:00,Completed
-REQ0096,Sakumono Health Centre,F042,Dansoman Polyclinic,F009,Acute Abdominal Pain,2,High,30,2026-07-17 01:26:00,2026-07-17 01:56:00,Assigned
-REQ0097,Okaikwei North Ambulance Station,F031,Mamprobi Polyclinic,F008,Paediatric Fever (Severe),2,High,30,2026-07-11 14:55:00,2026-07-11 15:25:00,En Route
-REQ0098,Ayawaso East Ambulance Station,F030,37 Military Hospital,F003,Routine Clinic Transfer,4,Low,240,2026-07-09 10:35:00,2026-07-09 14:35:00,Completed
-REQ0099,Bortianor Health Centre,F046,37 Military Hospital,F003,Severe Bleeding,1,Critical,15,2026-07-22 23:39:00,2026-07-22 23:54:00,Completed
-REQ0100,Ningo CHPS Compound,F050,Amasaman Government Hospital,F011,Antenatal Check Transfer,3,Medium,90,2026-07-18 02:07:00,2026-07-18 03:37:00,Completed
-REQ0101,Awoshie CHPS Compound,F059,Ridge Hospital,F002,Antenatal Check Transfer,3,Medium,90,2026-07-03 03:37:00,2026-07-03 05:07:00,Completed
-REQ0102,Ledzokuku Ambulance Station,F025,Weija Government Hospital,F010,Acute Abdominal Pain,2,High,30,2026-08-05 07:53:00,2026-08-05 08:23:00,En Route
-REQ0103,Ablekuma West Ambulance Station,F028,Amasaman Government Hospital,F011,Routine Clinic Transfer,4,Low,240,2026-07-26 05:30:00,2026-07-26 09:30:00,Completed
-REQ0104,Nungua Health Centre,F040,Mamprobi Polyclinic,F008,Severe Burns,2,High,30,2026-07-24 04:24:00,2026-07-24 04:54:00,En Route
-REQ0105,Krowor Ambulance Station,F026,Ridge Hospital,F002,Stroke Symptoms,1,Critical,15,2026-08-02 03:04:00,2026-08-02 03:19:00,Pending
-REQ0106,La General Hospital,F006,Amasaman Government Hospital,F011,Acute Abdominal Pain,2,High,30,2026-07-12 18:43:00,2026-07-12 19:13:00,En Route
-REQ0107,Ga South Ambulance Station,F018,Amasaman Government Hospital,F011,Scheduled Follow-up Visit,4,Low,240,2026-07-03 04:56:00,2026-07-03 08:56:00,Pending
-REQ0108,Kwabenya CHPS Compound,F037,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-07-12 19:14:00,2026-07-12 19:29:00,Completed
-REQ0109,Tabora Health Centre,F058,Amasaman Government Hospital,F011,Stroke Symptoms,1,Critical,15,2026-07-08 06:02:00,2026-07-08 06:17:00,Missed Window
-REQ0110,Mallam CHPS Compound,F045,Ashaiman Polyclinic,F005,Obstetric Emergency,1,Critical,15,2026-07-22 22:51:00,2026-07-22 23:06:00,Completed
-REQ0111,Ussher Town CHPS Compound,F064,La General Hospital,F006,Administrative Records Transfer,4,Low,240,2026-07-15 08:57:00,2026-07-15 12:57:00,Completed
-REQ0112,Sowutuom CHPS Compound,F060,Amasaman Government Hospital,F011,Breathing Difficulty,2,High,30,2026-07-03 17:02:00,2026-07-03 17:32:00,Completed
-REQ0113,Mallam CHPS Compound,F045,Weija Government Hospital,F010,Antenatal Check Transfer,3,Medium,90,2026-07-25 11:44:00,2026-07-25 13:14:00,Missed Window
-REQ0114,Korle Bu Teaching Hospital,F001,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-04 10:13:00,2026-07-04 14:13:00,Pending
-REQ0115,Nima CHPS Compound,F067,Adenta Municipal Hospital,F014,Stroke Symptoms,1,Critical,15,2026-07-13 01:25:00,2026-07-13 01:40:00,Missed Window
-REQ0116,Ningo CHPS Compound,F050,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-26 23:24:00,2026-07-26 23:54:00,Completed
-REQ0117,Jamestown CHPS Compound,F063,Adenta Municipal Hospital,F014,Dialysis Transport,3,Medium,90,2026-08-04 19:50:00,2026-08-04 21:20:00,Pending
-REQ0118,Haatso Health Centre,F054,Weija Government Hospital,F010,Chest Pain / Cardiac,1,Critical,15,2026-07-08 04:42:00,2026-07-08 04:57:00,Completed
-REQ0119,Prampram CHPS Compound,F051,Tema General Hospital,F004,Stroke Symptoms,1,Critical,15,2026-07-26 22:40:00,2026-07-26 22:55:00,Pending
-REQ0120,Chorkor Health Centre,F062,Amasaman Government Hospital,F011,Breathing Difficulty,2,High,30,2026-07-20 14:02:00,2026-07-20 14:32:00,En Route
-REQ0121,Achimota Hospital,F007,La General Hospital,F006,Severe Burns,2,High,30,2026-07-03 03:11:00,2026-07-03 03:41:00,En Route
-REQ0122,Trobu Health Centre,F056,Amasaman Government Hospital,F011,Chest Pain / Cardiac,1,Critical,15,2026-07-02 00:43:00,2026-07-02 00:58:00,Completed
-REQ0123,Ga South Ambulance Station,F018,Ridge Hospital,F002,Blood Sample / Lab Transfer,3,Medium,90,2026-07-09 18:08:00,2026-07-09 19:38:00,Pending
-REQ0124,La General Hospital,F006,Ridge Hospital,F002,Antenatal Check Transfer,3,Medium,90,2026-08-04 22:23:00,2026-08-04 23:53:00,Cancelled
-REQ0125,Madina Polyclinic,F015,37 Military Hospital,F003,Routine Clinic Transfer,4,Low,240,2026-07-20 08:43:00,2026-07-20 12:43:00,Completed
-REQ0126,Ga East Ambulance Station,F017,Korle Bu Teaching Hospital,F001,Blood Sample / Lab Transfer,3,Medium,90,2026-07-11 04:35:00,2026-07-11 06:05:00,Completed
-REQ0127,Korle Bu Central Laboratory,F013,Weija Government Hospital,F010,Blood Sample / Lab Transfer,3,Medium,90,2026-07-22 02:20:00,2026-07-22 03:50:00,Cancelled
-REQ0128,Kotobabi Health Centre,F069,Achimota Hospital,F007,Fracture / Suspected Fracture,2,High,30,2026-07-10 04:18:00,2026-07-10 04:48:00,Assigned
-REQ0129,Oyibi Health Centre,F048,Tema General Hospital,F004,Administrative Records Transfer,4,Low,240,2026-07-09 17:19:00,2026-07-09 21:19:00,Missed Window
-REQ0130,Ayawaso East Ambulance Station,F030,Ridge Hospital,F002,Dialysis Transport,3,Medium,90,2026-07-04 09:31:00,2026-07-04 11:01:00,Missed Window
-REQ0131,Ga East Ambulance Station,F017,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-09 01:42:00,2026-07-09 05:42:00,Completed
-REQ0132,Achimota Hospital,F007,Tema General Hospital,F004,Severe Burns,2,High,30,2026-07-07 17:52:00,2026-07-07 18:22:00,Assigned
-REQ0133,Maamobi CHPS Compound,F068,Ridge Hospital,F002,Breathing Difficulty,2,High,30,2026-07-05 22:38:00,2026-07-05 23:08:00,Assigned
-REQ0134,Chorkor Health Centre,F062,Madina Polyclinic,F015,Paediatric Fever (Severe),2,High,30,2026-07-20 03:18:00,2026-07-20 03:48:00,En Route
-REQ0135,Nima CHPS Compound,F067,Madina Polyclinic,F015,Severe Burns,2,High,30,2026-07-18 12:52:00,2026-07-18 13:22:00,En Route
-REQ0136,Bortianor Health Centre,F046,Madina Polyclinic,F015,Obstetric Emergency,1,Critical,15,2026-07-15 01:49:00,2026-07-15 02:04:00,Cancelled
-REQ0137,Weija Gbawe Ambulance Station,F032,Tema General Hospital,F004,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-17 09:11:00,2026-07-17 13:11:00,Assigned
-REQ0138,37 Military Hospital,F003,Korle Bu Teaching Hospital,F001,Fracture / Suspected Fracture,2,High,30,2026-07-26 23:00:00,2026-07-26 23:30:00,En Route
-REQ0139,Kwabenya CHPS Compound,F037,Amasaman Government Hospital,F011,Post-Operative Transfer,3,Medium,90,2026-07-30 04:02:00,2026-07-30 05:32:00,Completed
-REQ0140,Central Blood Bank Accra,F012,37 Military Hospital,F003,Breathing Difficulty,2,High,30,2026-07-03 22:47:00,2026-07-03 23:17:00,Completed
-REQ0141,Jamestown CHPS Compound,F063,Korle Bu Teaching Hospital,F001,Scheduled Follow-up Visit,4,Low,240,2026-07-13 01:39:00,2026-07-13 05:39:00,En Route
-REQ0142,Ga West Ambulance Station,F016,Tema General Hospital,F004,Acute Abdominal Pain,2,High,30,2026-08-02 22:13:00,2026-08-02 22:43:00,Pending
-REQ0143,Nungua Health Centre,F040,Weija Government Hospital,F010,Administrative Records Transfer,4,Low,240,2026-07-24 20:58:00,2026-07-25 00:58:00,Completed
-REQ0144,Labadi Health Centre,F066,37 Military Hospital,F003,Obstetric Emergency,1,Critical,15,2026-07-22 00:50:00,2026-07-22 01:05:00,Missed Window
-REQ0145,Oyibi Health Centre,F048,Madina Polyclinic,F015,Referral - Specialist Review,3,Medium,90,2026-07-27 01:44:00,2026-07-27 03:14:00,Missed Window
-REQ0146,La Nkwantanang Ambulance Station,F024,Mamprobi Polyclinic,F008,Severe Burns,2,High,30,2026-07-31 17:55:00,2026-07-31 18:25:00,Completed
-REQ0147,Ussher Town CHPS Compound,F064,Tema General Hospital,F004,Stroke Symptoms,1,Critical,15,2026-07-12 11:34:00,2026-07-12 11:49:00,Completed
-REQ0148,Oyibi Health Centre,F048,Adenta Municipal Hospital,F014,Paediatric Fever (Severe),2,High,30,2026-07-01 00:52:00,2026-07-01 01:22:00,Completed
-REQ0149,Dome CHPS Compound,F039,Amasaman Government Hospital,F011,Chest Pain / Cardiac,1,Critical,15,2026-07-19 17:18:00,2026-07-19 17:33:00,Assigned
-REQ0150,Ablekuma North Ambulance Station,F027,Ridge Hospital,F002,Scheduled Follow-up Visit,4,Low,240,2026-07-26 21:16:00,2026-07-27 01:16:00,Completed
-REQ0151,Ussher Town CHPS Compound,F064,Ridge Hospital,F002,Severe Bleeding,1,Critical,15,2026-07-08 21:17:00,2026-07-08 21:32:00,Missed Window
-REQ0152,Ablekuma West Ambulance Station,F028,Korle Bu Teaching Hospital,F001,Scheduled Follow-up Visit,4,Low,240,2026-07-16 11:22:00,2026-07-16 15:22:00,Completed
-REQ0153,Dansoman Polyclinic,F009,Madina Polyclinic,F015,Post-Operative Transfer,3,Medium,90,2026-08-04 01:02:00,2026-08-04 02:32:00,Completed
-REQ0154,Korle Bu Teaching Hospital,F001,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-19 15:51:00,2026-07-19 19:51:00,Pending
-REQ0155,Katamanso CHPS Compound,F049,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-14 10:45:00,2026-07-14 14:45:00,Completed
-REQ0156,Kotobabi Health Centre,F069,Weija Government Hospital,F010,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-25 22:04:00,2026-07-26 02:04:00,En Route
-REQ0157,Osu Health Centre,F065,Adenta Municipal Hospital,F014,Obstetric Emergency,1,Critical,15,2026-08-01 14:36:00,2026-08-01 14:51:00,Cancelled
-REQ0158,Ayawaso East Ambulance Station,F030,Tema General Hospital,F004,Scheduled Follow-up Visit,4,Low,240,2026-07-11 06:39:00,2026-07-11 10:39:00,Missed Window
-REQ0159,Mamprobi Polyclinic,F008,Dansoman Polyclinic,F009,Blood Sample / Lab Transfer,3,Medium,90,2026-07-10 10:04:00,2026-07-10 11:34:00,Completed
-REQ0160,Accra Metro Ambulance Station,F023,Ridge Hospital,F002,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-27 10:10:00,2026-07-27 14:10:00,Completed
-REQ0161,Tabora Health Centre,F058,Ashaiman Polyclinic,F005,Severe Burns,2,High,30,2026-07-09 11:26:00,2026-07-09 11:56:00,Cancelled
-REQ0162,Weija Government Hospital,F010,Ridge Hospital,F002,Trauma / Road Traffic Accident,1,Critical,15,2026-07-24 08:50:00,2026-07-24 09:05:00,Completed
-REQ0163,Taifa CHPS Compound,F038,Adenta Municipal Hospital,F014,Administrative Records Transfer,4,Low,240,2026-07-08 16:16:00,2026-07-08 20:16:00,Missed Window
-REQ0164,Darkuman CHPS Compound,F061,Tema General Hospital,F004,Referral - Specialist Review,3,Medium,90,2026-07-18 07:00:00,2026-07-18 08:30:00,En Route
-REQ0165,Sowutuom CHPS Compound,F060,Weija Government Hospital,F010,Severe Bleeding,1,Critical,15,2026-07-06 09:51:00,2026-07-06 10:06:00,Completed
-REQ0166,Dodowa Health Centre,F052,Achimota Hospital,F007,Administrative Records Transfer,4,Low,240,2026-07-08 22:38:00,2026-07-09 02:38:00,Completed
-REQ0167,Pokuase Health Centre,F034,Dansoman Polyclinic,F009,Blood Sample / Lab Transfer,3,Medium,90,2026-08-04 05:42:00,2026-08-04 07:12:00,Completed
-REQ0168,Darkuman CHPS Compound,F061,Korle Bu Teaching Hospital,F001,Acute Abdominal Pain,2,High,30,2026-07-14 12:03:00,2026-07-14 12:33:00,Pending
-REQ0169,Weija Government Hospital,F010,Amasaman Government Hospital,F011,Dialysis Transport,3,Medium,90,2026-07-05 06:58:00,2026-07-05 08:28:00,Completed
-REQ0170,Accra Metro Ambulance Station,F023,La General Hospital,F006,Stroke Symptoms,1,Critical,15,2026-07-31 06:42:00,2026-07-31 06:57:00,Missed Window
-REQ0171,Madina Polyclinic,F015,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-03 22:46:00,2026-07-03 23:01:00,Missed Window
-REQ0172,Chorkor Health Centre,F062,Madina Polyclinic,F015,Stroke Symptoms,1,Critical,15,2026-08-05 20:40:00,2026-08-05 20:55:00,Completed
-REQ0173,Kotobabi Health Centre,F069,Madina Polyclinic,F015,Paediatric Fever (Severe),2,High,30,2026-08-05 20:02:00,2026-08-05 20:32:00,Assigned
-REQ0174,Oyibi Health Centre,F048,Tema General Hospital,F004,Chest Pain / Cardiac,1,Critical,15,2026-07-22 12:58:00,2026-07-22 13:13:00,En Route
-REQ0175,Ashaiman Ambulance Station,F021,Ashaiman Polyclinic,F005,Severe Burns,2,High,30,2026-07-13 17:51:00,2026-07-13 18:21:00,Pending
-REQ0176,Weija Government Hospital,F010,Korle Bu Teaching Hospital,F001,Routine Clinic Transfer,4,Low,240,2026-07-21 08:46:00,2026-07-21 12:46:00,Completed
-REQ0177,Weija Government Hospital,F010,Adenta Municipal Hospital,F014,Antenatal Check Transfer,3,Medium,90,2026-07-06 10:19:00,2026-07-06 11:49:00,En Route
-REQ0178,Mallam CHPS Compound,F045,Amasaman Government Hospital,F011,Administrative Records Transfer,4,Low,240,2026-07-20 21:52:00,2026-07-21 01:52:00,Completed
-REQ0179,Ablekuma West Ambulance Station,F028,Achimota Hospital,F007,Severe Burns,2,High,30,2026-08-01 11:05:00,2026-08-01 11:35:00,Assigned
-REQ0180,Central Blood Bank Accra,F012,Korle Bu Teaching Hospital,F001,Dialysis Transport,3,Medium,90,2026-07-13 16:42:00,2026-07-13 18:12:00,Cancelled
-REQ0181,Ga Central Ambulance Station,F019,Adenta Municipal Hospital,F014,Severe Bleeding,1,Critical,15,2026-07-10 07:19:00,2026-07-10 07:34:00,Missed Window
-REQ0182,37 Military Hospital,F003,Mamprobi Polyclinic,F008,Routine Clinic Transfer,4,Low,240,2026-07-02 14:08:00,2026-07-02 18:08:00,Completed
-REQ0183,Maamobi CHPS Compound,F068,Ridge Hospital,F002,Trauma / Road Traffic Accident,1,Critical,15,2026-07-19 20:26:00,2026-07-19 20:41:00,Pending
-REQ0184,Pokuase Health Centre,F034,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-13 18:26:00,2026-07-13 18:56:00,Completed
-REQ0185,Nungua Health Centre,F040,Mamprobi Polyclinic,F008,Dialysis Transport,3,Medium,90,2026-07-04 07:59:00,2026-07-04 09:29:00,Completed
-REQ0186,Sowutuom CHPS Compound,F060,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-23 14:01:00,2026-07-23 18:01:00,Completed
-REQ0187,Ashaiman Zongo CHPS Compound,F044,Weija Government Hospital,F010,Breathing Difficulty,2,High,30,2026-07-16 04:13:00,2026-07-16 04:43:00,Assigned
-REQ0188,Madina Polyclinic,F015,Ashaiman Polyclinic,F005,Acute Abdominal Pain,2,High,30,2026-07-02 18:11:00,2026-07-02 18:41:00,Missed Window
-REQ0189,Osu Health Centre,F065,Korle Bu Teaching Hospital,F001,Medication Pickup,4,Low,240,2026-07-10 00:51:00,2026-07-10 04:51:00,Pending
-REQ0190,Ablekuma Health Centre,F036,37 Military Hospital,F003,Paediatric Fever (Severe),2,High,30,2026-07-08 11:36:00,2026-07-08 12:06:00,Pending
-REQ0191,Katamanso CHPS Compound,F049,Madina Polyclinic,F015,Medication Pickup,4,Low,240,2026-07-16 21:49:00,2026-07-17 01:49:00,Completed
-REQ0192,Alajo CHPS Compound,F070,Ridge Hospital,F002,Medication Pickup,4,Low,240,2026-07-27 00:42:00,2026-07-27 04:42:00,Completed
-REQ0193,Nungua Health Centre,F040,Korle Bu Teaching Hospital,F001,Medication Pickup,4,Low,240,2026-07-16 16:28:00,2026-07-16 20:28:00,Assigned
-REQ0194,Odorkor CHPS Compound,F072,Dansoman Polyclinic,F009,Post-Operative Transfer,3,Medium,90,2026-07-16 22:50:00,2026-07-17 00:20:00,Assigned
-REQ0195,Ashongman Health Centre,F055,La General Hospital,F006,Stroke Symptoms,1,Critical,15,2026-07-21 05:23:00,2026-07-21 05:38:00,Pending
-REQ0196,Ablekuma North Ambulance Station,F027,Tema General Hospital,F004,Dialysis Transport,3,Medium,90,2026-07-11 10:42:00,2026-07-11 12:12:00,En Route
-REQ0197,Accra Metro Ambulance Station,F023,Ridge Hospital,F002,Acute Abdominal Pain,2,High,30,2026-08-02 16:38:00,2026-08-02 17:08:00,Assigned
-REQ0198,Weija Government Hospital,F010,Amasaman Government Hospital,F011,Scheduled Follow-up Visit,4,Low,240,2026-08-04 20:08:00,2026-08-05 00:08:00,Pending
-REQ0199,Ningo CHPS Compound,F050,Ridge Hospital,F002,Obstetric Emergency,1,Critical,15,2026-07-13 12:13:00,2026-07-13 12:28:00,Completed
-REQ0200,Ashaiman Zongo CHPS Compound,F044,Dansoman Polyclinic,F009,Severe Bleeding,1,Critical,15,2026-07-09 21:08:00,2026-07-09 21:23:00,Completed
-REQ0201,Amasaman Health Centre,F033,Adenta Municipal Hospital,F014,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-27 22:41:00,2026-07-28 02:41:00,En Route
-REQ0202,Taifa CHPS Compound,F038,Adenta Municipal Hospital,F014,Trauma / Road Traffic Accident,1,Critical,15,2026-07-13 09:57:00,2026-07-13 10:12:00,Pending
-REQ0203,Ablekuma West Ambulance Station,F028,Madina Polyclinic,F015,Referral - Specialist Review,3,Medium,90,2026-07-16 00:19:00,2026-07-16 01:49:00,En Route
-REQ0204,Haatso Health Centre,F054,Mamprobi Polyclinic,F008,Trauma / Road Traffic Accident,1,Critical,15,2026-07-28 13:35:00,2026-07-28 13:50:00,Completed
-REQ0205,Ga East Ambulance Station,F017,Adenta Municipal Hospital,F014,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-17 08:52:00,2026-07-17 12:52:00,En Route
-REQ0206,Adenta Municipal Hospital,F014,La General Hospital,F006,Severe Bleeding,1,Critical,15,2026-07-12 08:16:00,2026-07-12 08:31:00,Missed Window
-REQ0207,Gbawe CHPS Compound,F047,Korle Bu Teaching Hospital,F001,Antenatal Check Transfer,3,Medium,90,2026-07-24 15:19:00,2026-07-24 16:49:00,Pending
-REQ0208,Maamobi CHPS Compound,F068,Tema General Hospital,F004,Severe Bleeding,1,Critical,15,2026-07-09 21:11:00,2026-07-09 21:26:00,Completed
-REQ0209,Korle Bu Central Laboratory,F013,Ridge Hospital,F002,Administrative Records Transfer,4,Low,240,2026-07-26 08:02:00,2026-07-26 12:02:00,Assigned
-REQ0210,Ga South Ambulance Station,F018,Adenta Municipal Hospital,F014,Dialysis Transport,3,Medium,90,2026-07-22 05:34:00,2026-07-22 07:04:00,Completed
-REQ0211,Tabora Health Centre,F058,La General Hospital,F006,Severe Burns,2,High,30,2026-07-14 19:48:00,2026-07-14 20:18:00,Assigned
-REQ0212,Accra Metro Ambulance Station,F023,37 Military Hospital,F003,Paediatric Fever (Severe),2,High,30,2026-07-12 16:32:00,2026-07-12 17:02:00,Cancelled
-REQ0213,Jamestown CHPS Compound,F063,Mamprobi Polyclinic,F008,Scheduled Follow-up Visit,4,Low,240,2026-07-25 18:33:00,2026-07-25 22:33:00,Completed
-REQ0214,Nima CHPS Compound,F067,Madina Polyclinic,F015,Severe Burns,2,High,30,2026-07-24 08:16:00,2026-07-24 08:46:00,Missed Window
-REQ0215,Weija Gbawe Ambulance Station,F032,Weija Government Hospital,F010,Chest Pain / Cardiac,1,Critical,15,2026-07-18 09:40:00,2026-07-18 09:55:00,En Route
-REQ0216,Nungua Health Centre,F040,Madina Polyclinic,F015,Obstetric Emergency,1,Critical,15,2026-07-03 10:12:00,2026-07-03 10:27:00,Pending
-REQ0217,Amasaman Health Centre,F033,Weija Government Hospital,F010,Severe Burns,2,High,30,2026-07-19 12:23:00,2026-07-19 12:53:00,Pending
-REQ0218,Ga West Ambulance Station,F016,Achimota Hospital,F007,Post-Operative Transfer,3,Medium,90,2026-07-11 13:00:00,2026-07-11 14:30:00,Completed
-REQ0219,Anyaa Health Centre,F057,Amasaman Government Hospital,F011,Antenatal Check Transfer,3,Medium,90,2026-07-06 09:14:00,2026-07-06 10:44:00,Completed
-REQ0220,Ayawaso West Ambulance Station,F029,Adenta Municipal Hospital,F014,Routine Clinic Transfer,4,Low,240,2026-08-01 07:17:00,2026-08-01 11:17:00,Pending
-REQ0221,La General Hospital,F006,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-17 18:47:00,2026-07-17 22:47:00,Assigned
-REQ0222,Abokobi CHPS Compound,F053,Weija Government Hospital,F010,Severe Burns,2,High,30,2026-07-31 14:42:00,2026-07-31 15:12:00,Completed
-REQ0223,Ablekuma Health Centre,F036,Dansoman Polyclinic,F009,Stroke Symptoms,1,Critical,15,2026-07-17 03:37:00,2026-07-17 03:52:00,Assigned
-REQ0224,Dodowa Health Centre,F052,Adenta Municipal Hospital,F014,Blood Sample / Lab Transfer,3,Medium,90,2026-07-02 09:01:00,2026-07-02 10:31:00,Pending
-REQ0225,Ayawaso West Ambulance Station,F029,37 Military Hospital,F003,Acute Abdominal Pain,2,High,30,2026-07-12 11:54:00,2026-07-12 12:24:00,Assigned
-REQ0226,Korle Bu Teaching Hospital,F001,37 Military Hospital,F003,Paediatric Fever (Severe),2,High,30,2026-08-05 04:38:00,2026-08-05 05:08:00,Pending
-REQ0227,Taifa CHPS Compound,F038,Tema General Hospital,F004,Fracture / Suspected Fracture,2,High,30,2026-07-09 11:08:00,2026-07-09 11:38:00,Completed
-REQ0228,Darkuman CHPS Compound,F061,Amasaman Government Hospital,F011,Breathing Difficulty,2,High,30,2026-07-08 13:15:00,2026-07-08 13:45:00,Assigned
-REQ0229,Ledzokuku Ambulance Station,F025,Ridge Hospital,F002,Chest Pain / Cardiac,1,Critical,15,2026-07-14 04:46:00,2026-07-14 05:01:00,Assigned
-REQ0230,Ofankor CHPS Compound,F035,Achimota Hospital,F007,Severe Bleeding,1,Critical,15,2026-07-20 01:45:00,2026-07-20 02:00:00,Completed
-REQ0231,Ayawaso West Ambulance Station,F029,Amasaman Government Hospital,F011,Scheduled Follow-up Visit,4,Low,240,2026-07-13 18:10:00,2026-07-13 22:10:00,Assigned
-REQ0232,Ashaiman Ambulance Station,F021,Ridge Hospital,F002,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-12 01:36:00,2026-07-12 05:36:00,Pending
-REQ0233,Sowutuom CHPS Compound,F060,Tema General Hospital,F004,Referral - Specialist Review,3,Medium,90,2026-07-21 06:57:00,2026-07-21 08:27:00,Cancelled
-REQ0234,Ussher Town CHPS Compound,F064,Amasaman Government Hospital,F011,Trauma / Road Traffic Accident,1,Critical,15,2026-07-06 07:54:00,2026-07-06 08:09:00,Missed Window
-REQ0235,Osu Health Centre,F065,Weija Government Hospital,F010,Referral - Specialist Review,3,Medium,90,2026-07-01 10:40:00,2026-07-01 12:10:00,Completed
-REQ0236,Ablekuma North Ambulance Station,F027,Adenta Municipal Hospital,F014,Acute Abdominal Pain,2,High,30,2026-07-29 16:29:00,2026-07-29 16:59:00,Completed
-REQ0237,Achimota Hospital,F007,Ridge Hospital,F002,Acute Abdominal Pain,2,High,30,2026-07-02 15:02:00,2026-07-02 15:32:00,Pending
-REQ0238,Ledzokuku Ambulance Station,F025,Weija Government Hospital,F010,Blood Sample / Lab Transfer,3,Medium,90,2026-08-03 18:22:00,2026-08-03 19:52:00,Assigned
-REQ0239,La General Hospital,F006,Amasaman Government Hospital,F011,Medication Pickup,4,Low,240,2026-08-01 14:29:00,2026-08-01 18:29:00,Pending
-REQ0240,Sakumono Health Centre,F042,Weija Government Hospital,F010,Blood Sample / Lab Transfer,3,Medium,90,2026-07-06 20:34:00,2026-07-06 22:04:00,Completed
-REQ0241,Dodowa Health Centre,F052,Adenta Municipal Hospital,F014,Post-Operative Transfer,3,Medium,90,2026-07-06 18:54:00,2026-07-06 20:24:00,Missed Window
-REQ0242,Pokuase Health Centre,F034,Tema General Hospital,F004,Administrative Records Transfer,4,Low,240,2026-08-04 09:50:00,2026-08-04 13:50:00,Pending
-REQ0243,Trobu Health Centre,F056,37 Military Hospital,F003,Blood Sample / Lab Transfer,3,Medium,90,2026-08-05 00:36:00,2026-08-05 02:06:00,Assigned
-REQ0244,Dansoman Polyclinic,F009,Achimota Hospital,F007,Antenatal Check Transfer,3,Medium,90,2026-07-26 09:34:00,2026-07-26 11:04:00,Assigned
-REQ0245,Oyibi Health Centre,F048,Korle Bu Teaching Hospital,F001,Paediatric Fever (Severe),2,High,30,2026-07-11 00:01:00,2026-07-11 00:31:00,Missed Window
-REQ0246,Tabora Health Centre,F058,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-14 10:40:00,2026-07-14 14:40:00,Completed
-REQ0247,Ablekuma West Ambulance Station,F028,Korle Bu Teaching Hospital,F001,Administrative Records Transfer,4,Low,240,2026-07-08 05:54:00,2026-07-08 09:54:00,Pending
-REQ0248,Sowutuom CHPS Compound,F060,Madina Polyclinic,F015,Chest Pain / Cardiac,1,Critical,15,2026-07-25 00:32:00,2026-07-25 00:47:00,Completed
-REQ0249,Ningo CHPS Compound,F050,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-08-03 12:27:00,2026-08-03 12:42:00,Assigned
-REQ0250,Mallam CHPS Compound,F045,La General Hospital,F006,Obstetric Emergency,1,Critical,15,2026-07-27 02:10:00,2026-07-27 02:25:00,Missed Window
-REQ0251,Ashaiman Zongo CHPS Compound,F044,Dansoman Polyclinic,F009,Severe Burns,2,High,30,2026-07-12 03:35:00,2026-07-12 04:05:00,Completed
-REQ0252,Tema Ambulance Station,F022,Korle Bu Teaching Hospital,F001,Fracture / Suspected Fracture,2,High,30,2026-07-22 13:44:00,2026-07-22 14:14:00,Missed Window
-REQ0253,Dodowa Health Centre,F052,Tema General Hospital,F004,Scheduled Follow-up Visit,4,Low,240,2026-08-01 01:30:00,2026-08-01 05:30:00,Completed
-REQ0254,Ablekuma West Ambulance Station,F028,Ridge Hospital,F002,Severe Burns,2,High,30,2026-07-13 09:48:00,2026-07-13 10:18:00,Completed
-REQ0255,Labadi Health Centre,F066,Korle Bu Teaching Hospital,F001,Trauma / Road Traffic Accident,1,Critical,15,2026-07-22 22:20:00,2026-07-22 22:35:00,Pending
-REQ0256,Ayawaso East Ambulance Station,F030,Ridge Hospital,F002,Obstetric Emergency,1,Critical,15,2026-07-26 20:59:00,2026-07-26 21:14:00,Pending
-REQ0257,Weija Government Hospital,F010,Amasaman Government Hospital,F011,Chest Pain / Cardiac,1,Critical,15,2026-07-27 20:40:00,2026-07-27 20:55:00,Completed
-REQ0258,Adenta Ambulance Station,F020,Madina Polyclinic,F015,Medication Pickup,4,Low,240,2026-07-05 05:37:00,2026-07-05 09:37:00,Completed
-REQ0259,Taifa CHPS Compound,F038,Achimota Hospital,F007,Trauma / Road Traffic Accident,1,Critical,15,2026-07-16 18:06:00,2026-07-16 18:21:00,Completed
-REQ0260,Ga South Ambulance Station,F018,Madina Polyclinic,F015,Referral - Specialist Review,3,Medium,90,2026-07-29 19:49:00,2026-07-29 21:19:00,Completed
-REQ0261,Chorkor Health Centre,F062,Adenta Municipal Hospital,F014,Dialysis Transport,3,Medium,90,2026-07-15 01:55:00,2026-07-15 03:25:00,Cancelled
-REQ0262,Nungua Health Centre,F040,Dansoman Polyclinic,F009,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-25 11:57:00,2026-07-25 15:57:00,Completed
-REQ0263,Gbawe CHPS Compound,F047,Weija Government Hospital,F010,Stroke Symptoms,1,Critical,15,2026-07-07 08:09:00,2026-07-07 08:24:00,Pending
-REQ0264,Ayawaso East Ambulance Station,F030,Madina Polyclinic,F015,Scheduled Follow-up Visit,4,Low,240,2026-07-23 07:06:00,2026-07-23 11:06:00,Completed
-REQ0265,Pokuase Health Centre,F034,37 Military Hospital,F003,Routine Clinic Transfer,4,Low,240,2026-08-01 09:46:00,2026-08-01 13:46:00,Missed Window
-REQ0266,Ridge Hospital,F002,Mamprobi Polyclinic,F008,Breathing Difficulty,2,High,30,2026-07-26 20:06:00,2026-07-26 20:36:00,Completed
-REQ0267,Trobu Health Centre,F056,Mamprobi Polyclinic,F008,Chest Pain / Cardiac,1,Critical,15,2026-07-07 04:33:00,2026-07-07 04:48:00,En Route
-REQ0268,Ga South Ambulance Station,F018,Weija Government Hospital,F010,Trauma / Road Traffic Accident,1,Critical,15,2026-07-16 01:21:00,2026-07-16 01:36:00,Cancelled
-REQ0269,Jamestown CHPS Compound,F063,Adenta Municipal Hospital,F014,Fracture / Suspected Fracture,2,High,30,2026-07-09 06:33:00,2026-07-09 07:03:00,Missed Window
-REQ0270,Katamanso CHPS Compound,F049,La General Hospital,F006,Medication Pickup,4,Low,240,2026-07-21 02:04:00,2026-07-21 06:04:00,Completed
-REQ0271,Dansoman Polyclinic,F009,Ashaiman Polyclinic,F005,Acute Abdominal Pain,2,High,30,2026-07-11 14:24:00,2026-07-11 14:54:00,Completed
-REQ0272,Ablekuma West Ambulance Station,F028,Dansoman Polyclinic,F009,Administrative Records Transfer,4,Low,240,2026-07-18 06:53:00,2026-07-18 10:53:00,Completed
-REQ0273,Adenta Municipal Hospital,F014,Tema General Hospital,F004,Post-Operative Transfer,3,Medium,90,2026-08-04 02:29:00,2026-08-04 03:59:00,Completed
-REQ0274,Haatso Health Centre,F054,Mamprobi Polyclinic,F008,Severe Burns,2,High,30,2026-07-03 21:37:00,2026-07-03 22:07:00,Pending
-REQ0275,Sakumono Health Centre,F042,Dansoman Polyclinic,F009,Routine Clinic Transfer,4,Low,240,2026-07-18 20:53:00,2026-07-19 00:53:00,Missed Window
-REQ0276,Jamestown CHPS Compound,F063,Weija Government Hospital,F010,Administrative Records Transfer,4,Low,240,2026-07-12 03:28:00,2026-07-12 07:28:00,En Route
-REQ0277,Sakumono Health Centre,F042,Korle Bu Teaching Hospital,F001,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-03 21:52:00,2026-07-04 01:52:00,En Route
-REQ0278,Amasaman Health Centre,F033,Achimota Hospital,F007,Post-Operative Transfer,3,Medium,90,2026-07-29 08:23:00,2026-07-29 09:53:00,En Route
-REQ0279,Labadi Health Centre,F066,La General Hospital,F006,Medication Pickup,4,Low,240,2026-07-22 05:49:00,2026-07-22 09:49:00,Assigned
-REQ0280,Kaneshie CHPS Compound,F071,Adenta Municipal Hospital,F014,Trauma / Road Traffic Accident,1,Critical,15,2026-07-25 07:41:00,2026-07-25 07:56:00,En Route
-REQ0281,Gbawe CHPS Compound,F047,Ridge Hospital,F002,Dialysis Transport,3,Medium,90,2026-07-26 08:22:00,2026-07-26 09:52:00,Completed
-REQ0282,Haatso Health Centre,F054,37 Military Hospital,F003,Severe Burns,2,High,30,2026-07-18 19:40:00,2026-07-18 20:10:00,Pending
-REQ0283,37 Military Hospital,F003,Achimota Hospital,F007,Antenatal Check Transfer,3,Medium,90,2026-07-11 15:45:00,2026-07-11 17:15:00,Completed
-REQ0284,Tema Ambulance Station,F022,37 Military Hospital,F003,Severe Burns,2,High,30,2026-08-02 11:39:00,2026-08-02 12:09:00,En Route
-REQ0285,Ningo CHPS Compound,F050,La General Hospital,F006,Non-Urgent Inter-Facility Transfer,4,Low,240,2026-07-26 16:44:00,2026-07-26 20:44:00,Assigned
-REQ0286,La Nkwantanang Ambulance Station,F024,37 Military Hospital,F003,Fracture / Suspected Fracture,2,High,30,2026-07-02 03:22:00,2026-07-02 03:52:00,Pending
-REQ0287,Dome CHPS Compound,F039,Ridge Hospital,F002,Breathing Difficulty,2,High,30,2026-07-20 02:50:00,2026-07-20 03:20:00,En Route
-REQ0288,Ashaiman Polyclinic,F005,La General Hospital,F006,Antenatal Check Transfer,3,Medium,90,2026-07-09 08:51:00,2026-07-09 10:21:00,Pending
-REQ0289,Maamobi CHPS Compound,F068,Weija Government Hospital,F010,Referral - Specialist Review,3,Medium,90,2026-08-03 22:33:00,2026-08-04 00:03:00,Missed Window
-REQ0290,Nima CHPS Compound,F067,Achimota Hospital,F007,Medication Pickup,4,Low,240,2026-07-30 09:41:00,2026-07-30 13:41:00,Pending
-REQ0291,Kwabenya CHPS Compound,F037,Dansoman Polyclinic,F009,Referral - Specialist Review,3,Medium,90,2026-07-18 10:23:00,2026-07-18 11:53:00,Missed Window
-REQ0292,Ledzokuku Ambulance Station,F025,Weija Government Hospital,F010,Fracture / Suspected Fracture,2,High,30,2026-07-28 06:33:00,2026-07-28 07:03:00,Completed
-REQ0293,Ussher Town CHPS Compound,F064,Amasaman Government Hospital,F011,Dialysis Transport,3,Medium,90,2026-07-06 04:42:00,2026-07-06 06:12:00,Pending
-REQ0294,Chorkor Health Centre,F062,Mamprobi Polyclinic,F008,Blood Sample / Lab Transfer,3,Medium,90,2026-07-21 11:51:00,2026-07-21 13:21:00,Completed
-REQ0295,Adenta Municipal Hospital,F014,Korle Bu Teaching Hospital,F001,Fracture / Suspected Fracture,2,High,30,2026-07-16 17:42:00,2026-07-16 18:12:00,Completed
-REQ0296,37 Military Hospital,F003,Mamprobi Polyclinic,F008,Scheduled Follow-up Visit,4,Low,240,2026-07-14 15:04:00,2026-07-14 19:04:00,Cancelled
-REQ0297,Chorkor Health Centre,F062,37 Military Hospital,F003,Dialysis Transport,3,Medium,90,2026-08-04 04:33:00,2026-08-04 06:03:00,Missed Window
-REQ0298,Teshie CHPS Compound,F041,Mamprobi Polyclinic,F008,Obstetric Emergency,1,Critical,15,2026-07-28 17:04:00,2026-07-28 17:19:00,Assigned
-REQ0299,37 Military Hospital,F003,Adenta Municipal Hospital,F014,Referral - Specialist Review,3,Medium,90,2026-07-12 12:18:00,2026-07-12 13:48:00,Assigned
-REQ0300,Osu Health Centre,F065,Ridge Hospital,F002,Dialysis Transport,3,Medium,90,2026-07-10 22:27:00,2026-07-10 23:57:00,Completed
-REQ0301,Krowor Ambulance Station,F026,Mamprobi Polyclinic,F008,Severe Bleeding,1,Critical,15,2026-07-18 19:15:00,2026-07-18 19:30:00,Missed Window
-REQ0302,Ofankor CHPS Compound,F035,Amasaman Government Hospital,F011,Medication Pickup,4,Low,240,2026-07-16 09:45:00,2026-07-16 13:45:00,Missed Window
-REQ0303,Korle Bu Central Laboratory,F013,Weija Government Hospital,F010,Severe Burns,2,High,30,2026-07-19 18:46:00,2026-07-19 19:16:00,Assigned
-REQ0304,La Nkwantanang Ambulance Station,F024,37 Military Hospital,F003,Medication Pickup,4,Low,240,2026-07-29 02:05:00,2026-07-29 06:05:00,Completed
-REQ0305,Amasaman Government Hospital,F011,Ashaiman Polyclinic,F005,Post-Operative Transfer,3,Medium,90,2026-07-11 13:31:00,2026-07-11 15:01:00,Assigned
-REQ0306,Ayawaso West Ambulance Station,F029,Tema General Hospital,F004,Acute Abdominal Pain,2,High,30,2026-07-02 03:33:00,2026-07-02 04:03:00,Completed
-REQ0307,La General Hospital,F006,Mamprobi Polyclinic,F008,Routine Clinic Transfer,4,Low,240,2026-07-07 08:36:00,2026-07-07 12:36:00,Completed
-REQ0308,Ga South Ambulance Station,F018,Achimota Hospital,F007,Fracture / Suspected Fracture,2,High,30,2026-07-29 16:10:00,2026-07-29 16:40:00,Assigned
-REQ0309,Adenta Ambulance Station,F020,Madina Polyclinic,F015,Post-Operative Transfer,3,Medium,90,2026-08-01 04:14:00,2026-08-01 05:44:00,Completed
-REQ0310,La General Hospital,F006,Dansoman Polyclinic,F009,Medication Pickup,4,Low,240,2026-07-28 01:56:00,2026-07-28 05:56:00,Completed
-REQ0311,Bortianor Health Centre,F046,Tema General Hospital,F004,Dialysis Transport,3,Medium,90,2026-07-19 08:01:00,2026-07-19 09:31:00,Completed
-REQ0312,Labadi Health Centre,F066,Achimota Hospital,F007,Blood Sample / Lab Transfer,3,Medium,90,2026-07-19 22:56:00,2026-07-20 00:26:00,Completed
-REQ0313,Nima CHPS Compound,F067,Dansoman Polyclinic,F009,Stroke Symptoms,1,Critical,15,2026-07-21 03:59:00,2026-07-21 04:14:00,Pending
-REQ0314,Ashaiman Ambulance Station,F021,Dansoman Polyclinic,F009,Stroke Symptoms,1,Critical,15,2026-07-16 15:16:00,2026-07-16 15:31:00,Completed
-REQ0315,Alajo CHPS Compound,F070,Weija Government Hospital,F010,Acute Abdominal Pain,2,High,30,2026-07-26 20:12:00,2026-07-26 20:42:00,Completed
-REQ0316,Tema General Hospital,F004,Adenta Municipal Hospital,F014,Blood Sample / Lab Transfer,3,Medium,90,2026-07-13 16:47:00,2026-07-13 18:17:00,Assigned
-REQ0317,Ningo CHPS Compound,F050,Weija Government Hospital,F010,Referral - Specialist Review,3,Medium,90,2026-07-30 04:51:00,2026-07-30 06:21:00,Missed Window
-REQ0318,Prampram CHPS Compound,F051,Adenta Municipal Hospital,F014,Severe Burns,2,High,30,2026-07-10 01:13:00,2026-07-10 01:43:00,Missed Window
-REQ0319,Okaikwei North Ambulance Station,F031,37 Military Hospital,F003,Trauma / Road Traffic Accident,1,Critical,15,2026-07-26 17:07:00,2026-07-26 17:22:00,Assigned
-REQ0320,Trobu Health Centre,F056,Tema General Hospital,F004,Fracture / Suspected Fracture,2,High,30,2026-07-20 01:33:00,2026-07-20 02:03:00,Assigned
+case_id,case_ref,origin_facility_id,destination_facility_id,case_type,triage_level,age_band,requested_at,response_window_min,service_time_min,required_care_level,status,assigned_resource_id
+1,REQ0001,F007,F002,EMERGENCY_TRANSPORT,2,40-64,7/4/2026 4:46,30,21,3,IN_TRANSIT,
+2,REQ0003,F069,F004,EMERGENCY_TRANSPORT,2,40-64,7/18/2026 20:54,30,35,3,MISSED_WINDOW,
+3,REQ0004,F026,F005,EMERGENCY_TRANSPORT,1,15-39,7/30/2026 0:04,15,77,4,ASSIGNED,
+4,REQ0005,F030,F006,INTER_FACILITY_REFERRAL,3,40-64,7/10/2026 8:52,90,38,2,IN_TRANSIT,
+5,REQ0006,F050,F007,LAB_SAMPLE_TRANSPORT,3,65+,7/2/2026 20:05,90,17,2,CANCELLED,
+6,REQ0007,F032,F008,EMERGENCY_TRANSPORT,2,15-39,7/24/2026 8:36,30,22,3,COMPLETED,
+7,REQ0008,F044,F001,EMERGENCY_TRANSPORT,1,0-4,7/23/2026 20:13,15,43,4,COMPLETED,
+8,REQ0009,F013,F007,LAB_SAMPLE_TRANSPORT,3,15-39,7/27/2026 1:00,90,34,2,CANCELLED,
+9,REQ0010,F044,F007,EMERGENCY_TRANSPORT,1,0-4,7/30/2026 10:02,15,42,4,IN_TRANSIT,
+10,REQ0011,F025,F015,EMERGENCY_TRANSPORT,1,40-64,8/3/2026 17:38,15,74,4,COMPLETED,
+11,REQ0012,F016,F001,EMERGENCY_TRANSPORT,2,15-39,7/18/2026 23:04,30,34,3,MISSED_WINDOW,
+12,REQ0014,F002,F001,EMERGENCY_TRANSPORT,2,15-39,8/3/2026 5:06,30,37,3,COMPLETED,
+13,REQ0015,F021,F008,INTER_FACILITY_REFERRAL,4,40-64,8/4/2026 1:10,240,10,1,PENDING,
+14,REQ0016,F023,F005,INTER_FACILITY_REFERRAL,3,40-64,7/26/2026 3:17,90,20,2,COMPLETED,
+15,REQ0017,F002,F008,INTER_FACILITY_REFERRAL,4,40-64,7/25/2026 18:45,240,20,1,IN_TRANSIT,
+16,REQ0018,F016,F005,LAB_SAMPLE_TRANSPORT,3,15-39,7/25/2026 15:00,90,21,2,COMPLETED,
+17,REQ0019,F012,F014,INTER_FACILITY_REFERRAL,4,65+,7/19/2026 9:37,240,20,1,COMPLETED,
+18,REQ0020,F008,F004,OUTPATIENT_APPOINTMENT,3,0-4,7/19/2026 16:58,90,27,2,COMPLETED,
+19,REQ0021,F011,F007,EMERGENCY_TRANSPORT,1,15-39,7/3/2026 18:52,15,84,4,COMPLETED,
+20,REQ0022,F069,F004,EMERGENCY_TRANSPORT,2,15-39,8/3/2026 3:40,30,36,3,PENDING,
+21,REQ0023,F002,F014,LAB_SAMPLE_TRANSPORT,3,40-64,7/22/2026 16:35,90,38,2,COMPLETED,
+22,REQ0024,F051,F008,EMERGENCY_TRANSPORT,2,15-39,7/9/2026 13:17,30,27,3,COMPLETED,
+23,REQ0025,F027,F009,INTER_FACILITY_REFERRAL,3,65+,7/5/2026 13:06,90,27,2,ASSIGNED,
+24,REQ0027,F072,F002,OUTPATIENT_APPOINTMENT,4,0-4,7/4/2026 15:30,240,19,1,COMPLETED,
+25,REQ0028,F045,F004,EMERGENCY_TRANSPORT,2,40-64,7/5/2026 1:19,30,59,3,COMPLETED,
+26,REQ0029,F057,F007,EMERGENCY_TRANSPORT,2,65+,7/11/2026 0:45,30,43,3,PENDING,
+27,REQ0031,F017,F001,ELECTIVE_PROCEDURE,3,15-39,8/4/2026 14:23,90,37,2,COMPLETED,
+28,REQ0032,F021,F005,EMERGENCY_TRANSPORT,2,0-4,7/4/2026 17:56,30,34,3,COMPLETED,
+29,REQ0033,F061,F007,INTER_FACILITY_REFERRAL,4,40-64,7/19/2026 11:10,240,12,1,PENDING,
+30,REQ0034,F047,F009,EMERGENCY_TRANSPORT,2,40-64,7/27/2026 0:30,30,26,3,COMPLETED,
+31,REQ0035,F040,F011,INTER_FACILITY_REFERRAL,4,15-39,7/6/2026 8:14,240,24,1,COMPLETED,
+32,REQ0036,F013,F007,ELECTIVE_PROCEDURE,3,40-64,7/18/2026 0:59,90,26,2,ASSIGNED,
+33,REQ0037,F042,F011,LAB_SAMPLE_TRANSPORT,3,15-39,8/4/2026 21:40,90,26,2,ASSIGNED,
+34,REQ0038,F041,F004,EMERGENCY_TRANSPORT,1,15-39,8/5/2026 9:55,15,47,4,ASSIGNED,
+35,REQ0039,F070,F001,ELECTIVE_PROCEDURE,3,40-64,7/4/2026 17:45,90,36,2,PENDING,
+36,REQ0040,F067,F004,EMERGENCY_TRANSPORT,1,40-64,7/11/2026 13:35,15,68,4,MISSED_WINDOW,
+37,REQ0041,F057,F004,INTER_FACILITY_REFERRAL,3,40-64,7/29/2026 4:02,90,32,2,PENDING,
+38,REQ0042,F023,F004,EMERGENCY_TRANSPORT,1,40-64,7/21/2026 0:31,15,40,4,COMPLETED,
+39,REQ0043,F042,F007,EMERGENCY_TRANSPORT,1,15-39,7/10/2026 14:22,15,47,4,ASSIGNED,
+40,REQ0044,F008,F009,EMERGENCY_TRANSPORT,2,65+,7/12/2026 6:36,30,60,3,CANCELLED,
+41,REQ0046,F017,F009,EMERGENCY_TRANSPORT,1,40-64,8/5/2026 20:56,15,44,4,COMPLETED,
+42,REQ0047,F070,F015,OUTPATIENT_APPOINTMENT,4,40-64,7/2/2026 21:38,240,11,1,COMPLETED,
+43,REQ0048,F015,F001,INTER_FACILITY_REFERRAL,4,15-39,7/24/2026 17:20,240,11,1,COMPLETED,
+44,REQ0049,F025,F011,OUTPATIENT_APPOINTMENT,3,40-64,7/19/2026 15:54,90,27,2,PENDING,
+45,REQ0050,F002,F015,EMERGENCY_TRANSPORT,2,15-39,7/21/2026 13:10,30,33,3,ASSIGNED,
+46,REQ0051,F068,F008,EMERGENCY_TRANSPORT,1,65+,7/12/2026 4:47,15,66,4,ASSIGNED,
+47,REQ0052,F053,F005,INTER_FACILITY_REFERRAL,3,40-64,7/28/2026 23:26,90,25,2,COMPLETED,
+48,REQ0053,F059,F002,EMERGENCY_TRANSPORT,1,15-39,7/24/2026 0:09,15,61,4,PENDING,
+49,REQ0054,F030,F007,LAB_SAMPLE_TRANSPORT,3,15-39,7/26/2026 22:50,90,44,2,MISSED_WINDOW,
+50,REQ0055,F021,F003,EMERGENCY_TRANSPORT,2,40-64,7/25/2026 21:47,30,29,3,COMPLETED,
+51,REQ0056,F038,F003,EMERGENCY_TRANSPORT,1,15-39,7/13/2026 3:21,15,45,4,PENDING,
+52,REQ0057,F049,F001,OUTPATIENT_APPOINTMENT,4,40-64,8/1/2026 2:10,240,27,1,COMPLETED,
+53,REQ0058,F008,F007,EMERGENCY_TRANSPORT,2,15-39,7/7/2026 22:15,30,57,3,ASSIGNED,
+54,REQ0059,F035,F011,LAB_SAMPLE_TRANSPORT,3,15-39,8/3/2026 0:41,90,33,2,MISSED_WINDOW,
+55,REQ0060,F041,F004,OUTPATIENT_APPOINTMENT,4,15-39,7/19/2026 8:34,240,17,1,CANCELLED,
+56,REQ0061,F033,F009,EMERGENCY_TRANSPORT,2,65+,7/9/2026 3:12,30,28,3,COMPLETED,
+57,REQ0062,F039,F002,EMERGENCY_TRANSPORT,2,15-39,7/19/2026 14:28,30,25,3,COMPLETED,
+58,REQ0063,F039,F015,EMERGENCY_TRANSPORT,2,40-64,7/30/2026 4:54,30,27,3,PENDING,
+59,REQ0064,F014,F008,ELECTIVE_PROCEDURE,3,40-64,7/10/2026 11:14,90,20,2,COMPLETED,
+60,REQ0065,F006,F015,EMERGENCY_TRANSPORT,1,40-64,7/29/2026 17:59,15,57,4,ASSIGNED,
+61,REQ0067,F057,F009,INTER_FACILITY_REFERRAL,4,15-39,7/26/2026 12:05,240,22,1,COMPLETED,
+62,REQ0068,F036,F005,OUTPATIENT_APPOINTMENT,4,15-39,7/2/2026 23:14,240,24,1,COMPLETED,
+63,REQ0069,F072,F007,EMERGENCY_TRANSPORT,1,15-39,7/17/2026 12:14,15,65,4,COMPLETED,
+64,REQ0070,F012,F006,EMERGENCY_TRANSPORT,1,40-64,7/7/2026 12:12,15,30,4,IN_TRANSIT,
+65,REQ0071,F013,F002,INTER_FACILITY_REFERRAL,3,40-64,7/27/2026 9:12,90,18,2,COMPLETED,
+66,REQ0072,F069,F001,INTER_FACILITY_REFERRAL,3,40-64,7/5/2026 8:08,90,32,2,MISSED_WINDOW,
+67,REQ0073,F047,F002,EMERGENCY_TRANSPORT,2,40-64,7/8/2026 3:29,30,41,3,MISSED_WINDOW,
+68,REQ0074,F013,F003,EMERGENCY_TRANSPORT,2,40-64,8/2/2026 7:37,30,47,3,COMPLETED,
+69,REQ0075,F046,F014,EMERGENCY_TRANSPORT,2,65+,7/20/2026 14:35,30,20,3,MISSED_WINDOW,
+70,REQ0076,F014,F002,OUTPATIENT_APPOINTMENT,4,65+,7/12/2026 15:58,240,18,1,PENDING,
+71,REQ0077,F060,F007,INTER_FACILITY_REFERRAL,3,65+,7/28/2026 18:19,90,39,2,IN_TRANSIT,
+72,REQ0078,F040,F009,OUTPATIENT_APPOINTMENT,4,5-14,8/2/2026 5:05,240,13,1,PENDING,
+73,REQ0079,F028,F009,EMERGENCY_TRANSPORT,2,40-64,7/9/2026 8:56,30,39,3,PENDING,
+74,REQ0080,F052,F003,EMERGENCY_TRANSPORT,2,40-64,7/30/2026 21:03,30,52,3,PENDING,
+75,REQ0081,F008,F011,LAB_SAMPLE_TRANSPORT,3,40-64,7/28/2026 8:21,90,19,2,CANCELLED,
+76,REQ0082,F047,F006,EMERGENCY_TRANSPORT,1,15-39,7/30/2026 14:28,15,40,4,CANCELLED,
+77,REQ0083,F059,F014,EMERGENCY_TRANSPORT,2,15-39,7/7/2026 13:22,30,53,3,MISSED_WINDOW,
+78,REQ0084,F037,F010,EMERGENCY_TRANSPORT,2,65+,7/1/2026 17:34,30,58,3,IN_TRANSIT,
+79,REQ0085,F068,F003,INTER_FACILITY_REFERRAL,4,15-39,7/12/2026 16:21,240,10,1,COMPLETED,
+80,REQ0086,F008,F001,ELECTIVE_PROCEDURE,3,15-39,7/25/2026 21:49,90,26,2,PENDING,
+81,REQ0087,F040,F008,EMERGENCY_TRANSPORT,1,40-64,7/15/2026 2:05,15,83,4,IN_TRANSIT,
+82,REQ0088,F012,F003,EMERGENCY_TRANSPORT,1,40-64,7/8/2026 17:32,15,45,4,ASSIGNED,
+83,REQ0089,F020,F003,EMERGENCY_TRANSPORT,2,0-4,7/9/2026 12:07,30,56,3,ASSIGNED,
+84,REQ0090,F065,F009,OUTPATIENT_APPOINTMENT,4,65+,8/2/2026 7:50,240,12,1,COMPLETED,
+85,REQ0091,F001,F009,EMERGENCY_TRANSPORT,2,40-64,7/5/2026 5:29,30,24,3,ASSIGNED,
+86,REQ0092,F044,F005,OUTPATIENT_APPOINTMENT,4,65+,7/18/2026 22:17,240,27,1,COMPLETED,
+87,REQ0093,F039,F007,OUTPATIENT_APPOINTMENT,4,40-64,7/10/2026 18:30,240,14,1,COMPLETED,
+88,REQ0094,F046,F007,EMERGENCY_TRANSPORT,1,40-64,7/19/2026 13:18,15,90,4,COMPLETED,
+89,REQ0095,F041,F001,OUTPATIENT_APPOINTMENT,3,15-39,7/8/2026 13:38,90,23,2,COMPLETED,
+90,REQ0096,F042,F009,EMERGENCY_TRANSPORT,2,15-39,7/17/2026 1:26,30,58,3,ASSIGNED,
+91,REQ0097,F031,F008,EMERGENCY_TRANSPORT,2,15-39,7/11/2026 14:55,30,33,3,IN_TRANSIT,
+92,REQ0098,F030,F003,OUTPATIENT_APPOINTMENT,4,65+,7/9/2026 10:35,240,16,1,COMPLETED,
+93,REQ0099,F046,F003,EMERGENCY_TRANSPORT,1,40-64,7/22/2026 23:39,15,55,4,COMPLETED,
+94,REQ0100,F050,F011,OUTPATIENT_APPOINTMENT,3,65+,7/18/2026 2:07,90,35,2,COMPLETED,
+95,REQ0101,F059,F002,OUTPATIENT_APPOINTMENT,3,15-39,7/3/2026 3:37,90,43,2,COMPLETED,
+96,REQ0102,F025,F010,EMERGENCY_TRANSPORT,2,15-39,8/5/2026 7:53,30,27,3,IN_TRANSIT,
+97,REQ0103,F028,F011,OUTPATIENT_APPOINTMENT,4,15-39,7/26/2026 5:30,240,12,1,COMPLETED,
+98,REQ0104,F040,F008,EMERGENCY_TRANSPORT,2,15-39,7/24/2026 4:24,30,57,3,IN_TRANSIT,
+99,REQ0105,F026,F002,EMERGENCY_TRANSPORT,1,15-39,8/2/2026 3:04,15,67,4,PENDING,
+100,REQ0106,F006,F011,EMERGENCY_TRANSPORT,2,15-39,7/12/2026 18:43,30,24,3,IN_TRANSIT,
+101,REQ0107,F018,F011,OUTPATIENT_APPOINTMENT,4,40-64,7/3/2026 4:56,240,11,1,PENDING,
+102,REQ0108,F037,F006,EMERGENCY_TRANSPORT,1,15-39,7/12/2026 19:14,15,87,4,COMPLETED,
+103,REQ0109,F058,F011,EMERGENCY_TRANSPORT,1,0-4,7/8/2026 6:02,15,51,4,MISSED_WINDOW,
+104,REQ0110,F045,F005,EMERGENCY_TRANSPORT,1,0-4,7/22/2026 22:51,15,45,4,COMPLETED,
+105,REQ0112,F060,F011,EMERGENCY_TRANSPORT,2,15-39,7/3/2026 17:02,30,51,3,COMPLETED,
+106,REQ0113,F045,F010,OUTPATIENT_APPOINTMENT,3,15-39,7/25/2026 11:44,90,19,2,MISSED_WINDOW,
+107,REQ0115,F067,F014,EMERGENCY_TRANSPORT,1,40-64,7/13/2026 1:25,15,86,4,MISSED_WINDOW,
+108,REQ0116,F050,F003,EMERGENCY_TRANSPORT,2,15-39,7/26/2026 23:24,30,50,3,COMPLETED,
+109,REQ0117,F063,F014,ELECTIVE_PROCEDURE,3,15-39,8/4/2026 19:50,90,30,2,PENDING,
+110,REQ0118,F054,F010,EMERGENCY_TRANSPORT,1,40-64,7/8/2026 4:42,15,42,4,COMPLETED,
+111,REQ0119,F051,F004,EMERGENCY_TRANSPORT,1,0-4,7/26/2026 22:40,15,72,4,PENDING,
+112,REQ0120,F062,F011,EMERGENCY_TRANSPORT,2,15-39,7/20/2026 14:02,30,47,3,IN_TRANSIT,
+113,REQ0121,F007,F006,EMERGENCY_TRANSPORT,2,15-39,7/3/2026 3:11,30,23,3,IN_TRANSIT,
+114,REQ0122,F056,F011,EMERGENCY_TRANSPORT,1,40-64,7/2/2026 0:43,15,71,4,COMPLETED,
+115,REQ0123,F018,F002,LAB_SAMPLE_TRANSPORT,3,15-39,7/9/2026 18:08,90,27,2,PENDING,
+116,REQ0124,F006,F002,OUTPATIENT_APPOINTMENT,3,40-64,8/4/2026 22:23,90,40,2,CANCELLED,
+117,REQ0125,F015,F003,OUTPATIENT_APPOINTMENT,4,40-64,7/20/2026 8:43,240,17,1,COMPLETED,
+118,REQ0126,F017,F001,LAB_SAMPLE_TRANSPORT,3,15-39,7/11/2026 4:35,90,32,2,COMPLETED,
+119,REQ0127,F013,F010,LAB_SAMPLE_TRANSPORT,3,15-39,7/22/2026 2:20,90,28,2,CANCELLED,
+120,REQ0128,F069,F007,EMERGENCY_TRANSPORT,2,0-4,7/10/2026 4:18,30,49,3,ASSIGNED,
+121,REQ0130,F030,F002,ELECTIVE_PROCEDURE,3,15-39,7/4/2026 9:31,90,44,2,MISSED_WINDOW,
+122,REQ0131,F017,F001,INTER_FACILITY_REFERRAL,4,0-4,7/9/2026 1:42,240,27,1,COMPLETED,
+123,REQ0132,F007,F004,EMERGENCY_TRANSPORT,2,5-14,7/7/2026 17:52,30,54,3,ASSIGNED,
+124,REQ0133,F068,F002,EMERGENCY_TRANSPORT,2,40-64,7/5/2026 22:38,30,25,3,ASSIGNED,
+125,REQ0134,F062,F015,EMERGENCY_TRANSPORT,2,65+,7/20/2026 3:18,30,35,3,IN_TRANSIT,
+126,REQ0135,F067,F015,EMERGENCY_TRANSPORT,2,40-64,7/18/2026 12:52,30,51,3,IN_TRANSIT,
+127,REQ0136,F046,F015,EMERGENCY_TRANSPORT,1,15-39,7/15/2026 1:49,15,85,4,CANCELLED,
+128,REQ0137,F032,F004,INTER_FACILITY_REFERRAL,4,15-39,7/17/2026 9:11,240,11,1,ASSIGNED,
+129,REQ0138,F003,F001,EMERGENCY_TRANSPORT,2,15-39,7/26/2026 23:00,30,20,3,IN_TRANSIT,
+130,REQ0139,F037,F011,INTER_FACILITY_REFERRAL,3,65+,7/30/2026 4:02,90,23,2,COMPLETED,
+131,REQ0140,F012,F003,EMERGENCY_TRANSPORT,2,65+,7/3/2026 22:47,30,49,3,COMPLETED,
+132,REQ0141,F063,F001,OUTPATIENT_APPOINTMENT,4,15-39,7/13/2026 1:39,240,27,1,IN_TRANSIT,
+133,REQ0142,F016,F004,EMERGENCY_TRANSPORT,2,40-64,8/2/2026 22:13,30,51,3,PENDING,
+134,REQ0144,F066,F003,EMERGENCY_TRANSPORT,1,15-39,7/22/2026 0:50,15,48,4,MISSED_WINDOW,
+135,REQ0145,F048,F015,INTER_FACILITY_REFERRAL,3,15-39,7/27/2026 1:44,90,16,2,MISSED_WINDOW,
+136,REQ0146,F024,F008,EMERGENCY_TRANSPORT,2,15-39,7/31/2026 17:55,30,54,3,COMPLETED,
+137,REQ0147,F064,F004,EMERGENCY_TRANSPORT,1,0-4,7/12/2026 11:34,15,50,4,COMPLETED,
+138,REQ0148,F048,F014,EMERGENCY_TRANSPORT,2,0-4,7/1/2026 0:52,30,57,3,COMPLETED,
+139,REQ0149,F039,F011,EMERGENCY_TRANSPORT,1,15-39,7/19/2026 17:18,15,88,4,ASSIGNED,
+140,REQ0150,F027,F002,OUTPATIENT_APPOINTMENT,4,40-64,7/26/2026 21:16,240,15,1,COMPLETED,
+141,REQ0151,F064,F002,EMERGENCY_TRANSPORT,1,0-4,7/8/2026 21:17,15,62,4,MISSED_WINDOW,
+142,REQ0152,F028,F001,OUTPATIENT_APPOINTMENT,4,15-39,7/16/2026 11:22,240,15,1,COMPLETED,
+143,REQ0153,F009,F015,INTER_FACILITY_REFERRAL,3,0-4,8/4/2026 1:02,90,17,2,COMPLETED,
+144,REQ0155,F049,F001,INTER_FACILITY_REFERRAL,4,40-64,7/14/2026 10:45,240,17,1,COMPLETED,
+145,REQ0156,F069,F010,INTER_FACILITY_REFERRAL,4,15-39,7/25/2026 22:04,240,28,1,IN_TRANSIT,
+146,REQ0157,F065,F014,EMERGENCY_TRANSPORT,1,15-39,8/1/2026 14:36,15,68,4,CANCELLED,
+147,REQ0158,F030,F004,OUTPATIENT_APPOINTMENT,4,0-4,7/11/2026 6:39,240,12,1,MISSED_WINDOW,
+148,REQ0159,F008,F009,LAB_SAMPLE_TRANSPORT,3,15-39,7/10/2026 10:04,90,33,2,COMPLETED,
+149,REQ0160,F023,F002,INTER_FACILITY_REFERRAL,4,15-39,7/27/2026 10:10,240,20,1,COMPLETED,
+150,REQ0161,F058,F005,EMERGENCY_TRANSPORT,2,65+,7/9/2026 11:26,30,33,3,CANCELLED,
+151,REQ0162,F010,F002,EMERGENCY_TRANSPORT,1,40-64,7/24/2026 8:50,15,50,4,COMPLETED,
+152,REQ0164,F061,F004,INTER_FACILITY_REFERRAL,3,15-39,7/18/2026 7:00,90,27,2,IN_TRANSIT,
+153,REQ0165,F060,F010,EMERGENCY_TRANSPORT,1,40-64,7/6/2026 9:51,15,71,4,COMPLETED,
+154,REQ0167,F034,F009,LAB_SAMPLE_TRANSPORT,3,15-39,8/4/2026 5:42,90,25,2,COMPLETED,
+155,REQ0168,F061,F001,EMERGENCY_TRANSPORT,2,65+,7/14/2026 12:03,30,24,3,PENDING,
+156,REQ0169,F010,F011,ELECTIVE_PROCEDURE,3,0-4,7/5/2026 6:58,90,34,2,COMPLETED,
+157,REQ0170,F023,F006,EMERGENCY_TRANSPORT,1,65+,7/31/2026 6:42,15,36,4,MISSED_WINDOW,
+158,REQ0171,F015,F008,EMERGENCY_TRANSPORT,1,0-4,7/3/2026 22:46,15,43,4,MISSED_WINDOW,
+159,REQ0172,F062,F015,EMERGENCY_TRANSPORT,1,15-39,8/5/2026 20:40,15,38,4,COMPLETED,
+160,REQ0173,F069,F015,EMERGENCY_TRANSPORT,2,65+,8/5/2026 20:02,30,24,3,ASSIGNED,
+161,REQ0174,F048,F004,EMERGENCY_TRANSPORT,1,40-64,7/22/2026 12:58,15,53,4,IN_TRANSIT,
+162,REQ0175,F021,F005,EMERGENCY_TRANSPORT,2,15-39,7/13/2026 17:51,30,48,3,PENDING,
+163,REQ0176,F010,F001,OUTPATIENT_APPOINTMENT,4,40-64,7/21/2026 8:46,240,19,1,COMPLETED,
+164,REQ0177,F010,F014,OUTPATIENT_APPOINTMENT,3,40-64,7/6/2026 10:19,90,40,2,IN_TRANSIT,
+165,REQ0179,F028,F007,EMERGENCY_TRANSPORT,2,40-64,8/1/2026 11:05,30,20,3,ASSIGNED,
+166,REQ0180,F012,F001,ELECTIVE_PROCEDURE,3,40-64,7/13/2026 16:42,90,32,2,CANCELLED,
+167,REQ0181,F019,F014,EMERGENCY_TRANSPORT,1,15-39,7/10/2026 7:19,15,72,4,MISSED_WINDOW,
+168,REQ0182,F003,F008,OUTPATIENT_APPOINTMENT,4,0-4,7/2/2026 14:08,240,14,1,COMPLETED,
+169,REQ0183,F068,F002,EMERGENCY_TRANSPORT,1,15-39,7/19/2026 20:26,15,86,4,PENDING,
+170,REQ0184,F034,F003,EMERGENCY_TRANSPORT,2,40-64,7/13/2026 18:26,30,55,3,COMPLETED,
+171,REQ0185,F040,F008,ELECTIVE_PROCEDURE,3,40-64,7/4/2026 7:59,90,24,2,COMPLETED,
+172,REQ0187,F044,F010,EMERGENCY_TRANSPORT,2,40-64,7/16/2026 4:13,30,41,3,ASSIGNED,
+173,REQ0188,F015,F005,EMERGENCY_TRANSPORT,2,15-39,7/2/2026 18:11,30,60,3,MISSED_WINDOW,
+174,REQ0190,F036,F003,EMERGENCY_TRANSPORT,2,40-64,7/8/2026 11:36,30,52,3,PENDING,
+175,REQ0194,F072,F009,INTER_FACILITY_REFERRAL,3,15-39,7/16/2026 22:50,90,43,2,ASSIGNED,
+176,REQ0195,F055,F006,EMERGENCY_TRANSPORT,1,65+,7/21/2026 5:23,15,33,4,PENDING,
+177,REQ0196,F027,F004,ELECTIVE_PROCEDURE,3,15-39,7/11/2026 10:42,90,28,2,IN_TRANSIT,
+178,REQ0197,F023,F002,EMERGENCY_TRANSPORT,2,40-64,8/2/2026 16:38,30,22,3,ASSIGNED,
+179,REQ0198,F010,F011,OUTPATIENT_APPOINTMENT,4,0-4,8/4/2026 20:08,240,14,1,PENDING,
+180,REQ0199,F050,F002,EMERGENCY_TRANSPORT,1,40-64,7/13/2026 12:13,15,46,4,COMPLETED,
+181,REQ0200,F044,F009,EMERGENCY_TRANSPORT,1,5-14,7/9/2026 21:08,15,58,4,COMPLETED,
+182,REQ0201,F033,F014,INTER_FACILITY_REFERRAL,4,15-39,7/27/2026 22:41,240,23,1,IN_TRANSIT,
+183,REQ0202,F038,F014,EMERGENCY_TRANSPORT,1,15-39,7/13/2026 9:57,15,37,4,PENDING,
+184,REQ0203,F028,F015,INTER_FACILITY_REFERRAL,3,0-4,7/16/2026 0:19,90,43,2,IN_TRANSIT,
+185,REQ0204,F054,F008,EMERGENCY_TRANSPORT,1,40-64,7/28/2026 13:35,15,39,4,COMPLETED,
+186,REQ0205,F017,F014,INTER_FACILITY_REFERRAL,4,15-39,7/17/2026 8:52,240,21,1,IN_TRANSIT,
+187,REQ0206,F014,F006,EMERGENCY_TRANSPORT,1,15-39,7/12/2026 8:16,15,39,4,MISSED_WINDOW,
+188,REQ0207,F047,F001,OUTPATIENT_APPOINTMENT,3,15-39,7/24/2026 15:19,90,16,2,PENDING,
+189,REQ0208,F068,F004,EMERGENCY_TRANSPORT,1,15-39,7/9/2026 21:11,15,87,4,COMPLETED,
+190,REQ0210,F018,F014,ELECTIVE_PROCEDURE,3,65+,7/22/2026 5:34,90,42,2,COMPLETED,
+191,REQ0211,F058,F006,EMERGENCY_TRANSPORT,2,0-4,7/14/2026 19:48,30,42,3,ASSIGNED,
+192,REQ0212,F023,F003,EMERGENCY_TRANSPORT,2,15-39,7/12/2026 16:32,30,35,3,CANCELLED,
+193,REQ0213,F063,F008,OUTPATIENT_APPOINTMENT,4,40-64,7/25/2026 18:33,240,21,1,COMPLETED,
+194,REQ0214,F067,F015,EMERGENCY_TRANSPORT,2,40-64,7/24/2026 8:16,30,46,3,MISSED_WINDOW,
+195,REQ0215,F032,F010,EMERGENCY_TRANSPORT,1,65+,7/18/2026 9:40,15,77,4,IN_TRANSIT,
+196,REQ0216,F040,F015,EMERGENCY_TRANSPORT,1,65+,7/3/2026 10:12,15,89,4,PENDING,
+197,REQ0217,F033,F010,EMERGENCY_TRANSPORT,2,15-39,7/19/2026 12:23,30,30,3,PENDING,
+198,REQ0218,F016,F007,INTER_FACILITY_REFERRAL,3,65+,7/11/2026 13:00,90,40,2,COMPLETED,
+199,REQ0219,F057,F011,OUTPATIENT_APPOINTMENT,3,15-39,7/6/2026 9:14,90,28,2,COMPLETED,
+200,REQ0220,F029,F014,OUTPATIENT_APPOINTMENT,4,0-4,8/1/2026 7:17,240,20,1,PENDING,
+201,REQ0222,F053,F010,EMERGENCY_TRANSPORT,2,40-64,7/31/2026 14:42,30,46,3,COMPLETED,
+202,REQ0223,F036,F009,EMERGENCY_TRANSPORT,1,40-64,7/17/2026 3:37,15,85,4,ASSIGNED,
+203,REQ0224,F052,F014,LAB_SAMPLE_TRANSPORT,3,40-64,7/2/2026 9:01,90,22,2,PENDING,
+204,REQ0225,F029,F003,EMERGENCY_TRANSPORT,2,15-39,7/12/2026 11:54,30,26,3,ASSIGNED,
+205,REQ0226,F001,F003,EMERGENCY_TRANSPORT,2,15-39,8/5/2026 4:38,30,22,3,PENDING,
+206,REQ0227,F038,F004,EMERGENCY_TRANSPORT,2,40-64,7/9/2026 11:08,30,34,3,COMPLETED,
+207,REQ0228,F061,F011,EMERGENCY_TRANSPORT,2,5-14,7/8/2026 13:15,30,49,3,ASSIGNED,
+208,REQ0229,F025,F002,EMERGENCY_TRANSPORT,1,15-39,7/14/2026 4:46,15,82,4,ASSIGNED,
+209,REQ0230,F035,F007,EMERGENCY_TRANSPORT,1,40-64,7/20/2026 1:45,15,44,4,COMPLETED,
+210,REQ0231,F029,F011,OUTPATIENT_APPOINTMENT,4,15-39,7/13/2026 18:10,240,16,1,ASSIGNED,
+211,REQ0232,F021,F002,INTER_FACILITY_REFERRAL,4,15-39,7/12/2026 1:36,240,18,1,PENDING,
+212,REQ0233,F060,F004,INTER_FACILITY_REFERRAL,3,40-64,7/21/2026 6:57,90,45,2,CANCELLED,
+213,REQ0234,F064,F011,EMERGENCY_TRANSPORT,1,40-64,7/6/2026 7:54,15,52,4,MISSED_WINDOW,
+214,REQ0235,F065,F010,INTER_FACILITY_REFERRAL,3,40-64,7/1/2026 10:40,90,27,2,COMPLETED,
+215,REQ0236,F027,F014,EMERGENCY_TRANSPORT,2,40-64,7/29/2026 16:29,30,54,3,COMPLETED,
+216,REQ0237,F007,F002,EMERGENCY_TRANSPORT,2,15-39,7/2/2026 15:02,30,21,3,PENDING,
+217,REQ0238,F025,F010,LAB_SAMPLE_TRANSPORT,3,5-14,8/3/2026 18:22,90,23,2,ASSIGNED,
+218,REQ0240,F042,F010,LAB_SAMPLE_TRANSPORT,3,40-64,7/6/2026 20:34,90,45,2,COMPLETED,
+219,REQ0241,F052,F014,INTER_FACILITY_REFERRAL,3,65+,7/6/2026 18:54,90,16,2,MISSED_WINDOW,
+220,REQ0243,F056,F003,LAB_SAMPLE_TRANSPORT,3,40-64,8/5/2026 0:36,90,28,2,ASSIGNED,
+221,REQ0244,F009,F007,OUTPATIENT_APPOINTMENT,3,15-39,7/26/2026 9:34,90,40,2,ASSIGNED,
+222,REQ0245,F048,F001,EMERGENCY_TRANSPORT,2,15-39,7/11/2026 0:01,30,58,3,MISSED_WINDOW,
+223,REQ0248,F060,F015,EMERGENCY_TRANSPORT,1,65+,7/25/2026 0:32,15,37,4,COMPLETED,
+224,REQ0249,F050,F006,EMERGENCY_TRANSPORT,1,15-39,8/3/2026 12:27,15,66,4,ASSIGNED,
+225,REQ0250,F045,F006,EMERGENCY_TRANSPORT,1,40-64,7/27/2026 2:10,15,32,4,MISSED_WINDOW,
+226,REQ0251,F044,F009,EMERGENCY_TRANSPORT,2,40-64,7/12/2026 3:35,30,20,3,COMPLETED,
+227,REQ0252,F022,F001,EMERGENCY_TRANSPORT,2,15-39,7/22/2026 13:44,30,54,3,MISSED_WINDOW,
+228,REQ0253,F052,F004,OUTPATIENT_APPOINTMENT,4,40-64,8/1/2026 1:30,240,16,1,COMPLETED,
+229,REQ0254,F028,F002,EMERGENCY_TRANSPORT,2,15-39,7/13/2026 9:48,30,24,3,COMPLETED,
+230,REQ0255,F066,F001,EMERGENCY_TRANSPORT,1,65+,7/22/2026 22:20,15,88,4,PENDING,
+231,REQ0256,F030,F002,EMERGENCY_TRANSPORT,1,15-39,7/26/2026 20:59,15,50,4,PENDING,
+232,REQ0257,F010,F011,EMERGENCY_TRANSPORT,1,40-64,7/27/2026 20:40,15,37,4,COMPLETED,
+233,REQ0259,F038,F007,EMERGENCY_TRANSPORT,1,40-64,7/16/2026 18:06,15,49,4,COMPLETED,
+234,REQ0260,F018,F015,INTER_FACILITY_REFERRAL,3,15-39,7/29/2026 19:49,90,36,2,COMPLETED,
+235,REQ0261,F062,F014,ELECTIVE_PROCEDURE,3,15-39,7/15/2026 1:55,90,27,2,CANCELLED,
+236,REQ0262,F040,F009,INTER_FACILITY_REFERRAL,4,40-64,7/25/2026 11:57,240,27,1,COMPLETED,
+237,REQ0263,F047,F010,EMERGENCY_TRANSPORT,1,40-64,7/7/2026 8:09,15,56,4,PENDING,
+238,REQ0264,F030,F015,OUTPATIENT_APPOINTMENT,4,40-64,7/23/2026 7:06,240,22,1,COMPLETED,
+239,REQ0265,F034,F003,OUTPATIENT_APPOINTMENT,4,40-64,8/1/2026 9:46,240,15,1,MISSED_WINDOW,
+240,REQ0266,F002,F008,EMERGENCY_TRANSPORT,2,40-64,7/26/2026 20:06,30,39,3,COMPLETED,
+241,REQ0267,F056,F008,EMERGENCY_TRANSPORT,1,15-39,7/7/2026 4:33,15,83,4,IN_TRANSIT,
+242,REQ0268,F018,F010,EMERGENCY_TRANSPORT,1,0-4,7/16/2026 1:21,15,48,4,CANCELLED,
+243,REQ0269,F063,F014,EMERGENCY_TRANSPORT,2,15-39,7/9/2026 6:33,30,57,3,MISSED_WINDOW,
+244,REQ0271,F009,F005,EMERGENCY_TRANSPORT,2,40-64,7/11/2026 14:24,30,40,3,COMPLETED,
+245,REQ0273,F014,F004,INTER_FACILITY_REFERRAL,3,15-39,8/4/2026 2:29,90,29,2,COMPLETED,
+246,REQ0274,F054,F008,EMERGENCY_TRANSPORT,2,40-64,7/3/2026 21:37,30,52,3,PENDING,
+247,REQ0275,F042,F009,OUTPATIENT_APPOINTMENT,4,15-39,7/18/2026 20:53,240,15,1,MISSED_WINDOW,
+248,REQ0277,F042,F001,INTER_FACILITY_REFERRAL,4,40-64,7/3/2026 21:52,240,19,1,IN_TRANSIT,
+249,REQ0278,F033,F007,INTER_FACILITY_REFERRAL,3,15-39,7/29/2026 8:23,90,35,2,IN_TRANSIT,
+250,REQ0280,F071,F014,EMERGENCY_TRANSPORT,1,40-64,7/25/2026 7:41,15,35,4,IN_TRANSIT,
+251,REQ0281,F047,F002,ELECTIVE_PROCEDURE,3,40-64,7/26/2026 8:22,90,39,2,COMPLETED,
+252,REQ0282,F054,F003,EMERGENCY_TRANSPORT,2,15-39,7/18/2026 19:40,30,39,3,PENDING,
+253,REQ0283,F003,F007,OUTPATIENT_APPOINTMENT,3,15-39,7/11/2026 15:45,90,21,2,COMPLETED,
+254,REQ0284,F022,F003,EMERGENCY_TRANSPORT,2,15-39,8/2/2026 11:39,30,22,3,IN_TRANSIT,
+255,REQ0285,F050,F006,INTER_FACILITY_REFERRAL,4,15-39,7/26/2026 16:44,240,25,1,ASSIGNED,
+256,REQ0286,F024,F003,EMERGENCY_TRANSPORT,2,40-64,7/2/2026 3:22,30,24,3,PENDING,
+257,REQ0287,F039,F002,EMERGENCY_TRANSPORT,2,15-39,7/20/2026 2:50,30,60,3,IN_TRANSIT,
+258,REQ0288,F005,F006,OUTPATIENT_APPOINTMENT,3,15-39,7/9/2026 8:51,90,37,2,PENDING,
+259,REQ0289,F068,F010,INTER_FACILITY_REFERRAL,3,40-64,8/3/2026 22:33,90,30,2,MISSED_WINDOW,
+260,REQ0291,F037,F009,INTER_FACILITY_REFERRAL,3,15-39,7/18/2026 10:23,90,19,2,MISSED_WINDOW,
+261,REQ0292,F025,F010,EMERGENCY_TRANSPORT,2,40-64,7/28/2026 6:33,30,20,3,COMPLETED,
+262,REQ0293,F064,F011,ELECTIVE_PROCEDURE,3,65+,7/6/2026 4:42,90,42,2,PENDING,
+263,REQ0294,F062,F008,LAB_SAMPLE_TRANSPORT,3,40-64,7/21/2026 11:51,90,18,2,COMPLETED,
+264,REQ0295,F014,F001,EMERGENCY_TRANSPORT,2,40-64,7/16/2026 17:42,30,34,3,COMPLETED,
+265,REQ0296,F003,F008,OUTPATIENT_APPOINTMENT,4,65+,7/14/2026 15:04,240,26,1,CANCELLED,
+266,REQ0297,F062,F003,ELECTIVE_PROCEDURE,3,15-39,8/4/2026 4:33,90,32,2,MISSED_WINDOW,
+267,REQ0298,F041,F008,EMERGENCY_TRANSPORT,1,15-39,7/28/2026 17:04,15,84,4,ASSIGNED,
+268,REQ0299,F003,F014,INTER_FACILITY_REFERRAL,3,15-39,7/12/2026 12:18,90,19,2,ASSIGNED,
+269,REQ0300,F065,F002,ELECTIVE_PROCEDURE,3,40-64,7/10/2026 22:27,90,36,2,COMPLETED,
+270,REQ0301,F026,F008,EMERGENCY_TRANSPORT,1,15-39,7/18/2026 19:15,15,65,4,MISSED_WINDOW,
+271,REQ0303,F013,F010,EMERGENCY_TRANSPORT,2,15-39,7/19/2026 18:46,30,48,3,ASSIGNED,
+272,REQ0305,F011,F005,INTER_FACILITY_REFERRAL,3,40-64,7/11/2026 13:31,90,38,2,ASSIGNED,
+273,REQ0306,F029,F004,EMERGENCY_TRANSPORT,2,65+,7/2/2026 3:33,30,47,3,COMPLETED,
+274,REQ0307,F006,F008,OUTPATIENT_APPOINTMENT,4,40-64,7/7/2026 8:36,240,27,1,COMPLETED,
+275,REQ0308,F018,F007,EMERGENCY_TRANSPORT,2,15-39,7/29/2026 16:10,30,30,3,ASSIGNED,
+276,REQ0309,F020,F015,INTER_FACILITY_REFERRAL,3,40-64,8/1/2026 4:14,90,30,2,COMPLETED,
+277,REQ0311,F046,F004,ELECTIVE_PROCEDURE,3,15-39,7/19/2026 8:01,90,39,2,COMPLETED,
+278,REQ0312,F066,F007,LAB_SAMPLE_TRANSPORT,3,15-39,7/19/2026 22:56,90,35,2,COMPLETED,
+279,REQ0313,F067,F009,EMERGENCY_TRANSPORT,1,15-39,7/21/2026 3:59,15,79,4,PENDING,
+280,REQ0314,F021,F009,EMERGENCY_TRANSPORT,1,15-39,7/16/2026 15:16,15,70,4,COMPLETED,
+281,REQ0315,F070,F010,EMERGENCY_TRANSPORT,2,15-39,7/26/2026 20:12,30,48,3,COMPLETED,
+282,REQ0316,F004,F014,LAB_SAMPLE_TRANSPORT,3,0-4,7/13/2026 16:47,90,24,2,ASSIGNED,
+283,REQ0317,F050,F010,INTER_FACILITY_REFERRAL,3,15-39,7/30/2026 4:51,90,25,2,MISSED_WINDOW,
+284,REQ0318,F051,F014,EMERGENCY_TRANSPORT,2,15-39,7/10/2026 1:13,30,54,3,MISSED_WINDOW,
+285,REQ0319,F031,F003,EMERGENCY_TRANSPORT,1,15-39,7/26/2026 17:07,15,39,4,ASSIGNED,
+286,REQ0320,F056,F004,EMERGENCY_TRANSPORT,2,15-39,7/20/2026 1:33,30,29,3,ASSIGNED,
+287,REQ0321,F042,F020,EMERGENCY_TRANSPORT,2,40-64,7/5/2026 13:40,30,43,3,COMPLETED,
+288,REQ0322,F117,F065,EMERGENCY_TRANSPORT,2,15-39,7/12/2026 16:23,30,25,3,COMPLETED,
+289,REQ0323,F008,F106,ELECTIVE_PROCEDURE,3,40-64,7/29/2026 7:14,60,45,2,PENDING,
+290,REQ0324,F075,F051,EMERGENCY_TRANSPORT,1,15-39,7/7/2026 11:09,15,48,4,ASSIGNED,
+291,REQ0325,F070,F016,BLOOD_DELIVERY,3,40-64,7/6/2026 0:04,60,33,2,COMPLETED,
+292,REQ0326,F025,F048,OXYGEN_RESUPPLY,1,15-39,7/31/2026 1:11,15,43,4,IN_TRANSIT,
+293,REQ0327,F069,F055,LAB_SAMPLE_TRANSPORT,3,65+,7/18/2026 13:16,60,24,2,TRIAGED,
+294,REQ0328,F024,F090,EMERGENCY_TRANSPORT,3,15-39,7/25/2026 0:51,60,43,2,ASSIGNED,
+295,REQ0329,F058,F037,EMERGENCY_TRANSPORT,3,15-39,7/9/2026 0:11,60,39,2,ASSIGNED,
+296,REQ0330,F063,F054,OXYGEN_RESUPPLY,1,40-64,7/28/2026 19:37,15,80,4,MISSED_WINDOW,
+297,REQ0331,F041,F044,BLOOD_DELIVERY,3,15-39,7/23/2026 3:31,60,17,2,COMPLETED,
+298,REQ0332,F035,F061,EMERGENCY_TRANSPORT,3,40-64,7/16/2026 0:43,60,35,2,COMPLETED,
+299,REQ0333,F088,F106,OXYGEN_RESUPPLY,2,65+,7/17/2026 20:17,30,21,3,MISSED_WINDOW,
+300,REQ0334,F046,F022,LAB_SAMPLE_TRANSPORT,3,15-39,7/14/2026 22:52,60,19,2,COMPLETED,
+301,REQ0335,F051,F112,EMERGENCY_TRANSPORT,2,15-39,7/14/2026 11:42,30,28,3,COMPLETED,
+302,REQ0336,F111,F071,INTER_FACILITY_REFERRAL,2,15-39,7/19/2026 11:14,30,34,3,PENDING,
+303,REQ0337,F023,F020,EMERGENCY_TRANSPORT,2,15-39,7/29/2026 14:22,30,31,3,TRIAGED,
+304,REQ0338,F001,F019,INTER_FACILITY_REFERRAL,2,15-39,7/7/2026 2:12,30,52,3,CANCELLED,
+305,REQ0339,F084,F087,LAB_SAMPLE_TRANSPORT,3,40-64,7/28/2026 3:35,60,27,2,ASSIGNED,
+306,REQ0340,F051,F014,INTER_FACILITY_REFERRAL,2,40-64,7/11/2026 3:13,30,48,3,PENDING,

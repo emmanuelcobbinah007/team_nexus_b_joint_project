@@ -1,33 +1,33 @@
-resource_id,resource_type,name,home_facility_id,capacity,capacity_unit,availability_start,availability_end
-R001,Shuttle,Shuttle 1,F084,10,passengers,0.2916666667,0.7916666667
-R002,Ambulance Crew,Ambulance Crew 1,F075,1,patients/trip,0.75,0.25
-R003,Ambulance Crew,Ambulance Crew 2,F012,1,patients/trip,0.25,0.75
-R004,Shuttle,Shuttle 2,F012,9,passengers,0.25,0.8333333333
-R005,Mobile Clinic Team,Mobile Clinic Team 1,F029,1,cases/trip,0.3333333333,0.7083333333
-R006,Mobile Clinic Team,Mobile Clinic Team 2,F074,3,cases/trip,0.3333333333,0.7083333333
-R007,Mobile Clinic Team,Mobile Clinic Team 3,F006,1,cases/trip,0.3333333333,0.7083333333
-R008,Mobile Clinic Team,Mobile Clinic Team 4,F054,1,cases/trip,0.3333333333,0.6666666667
-R009,Ambulance Crew,Ambulance Crew 3,F040,1,patients/trip,0,0.9993055556
-R010,Mobile Clinic Team,Mobile Clinic Team 5,F014,3,cases/trip,0.3333333333,0.7083333333
-R011,Mobile Clinic Team,Mobile Clinic Team 6,F048,3,cases/trip,0.3333333333,0.7083333333
-R012,Ambulance Crew,Ambulance Crew 4,F008,1,patients/trip,0,0.9993055556
-R013,Mobile Clinic Team,Mobile Clinic Team 7,F100,2,cases/trip,0.3333333333,0.6666666667
-R014,Shuttle,Shuttle 3,F039,15,passengers,0.2916666667,0.7916666667
-R015,Ambulance Crew,Ambulance Crew 5,F100,1,patients/trip,0,0.9993055556
-R016,Ambulance Crew,Ambulance Crew 6,F064,2,patients/trip,0,0.9993055556
-R017,Community Health Technician,CH Technician 1,F078,1,case at a time,0.25,0.5833333333
-R018,Community Health Technician,CH Technician 2,F054,1,case at a time,0.5833333333,0.9166666667
-R019,Ambulance Crew,Ambulance Crew 7,F063,2,patients/trip,0.25,0.75
-R020,Shuttle,Shuttle 4,F044,9,passengers,0.2916666667,0.7916666667
-R021,Mobile Clinic Team,Mobile Clinic Team 8,F075,3,cases/trip,0.3333333333,0.6666666667
-R022,Community Health Technician,CH Technician 3,F035,1,case at a time,0.3333333333,0.7083333333
-R023,Shuttle,Shuttle 5,F094,9,passengers,0.25,0.8333333333
-R024,Mobile Clinic Team,Mobile Clinic Team 9,F037,3,cases/trip,0.3333333333,0.6666666667
-R025,Mobile Clinic Team,Mobile Clinic Team 10,F003,3,cases/trip,0.3333333333,0.6666666667
-R026,Community Health Technician,CH Technician 4,F079,1,case at a time,0.3333333333,0.7083333333
-R027,Ambulance Crew,Ambulance Crew 8,F099,1,patients/trip,0.25,0.75
-R028,Ambulance Crew,Ambulance Crew 9,F051,1,patients/trip,0.75,0.25
-R029,Community Health Technician,CH Technician 5,F022,1,case at a time,0.3333333333,0.7083333333
-R030,Shuttle,Shuttle 6,F114,16,passengers,0.2916666667,0.7916666667
-R031,Ambulance Crew,Ambulance Crew 10,F036,2,patients/trip,0,0.9993055556
-R032,Mobile Clinic Team,Mobile Clinic Team 11,F030,2,cases/trip,0.3333333333,0.6666666667
+resource_id,code,resource_type,home_facility_id,capacity,care_level,available_from,available_to,shift_minutes,is_available
+,R001,RESPONSE_TEAM,F084,10,1,07:00,19:00,720,1
+,R002,AMBULANCE,F075,1,3,18:00,06:00,720,1
+,R003,AMBULANCE,F012,1,3,06:00,18:00,720,1
+,R004,RESPONSE_TEAM,F012,9,1,06:00,20:00,840,1
+,R005,RESPONSE_TEAM,F029,1,2,08:00,17:00,540,1
+,R006,RESPONSE_TEAM,F074,3,2,08:00,17:00,540,1
+,R007,RESPONSE_TEAM,F006,1,2,08:00,17:00,540,1
+,R008,RESPONSE_TEAM,F054,1,2,08:00,16:00,480,1
+,R009,AMBULANCE,F040,1,3,00:00,23:59,1439,1
+,R010,RESPONSE_TEAM,F014,3,2,08:00,17:00,540,1
+,R011,RESPONSE_TEAM,F048,3,2,08:00,17:00,540,1
+,R012,AMBULANCE,F008,1,3,00:00,23:59,1439,1
+,R013,RESPONSE_TEAM,F100,2,2,08:00,16:00,480,1
+,R014,RESPONSE_TEAM,F039,15,1,07:00,19:00,720,1
+,R015,AMBULANCE,F100,1,3,00:00,23:59,1439,1
+,R016,AMBULANCE,F064,2,3,00:00,23:59,1439,1
+,R017,RESPONSE_TEAM,F078,1,2,06:00,14:00,480,1
+,R018,RESPONSE_TEAM,F054,1,2,14:00,22:00,480,1
+,R019,AMBULANCE,F063,2,3,06:00,18:00,720,1
+,R020,RESPONSE_TEAM,F044,9,1,07:00,19:00,720,1
+,R021,RESPONSE_TEAM,F075,3,2,08:00,16:00,480,1
+,R022,RESPONSE_TEAM,F035,1,2,08:00,17:00,540,1
+,R023,RESPONSE_TEAM,F094,9,1,06:00,20:00,840,1
+,R024,RESPONSE_TEAM,F037,3,2,08:00,16:00,480,1
+,R025,RESPONSE_TEAM,F003,3,2,08:00,16:00,480,1
+,R026,RESPONSE_TEAM,F079,1,2,08:00,17:00,540,1
+,R027,AMBULANCE,F099,1,3,06:00,18:00,720,1
+,R028,AMBULANCE,F051,1,3,18:00,06:00,720,1
+,R029,RESPONSE_TEAM,F022,1,2,08:00,17:00,540,1
+,R030,RESPONSE_TEAM,F114,16,1,07:00,19:00,720,1
+,R031,AMBULANCE,F036,2,3,00:00,23:59,1439,1
+,R032,RESPONSE_TEAM,F030,2,2,08:00,16:00,480,1

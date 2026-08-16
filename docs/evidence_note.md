@@ -35,18 +35,21 @@ report can cite them accurately.
 
 ## Known limitations
 
-- **The dataset does not currently join.** `data/locations.csv` (the real,
-  150-row facility list) has no `facility_id` column, while
-  `data/roads.csv`, `data/resources.csv`, and `data/request.csv` already
-  reference facility IDs (`F001`–`F117`) against a master facility list
-  that doesn't exist yet — see the note left in `data/facilities.csv` for
-  the specifics (only 4 of 71 facility names in `request.csv` currently
-  resolve against `locations.csv`). Nothing downstream (loader, schema,
-  algorithms) can be exercised on the real dataset until this is resolved.
-- `docs/data_dictionary.md` still describes the original placeholder column
-  layout (`facility_id, name, type, latitude, longitude, capacity`), not
-  the actual columns in `locations.csv`/`roads.csv`/`request.csv`/
-  `resources.csv`. Needs updating once the join gap above is resolved, so
-  the dictionary describes real files rather than superseded ones.
-- _(fill in once resolved: what the synthetic data does not capture,
-  simplifications made for the DSA benchmarks)_
+- **The dataset now joins, but 46 of the 117 facility records are not
+  verified real institutions.** `data/locations.csv` was rebuilt (2026-08-09)
+  with a `code` column covering all `F001`–`F117` referenced by
+  `data/roads.csv`/`data/resources.csv`/`data/request.csv`. 4 facilities kept
+  their original real coordinates; 71 have names recovered from
+  `request.csv`'s redundant source/destination columns, of which 5
+  well-known institutions were verified via web search and the rest use
+  real Greater Accra district/neighborhood names with `facility_type`
+  derived from the name suffix. The remaining **46 facility records were
+  invented** — real place names and plausible coordinates, but not verified
+  individual institutions, since no source for them existed anywhere on the
+  team. Neither the original master list Sub-team A generated
+  `roads.csv`/`resources.csv`/`request.csv` against, nor any record of who
+  built it, could be recovered (Franca and John both confirmed they don't
+  have it). Treat those 46 rows as synthetic filler, not researched fact,
+  until someone verifies or replaces them.
+- _(fill in: what the synthetic data does not capture, simplifications
+  made for the DSA benchmarks)_
