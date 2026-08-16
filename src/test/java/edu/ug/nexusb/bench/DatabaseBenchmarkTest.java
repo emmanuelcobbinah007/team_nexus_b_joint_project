@@ -32,4 +32,5 @@ class DatabaseBenchmarkTest {
         assertEquals(1000, result.getInputSize());
         assertTrue(result.getTimeNs() > 0, "Average time should be greater than 0 nanoseconds");
     }
+    
 }
