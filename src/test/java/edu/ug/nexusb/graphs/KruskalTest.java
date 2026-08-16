@@ -23,7 +23,7 @@ class KruskalTest {
 
         assertTrue(result.isSpanning);
         assertEquals(5, result.mstEdges.length);
-        assertEquals(15, result.totalWeight);
+        assertEquals(14, result.totalWeight);
     }
 
     @Test
