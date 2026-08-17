@@ -84,6 +84,29 @@ there's exactly one definition of edge cost.
 
 Schema mirrored in [`data/schema.sql`](../data/schema.sql). Keep both in sync.
 
+## `audit_event` (not CSV-loaded — written by `AuditDao`)
+
+Unlike the tables above, this one isn't populated by `DBLoader` from a CSV.
+It's an append-only log written at runtime by
+[`AuditDao`](../src/main/java/edu/ug/nexusb/data/AuditDao.java) every time a
+decision is recorded or undone, backing the stack-based undo feature in
+[`AuditTrail`](../src/main/java/edu/ug/nexusb/data/AuditTrail.java) and
+[`AuditLog`](../src/main/java/edu/ug/nexusb/data/AuditLog.java).
+
+| Field | Type | Description |
+|---|---|---|
+| event_id | int | Autoincrementing primary key |
+| event_type | string | One of `TRIAGED`, `ASSIGNED`, `STATUS_CHANGED`, `UNDONE` |
+| entity_type | string | One of `CASE`, `RESOURCE`, `ASSIGNMENT` — what kind of thing the decision was about |
+| entity_id | int | The ID of that case/resource/assignment |
+| previous_state | string | Nullable; what the entity's state was before the decision |
+| new_state | string | What the entity's state became after the decision |
+| occurred_at | string | ISO-8601 timestamp, set by `AuditEvent.of()` |
+
+Undo doesn't delete rows — it writes a new row with `event_type = UNDONE`
+where `previous_state`/`new_state` are swapped from the original event, so
+the table stays a complete, append-only history rather than an editable log.
+
 ## Index-number-derived parameters
 
 The three algorithm parameters required by the brief (hash table initial
