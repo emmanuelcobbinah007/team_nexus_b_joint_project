@@ -26,5 +26,14 @@ Blocked
 
  Next
   - Week 2 kickoff: all sub-teams begin implementing their assigned structures
-  - Flag: RB-tree decision checkpoint on Wed 5 Aug (Cobbinah)
+  - Flag: RB-tree decision checkpoint on Wed 5 Aug (Cobbinah) — resolved:
+    stayed with Red-Black over switching to a simplified AVL tree; implemented
+    with full insertion + deletion rebalancing, tests, and Javadoc (T019)
   - My own task starting: T038 (graph builder from DB) once T036 and T016 are done
+
+## Feature Freeze — in effect (Cobbinah)
+
+As of this week, feature freeze is in effect per the fixed project dates:
+fixes, measurements, and documentation only from here on. PRs adding new
+features will be closed rather than merged; the "no tests, no merge" rule in
+CONTRIBUTING.md is enforced on every review from this point forward.

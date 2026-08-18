@@ -5,17 +5,37 @@ import edu.ug.nexusb.core.MyIterator;
 import edu.ug.nexusb.core.StructureException;
 
 /**
- * Separate-chaining hash table implementing {@link MyHashTable} (T030).
- * Each bucket is a singly-linked chain of hand-rolled nodes — no
- * {@code java.util} list backs it, consistent with the rest of this
- * package.
+ * A {@link MyHashTable} implementation using separate chaining, sized on
+ * construction with {@link #INITIAL_TABLE_SIZE} - the hash-table-size
+ * parameter derived from the team's index numbers in {@code docs/parameters.md}
+ * (T005), so this table never starts at a hardcoded literal.
+ *
+ * <p>Each bucket is a singly-linked chain of {@link Node}s. A lookup walks
+ * the target bucket's chain comparing keys with {@link Object#equals}; a
+ * chain longer than one entry is exactly what {@link #collisionCount()} is
+ * counting, and {@link #longestBucket()} is the longest such chain right
+ * now. When the load factor exceeds {@value #LOAD_FACTOR_THRESHOLD} after an
+ * insert, every entry is rehashed into a new bucket array roughly double the
+ * size (rounded up to the next prime, same reasoning
+ * {@code docs/parameters.md} used to pick 53 - a prime table length spreads
+ * hash values more evenly than a power of two when the hash function itself
+ * has structure, e.g. sequential integer keys).
+ *
+ * <p>As documented on {@link MyHashTable}, {@link #resetCounters()} widens
+ * the inherited {@code Instrumented} contract to also zero
+ * {@link #collisionCount()} and {@link #resizeCount()}, so a benchmark
+ * repetition never inherits collision/resize counts from the previous one.
  *
  * @param <K> the key type
  * @param <V> the value type
  */
-public class ChainedHashTable<K, V> implements MyHashTable<K, V> {
+public final class ChainedHashTable<K, V> implements MyHashTable<K, V> {
 
-    /** Index-number-derived starting capacity — see docs/parameters.md. */
+    /**
+     * The starting bucket-array length, derived in {@code docs/parameters.md}
+     * (T005) from the team roster's index numbers rather than chosen
+     * arbitrarily.
+     */
     public static final int INITIAL_TABLE_SIZE = 53;
 
     private static final double LOAD_FACTOR_THRESHOLD = 0.75;
@@ -32,11 +52,11 @@ public class ChainedHashTable<K, V> implements MyHashTable<K, V> {
         }
     }
 
-    private static final class Entry<K, V> implements MapEntry<K, V> {
+    private static final class SimpleEntry<K, V> implements MapEntry<K, V> {
         private final K key;
         private final V value;
 
-        Entry(K key, V value) {
+        SimpleEntry(K key, V value) {
             this.key = key;
             this.value = value;
         }
@@ -52,112 +72,281 @@ public class ChainedHashTable<K, V> implements MyHashTable<K, V> {
         }
     }
 
+    /** A minimal growable {@code Object[]} buffer - the {@code java.util}-free substitute for a list. */
+    private static final class ObjBuffer {
+        private Object[] data = new Object[8];
+        private int count = 0;
+
+        void add(Object o) {
+            if (count == data.length) {
+                Object[] grown = new Object[data.length * 2];
+                System.arraycopy(data, 0, grown, 0, count);
+                data = grown;
+            }
+            data[count++] = o;
+        }
+    }
+
+    private final class SnapshotIterable<T> implements MyIterable<T> {
+        private final Object[] data;
+        private final int count;
+        private final int snapshotModCount;
+
+        SnapshotIterable(ObjBuffer buffer, int snapshotModCount) {
+            this.data = buffer.data;
+            this.count = buffer.count;
+            this.snapshotModCount = snapshotModCount;
+        }
+
+        @Override
+        public MyIterator<T> iterator() {
+            return new MyIterator<T>() {
+                private int position = 0;
+
+                @Override
+                public boolean hasNext() {
+                    return position < count;
+                }
+
+                @Override
+                @SuppressWarnings("unchecked")
+                public T next() {
+                    if (modCount != snapshotModCount) {
+                        throw new StructureException(
+                                "table was structurally modified since this iterator was created");
+                    }
+                    if (position >= count) {
+                        throw new StructureException("no more elements");
+                    }
+                    return (T) data[position++];
+                }
+            };
+        }
+    }
+
     private Node<K, V>[] buckets;
     private int size;
-    private int collisionCount;
-    private int resizeCount;
-    private long comparisonCount;
-    private long movementCount;
+    private int collisions;
+    private int resizes;
+    private long comparisons;
+    private long movements;
+    private int modCount;
 
-    /** Creates an empty table starting at {@link #INITIAL_TABLE_SIZE}. */
+    /** Creates an empty table starting at {@link #INITIAL_TABLE_SIZE} buckets. */
     public ChainedHashTable() {
         this(INITIAL_TABLE_SIZE);
     }
 
     /**
-     * Creates an empty table with a given starting capacity.
+     * Creates an empty table starting at {@code initialCapacity} buckets -
+     * package-private, so tests can exercise resize behavior without
+     * needing to insert past the real {@link #INITIAL_TABLE_SIZE}.
      *
-     * @param initialCapacity starting bucket-array length; must be positive
+     * @param initialCapacity the starting bucket-array length
      * @throws IllegalArgumentException if {@code initialCapacity} is not positive
      */
-    @SuppressWarnings("unchecked")
-    public ChainedHashTable(int initialCapacity) {
+    ChainedHashTable(int initialCapacity) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException("initialCapacity must be positive");
         }
-        this.buckets = new Node[initialCapacity];
-        this.size = 0;
+        this.buckets = newBucketArray(initialCapacity);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Node<K, V>[] newBucketArray(int capacity) {
+        return (Node<K, V>[]) new Node[capacity];
+    }
+
+    private int bucketIndex(K key, int tableLength) {
+        int h = key.hashCode();
+        h ^= (h >>> 16); // spread high bits into low bits, same idea java.util.HashMap uses
+        return (h & 0x7fffffff) % tableLength;
+    }
+
+    private boolean sameKey(K a, K b) {
+        comparisons++;
+        return a.equals(b);
+    }
+
+    // ------------------------------------------------------------------
+    // Instrumented
+    // ------------------------------------------------------------------
+
+    @Override
+    public long comparisonCount() {
+        return comparisons;
     }
 
     @Override
-    public V put(K key, V value) {
-        requireKey(key);
-        int index = indexFor(key, buckets.length);
-        Node<K, V> current = buckets[index];
-        while (current != null) {
-            comparisonCount++;
-            if (current.key.equals(key)) {
-                V previous = current.value;
-                current.value = value;
-                movementCount++;
-                return previous;
+    public long movementCount() {
+        return movements;
+    }
+
+    @Override
+    public void resetCounters() {
+        comparisons = 0;
+        movements = 0;
+        collisions = 0;
+        resizes = 0;
+    }
+
+    // ------------------------------------------------------------------
+    // MyHashTable
+    // ------------------------------------------------------------------
+
+    @Override
+    public int collisionCount() {
+        return collisions;
+    }
+
+    @Override
+    public double loadFactor() {
+        return (double) size / buckets.length;
+    }
+
+    @Override
+    public int longestBucket() {
+        int longest = 0;
+        for (Node<K, V> head : buckets) {
+            int length = 0;
+            for (Node<K, V> node = head; node != null; node = node.next) {
+                length++;
             }
-            current = current.next;
+            longest = Math.max(longest, length);
         }
+        return longest;
+    }
 
-        if (buckets[index] != null) {
-            collisionCount++;
+    @Override
+    public int resizeCount() {
+        return resizes;
+    }
+
+    @Override
+    public int capacity() {
+        return buckets.length;
+    }
+
+    // ------------------------------------------------------------------
+    // MyMap
+    // ------------------------------------------------------------------
+
+    @Override
+    public V put(K key, V value) {
+        if (key == null) {
+            throw new IllegalArgumentException("key must not be null");
         }
-        buckets[index] = new Node<>(key, value, buckets[index]);
+        int idx = bucketIndex(key, buckets.length);
+        for (Node<K, V> node = buckets[idx]; node != null; node = node.next) {
+            if (sameKey(node.key, key)) {
+                V old = node.value;
+                node.value = value;
+                movements++;
+                return old;
+            }
+        }
+        if (buckets[idx] != null) {
+            collisions++;
+        }
+        buckets[idx] = new Node<>(key, value, buckets[idx]);
+        movements++;
         size++;
-        movementCount++;
-
+        modCount++;
         if (loadFactor() > LOAD_FACTOR_THRESHOLD) {
-            resize(buckets.length * 2);
+            resize();
         }
         return null;
     }
 
+    private void resize() {
+        Node<K, V>[] old = buckets;
+        int newCapacity = nextPrime(old.length * 2);
+        Node<K, V>[] fresh = newBucketArray(newCapacity);
+        for (Node<K, V> head : old) {
+            Node<K, V> node = head;
+            while (node != null) {
+                Node<K, V> next = node.next;
+                int idx = bucketIndex(node.key, newCapacity);
+                node.next = fresh[idx];
+                fresh[idx] = node;
+                movements++;
+                node = next;
+            }
+        }
+        buckets = fresh;
+        resizes++;
+    }
+
+    private static boolean isPrime(int n) {
+        if (n < 2) {
+            return false;
+        }
+        for (int i = 2; (long) i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static int nextPrime(int from) {
+        int candidate = Math.max(from, 2);
+        while (!isPrime(candidate)) {
+            candidate++;
+        }
+        return candidate;
+    }
+
     @Override
     public V get(K key) {
-        requireKey(key);
-        Node<K, V> current = buckets[indexFor(key, buckets.length)];
-        while (current != null) {
-            comparisonCount++;
-            if (current.key.equals(key)) {
-                return current.value;
+        if (key == null) {
+            throw new IllegalArgumentException("key must not be null");
+        }
+        Node<K, V> node = findNode(key);
+        return node == null ? null : node.value;
+    }
+
+    @Override
+    public boolean containsKey(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key must not be null");
+        }
+        return findNode(key) != null;
+    }
+
+    private Node<K, V> findNode(K key) {
+        for (Node<K, V> node = buckets[bucketIndex(key, buckets.length)]; node != null; node = node.next) {
+            if (sameKey(node.key, key)) {
+                return node;
             }
-            current = current.next;
         }
         return null;
     }
 
     @Override
     public V remove(K key) {
-        requireKey(key);
-        int index = indexFor(key, buckets.length);
-        Node<K, V> current = buckets[index];
-        Node<K, V> previous = null;
-        while (current != null) {
-            comparisonCount++;
-            if (current.key.equals(key)) {
-                if (previous == null) {
-                    buckets[index] = current.next;
+        if (key == null) {
+            throw new IllegalArgumentException("key must not be null");
+        }
+        int idx = bucketIndex(key, buckets.length);
+        Node<K, V> node = buckets[idx];
+        Node<K, V> prev = null;
+        while (node != null) {
+            if (sameKey(node.key, key)) {
+                if (prev == null) {
+                    buckets[idx] = node.next;
                 } else {
-                    previous.next = current.next;
+                    prev.next = node.next;
                 }
+                movements++;
                 size--;
-                movementCount++;
-                return current.value;
+                modCount++;
+                return node.value;
             }
-            previous = current;
-            current = current.next;
+            prev = node;
+            node = node.next;
         }
         return null;
-    }
-
-    @Override
-    public boolean containsKey(K key) {
-        requireKey(key);
-        Node<K, V> current = buckets[indexFor(key, buckets.length)];
-        while (current != null) {
-            comparisonCount++;
-            if (current.key.equals(key)) {
-                return true;
-            }
-            current = current.next;
-        }
-        return false;
     }
 
     @Override
@@ -172,115 +361,12 @@ public class ChainedHashTable<K, V> implements MyHashTable<K, V> {
 
     @Override
     public MyIterable<MapEntry<K, V>> entries() {
-        @SuppressWarnings("unchecked")
-        MapEntry<K, V>[] snapshot = new MapEntry[size];
-        int i = 0;
-        for (Node<K, V> bucket : buckets) {
-            for (Node<K, V> current = bucket; current != null; current = current.next) {
-                snapshot[i] = new Entry<>(current.key, current.value);
-                i++;
+        ObjBuffer buffer = new ObjBuffer();
+        for (Node<K, V> head : buckets) {
+            for (Node<K, V> node = head; node != null; node = node.next) {
+                buffer.add(new SimpleEntry<>(node.key, node.value));
             }
         }
-        return arrayIterable(snapshot);
-    }
-
-    @Override
-    public int collisionCount() {
-        return collisionCount;
-    }
-
-    @Override
-    public double loadFactor() {
-        return ((double) size) / buckets.length;
-    }
-
-    @Override
-    public int longestBucket() {
-        int max = 0;
-        for (Node<K, V> bucket : buckets) {
-            int length = 0;
-            for (Node<K, V> current = bucket; current != null; current = current.next) {
-                length++;
-            }
-            if (length > max) {
-                max = length;
-            }
-        }
-        return max;
-    }
-
-    @Override
-    public int resizeCount() {
-        return resizeCount;
-    }
-
-    @Override
-    public int capacity() {
-        return buckets.length;
-    }
-
-    @Override
-    public long comparisonCount() {
-        return comparisonCount;
-    }
-
-    @Override
-    public long movementCount() {
-        return movementCount;
-    }
-
-    @Override
-    public void resetCounters() {
-        comparisonCount = 0;
-        movementCount = 0;
-        collisionCount = 0;
-        resizeCount = 0;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void resize(int newCapacity) {
-        Node<K, V>[] oldBuckets = buckets;
-        buckets = new Node[newCapacity];
-        for (Node<K, V> bucket : oldBuckets) {
-            Node<K, V> current = bucket;
-            while (current != null) {
-                Node<K, V> next = current.next;
-                int index = indexFor(current.key, newCapacity);
-                current.next = buckets[index];
-                buckets[index] = current;
-                movementCount++;
-                current = next;
-            }
-        }
-        resizeCount++;
-    }
-
-    private static int indexFor(Object key, int capacity) {
-        return Math.floorMod(key.hashCode(), capacity);
-    }
-
-    private static void requireKey(Object key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key must not be null");
-        }
-    }
-
-    private static <T> MyIterable<T> arrayIterable(T[] items) {
-        return () -> new MyIterator<T>() {
-            private int index = 0;
-
-            @Override
-            public boolean hasNext() {
-                return index < items.length;
-            }
-
-            @Override
-            public T next() {
-                if (!hasNext()) {
-                    throw new StructureException("iterator has no more elements");
-                }
-                return items[index++];
-            }
-        };
+        return new SnapshotIterable<>(buffer, modCount);
     }
 }
