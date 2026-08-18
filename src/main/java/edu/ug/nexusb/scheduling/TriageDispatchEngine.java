@@ -8,8 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 // Wires the triage heap to case_request in the database:
 //   cases (PENDING rows) -> triage heap -> status writes back to the DB
@@ -20,10 +19,11 @@ import java.util.List;
 // database file rather than trying to reuse DBLoader's (which isn't
 // possible - it's already closed by then).
 //
-// NOTE ON java.util: DBLoader.java itself already imports java.util.HashMap
-// for its facility code lookup, so java.util collections are clearly fine
-// for general app plumbing like this. The "build it by hand" rule is about
-// the actual graded data structures (the heap below), not this class.
+// NOTE ON java.util: DBLoader.java's HashMap usage is fine specifically
+// because DBLoader lives in the data/ package, which the CI check exempts
+// outright (see .github/workflows/build.yml) - not because "app plumbing"
+// is exempt in general. This class lives in scheduling/, which isn't
+// exempted, so loadPendingCases() below grows a plain array by hand instead.
 public class TriageDispatchEngine implements AutoCloseable {
 
     private static final String DB_URL = "jdbc:sqlite:nexus.db";
@@ -52,7 +52,8 @@ public class TriageDispatchEngine implements AutoCloseable {
         String sql = "SELECT case_id, triage_level, requested_at "
                 + "FROM case_request WHERE status = 'PENDING'";
 
-        List<TriageCase> loaded = new ArrayList<>();
+        TriageCase[] loaded = new TriageCase[16];
+        int count = 0;
 
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet results = statement.executeQuery()) {
@@ -61,11 +62,14 @@ public class TriageDispatchEngine implements AutoCloseable {
                 int caseId = results.getInt("case_id");
                 int triageLevel = results.getInt("triage_level");
                 String requestedAt = results.getString("requested_at");
-                loaded.add(new TriageCase(caseId, triageLevel, requestedAt));
+                if (count == loaded.length) {
+                    loaded = Arrays.copyOf(loaded, loaded.length * 2);
+                }
+                loaded[count++] = new TriageCase(caseId, triageLevel, requestedAt);
             }
         }
 
-        TriageCase[] items = loaded.toArray(new TriageCase[0]);
+        TriageCase[] items = Arrays.copyOf(loaded, count);
         triageHeap.heapify(items);
     }
 
