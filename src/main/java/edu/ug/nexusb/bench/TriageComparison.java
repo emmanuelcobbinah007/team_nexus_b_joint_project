@@ -30,6 +30,30 @@ public class TriageComparison {
         }
     }
 
+    /** The two dispatch modes' average wait times over the same case list. */
+    public static class ComparisonResult {
+        public final double fcfsAverageWait;
+        public final double priorityAverageWait;
+
+        public ComparisonResult(double fcfsAverageWait, double priorityAverageWait) {
+            this.fcfsAverageWait = fcfsAverageWait;
+            this.priorityAverageWait = priorityAverageWait;
+        }
+    }
+
+    /**
+     * Simulates dispatching {@code cases} two ways over a fixed 2-time-unit
+     * processing cost per case -- first-come-first-served (arrival-time
+     * order) and triage-priority (severity, then arrival time, via {@link
+     * TriageCase#compareTo}) -- and returns the average wait time under each.
+     *
+     * @throws IllegalArgumentException if {@code cases} is null, empty, or contains a null element
+     */
+    public static ComparisonResult compare(List<TriageCase> cases) {
+        requireCases(cases);
+        return new ComparisonResult(runFcfs(cases, false), runPriority(cases, false));
+    }
+
     public static void runComparison() {
         System.out.println("=== FCFS vs. Triage-Priority Dispatch Comparison ===");
 
@@ -41,36 +65,62 @@ public class TriageComparison {
             new TriageCase("C004", 4, 1)  // Another high priority
         );
 
-        // 1. Evaluate First-Come-First-Served (FCFS)
         System.out.println("\n--- Running FCFS (First-Come-First-Served) ---");
-        Queue<TriageCase> fcfsQueue = new LinkedList<>(cases);
-        int currentTime = 0;
-        double totalFcfsWait = 0;
+        double fcfsAverageWait = runFcfs(cases, true);
+        System.out.println("Average FCFS Wait Time: " + fcfsAverageWait + " units");
 
-        while (!fcfsQueue.isEmpty()) {
-            TriageCase c = fcfsQueue.poll();
+        System.out.println("\n--- Running Triage-Priority Mode ---");
+        double priorityAverageWait = runPriority(cases, true);
+        System.out.println("Average Triage-Priority Wait Time: " + priorityAverageWait + " units");
+
+        System.out.println("\n=== Comparison Complete ===");
+    }
+
+    // FCFS means arrival-time order, not "whatever order the caller's list
+    // happens to be in" -- explicitly sorting a copy is what makes this
+    // correct for a cases list that isn't already arrival-ordered.
+    private static double runFcfs(List<TriageCase> cases, boolean verbose) {
+        List<TriageCase> ordered = new ArrayList<>(cases);
+        ordered.sort(Comparator.comparingInt(TriageCase::getArrivalTime));
+
+        int currentTime = 0;
+        double totalWait = 0;
+        for (TriageCase c : ordered) {
             int waitTime = Math.max(0, currentTime - c.getArrivalTime());
-            totalFcfsWait += waitTime;
-            System.out.println("Processed Case: " + c.getCaseId() + " | Arrival: " + c.getArrivalTime() + " | Wait Time: " + waitTime);
+            totalWait += waitTime;
+            if (verbose) {
+                System.out.println("Processed Case: " + c.getCaseId() + " | Arrival: " + c.getArrivalTime() + " | Wait Time: " + waitTime);
+            }
             currentTime += 2; // Assume 2 units of processing time per case
         }
-        System.out.println("Average FCFS Wait Time: " + (totalFcfsWait / cases.size()) + " units");
+        return totalWait / cases.size();
+    }
 
-        // 2. Evaluate Triage-Priority
-        System.out.println("\n--- Running Triage-Priority Mode ---");
-        PriorityQueue<TriageCase> priorityQueue = new PriorityQueue<>(cases);
-        currentTime = 0;
-        double totalPriorityWait = 0;
-
-        while (!priorityQueue.isEmpty()) {
-            TriageCase c = priorityQueue.poll();
+    private static double runPriority(List<TriageCase> cases, boolean verbose) {
+        PriorityQueue<TriageCase> queue = new PriorityQueue<>(cases);
+        int currentTime = 0;
+        double totalWait = 0;
+        while (!queue.isEmpty()) {
+            TriageCase c = queue.poll();
             int waitTime = Math.max(0, currentTime - c.getArrivalTime());
-            totalPriorityWait += waitTime;
-            System.out.println("Processed Case: " + c.getCaseId() + " | Priority: " + c.getSeverityPriority() + " | Wait Time: " + waitTime);
+            totalWait += waitTime;
+            if (verbose) {
+                System.out.println("Processed Case: " + c.getCaseId() + " | Priority: " + c.getSeverityPriority() + " | Wait Time: " + waitTime);
+            }
             currentTime += 2;
         }
-        System.out.println("Average Triage-Priority Wait Time: " + (totalPriorityWait / cases.size()) + " units");
-        System.out.println("\n=== Comparison Complete ===");
+        return totalWait / cases.size();
+    }
+
+    private static void requireCases(List<TriageCase> cases) {
+        if (cases == null || cases.isEmpty()) {
+            throw new IllegalArgumentException("cases must not be null or empty");
+        }
+        for (TriageCase c : cases) {
+            if (c == null) {
+                throw new IllegalArgumentException("cases must not contain a null element");
+            }
+        }
     }
 
     public static void main(String[] args) {
