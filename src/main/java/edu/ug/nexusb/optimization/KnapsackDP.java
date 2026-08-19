@@ -31,15 +31,35 @@ public class KnapsackDP {
      * @param values Array of values (e.g., priority/urgency level)
      * @param capacity The maximum capacity constraint (e.g., ambulance capacity or budget)
      * @return KnapsackResult containing the max value, tabulation table, and chosen items
+     * @throws IllegalArgumentException if {@code weights} or {@code values} is null, they
+     *         differ in length, {@code capacity} is negative, or any weight is negative
+     *         (a negative weight would push the DP table index below zero)
      */
     public KnapsackResult solve(int[] weights, int[] values, int capacity) {
+        if (weights == null || values == null) {
+            throw new IllegalArgumentException("weights and values must not be null");
+        }
+        if (weights.length != values.length) {
+            throw new IllegalArgumentException("weights and values must have the same length");
+        }
+        if (capacity < 0) {
+            throw new IllegalArgumentException("capacity must not be negative");
+        }
+        for (int weight : weights) {
+            if (weight < 0) {
+                throw new IllegalArgumentException("weights must not be negative");
+            }
+        }
+
         int n = weights.length;
         int[][] dp = new int[n + 1][capacity + 1];
 
         // 1. Build the DP table (Tabulation)
         for (int i = 0; i <= n; i++) {
             for (int w = 0; w <= capacity; w++) {
-                if (i == 0 || w == 0) {
+                if (i == 0) {
+                    // w == 0 is not its own base case here: a zero-weight item must
+                    // still be eligible for inclusion at w == 0 via the branch below.
                     dp[i][w] = 0;
                 } else if (weights[i - 1] <= w) {
                     dp[i][w] = Math.max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w]);

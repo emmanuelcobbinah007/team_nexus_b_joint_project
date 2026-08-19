@@ -1,6 +1,6 @@
 package edu.ug.nexusb.optimization;
 
-import edu.ug.nexusb.graphs.Graph;
+import edu.ug.nexusb.graphs.MyGraph;
 import edu.ug.nexusb.graphs.PathResult;
 import edu.ug.nexusb.graphs.Dijkstra;
 
@@ -25,7 +25,7 @@ public class GreedyDispatch {
      * GREEDY DISPATCH HEURISTIC (Nearest Facility First)
      * Uses T046 Dijkstra shortest paths to pick the closest facility first.
      */
-    public static String[] runGreedyDispatch(String resourceStationId, CaseRequest[] requests, Graph roadNetwork) {
+    public static String[] runGreedyDispatch(String resourceStationId, CaseRequest[] requests, MyGraph roadNetwork) {
         PathResult pathResult = Dijkstra.shortestPaths(roadNetwork, resourceStationId);
 
         // Sort copy array by distance (Greedy Choice)
@@ -53,7 +53,7 @@ public class GreedyDispatch {
      * OPTIMAL DISPATCH BENCHMARK
      * Minimizes Total Triage Delay Penalty by combining distance and priority weight.
      */
-    public static String[] runOptimalDispatch(String resourceStationId, CaseRequest[] requests, Graph roadNetwork) {
+    public static String[] runOptimalDispatch(String resourceStationId, CaseRequest[] requests, MyGraph roadNetwork) {
         PathResult pathResult = Dijkstra.shortestPaths(roadNetwork, resourceStationId);
 
         CaseRequest[] sorted = requests.clone();
