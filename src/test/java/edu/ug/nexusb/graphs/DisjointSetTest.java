@@ -1,43 +1,26 @@
 package edu.ug.nexusb.graphs;
 
-public class DisjointSetTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    private static int passed = 0;
-    private static int failed = 0;
+import org.junit.jupiter.api.Test;
 
-    public static void main(String[] args) {
-        run("testInitialState", DisjointSetTest::testInitialState);
-        run("testUnionBasic", DisjointSetTest::testUnionBasic);
-        run("testUnionAlreadyConnected", DisjointSetTest::testUnionAlreadyConnected);
-        run("testUnionChain", DisjointSetTest::testUnionChain);
-        run("testDisjointGroups", DisjointSetTest::testDisjointGroups);
-        run("testUnionAll", DisjointSetTest::testUnionAll);
-        run("testPathCompressionFlattensTree", DisjointSetTest::testPathCompressionFlattensTree);
-        run("testUnionByRankKeepsTreeShallow", DisjointSetTest::testUnionByRankKeepsTreeShallow);
-        run("testOutOfRangeThrows", DisjointSetTest::testOutOfRangeThrows);
-        run("testNegativeNThrows", DisjointSetTest::testNegativeNThrows);
-        run("testSingleElement", DisjointSetTest::testSingleElement);
-        run("testZeroElements", DisjointSetTest::testZeroElements);
+/**
+ * {@link DisjointSet} is Kruskal's actual union-find dependency
+ * ({@link Kruskal#run} constructs one directly), so these checks matter
+ * beyond {@link FacilityDisjointSetTest}, which covers the newer id-based
+ * wrapper rather than this index-based implementation itself.
+ */
+class DisjointSetTest {
 
-        System.out.println();
-        System.out.println(passed + " passed, " + failed + " failed");
-        if (failed > 0) {
-            System.exit(1);
-        }
-    }
+    // ------------------------------------------------------------------
+    // Normal case
+    // ------------------------------------------------------------------
 
-    private static void run(String name, Runnable test) {
-        try {
-            test.run();
-            System.out.println("PASS  " + name);
-            passed++;
-        } catch (Throwable t) {
-            System.out.println("FAIL  " + name + "  -> " + t);
-            failed++;
-        }
-    }
-
-    private static void testInitialState() {
+    @Test
+    void initialStateHasEachElementInItsOwnSet() {
         DisjointSet ds = new DisjointSet(5);
         for (int i = 0; i < 5; i++) {
             assertEquals(i, ds.find(i));
@@ -45,21 +28,24 @@ public class DisjointSetTest {
         assertEquals(5, ds.setCount());
     }
 
-    private static void testUnionBasic() {
+    @Test
+    void unionMergesTwoSetsAndReturnsTrue() {
         DisjointSet ds = new DisjointSet(5);
         assertTrue(ds.union(0, 1));
         assertTrue(ds.connected(0, 1));
         assertEquals(4, ds.setCount());
     }
 
-    private static void testUnionAlreadyConnected() {
+    @Test
+    void unionOnAlreadyConnectedElementsReturnsFalse() {
         DisjointSet ds = new DisjointSet(5);
         ds.union(0, 1);
         assertFalse(ds.union(0, 1));
         assertEquals(4, ds.setCount());
     }
 
-    private static void testUnionChain() {
+    @Test
+    void unionChainConnectsAllElementsInTheChain() {
         DisjointSet ds = new DisjointSet(6);
         ds.union(0, 1);
         ds.union(1, 2);
@@ -69,7 +55,8 @@ public class DisjointSetTest {
         assertEquals(3, ds.setCount()); // {0,1,2,3}, {4}, {5}
     }
 
-    private static void testDisjointGroups() {
+    @Test
+    void disjointGroupsStayDisjointUntilUnioned() {
         DisjointSet ds = new DisjointSet(6);
         ds.union(0, 1);
         ds.union(2, 3);
@@ -82,7 +69,8 @@ public class DisjointSetTest {
         assertEquals(3, ds.setCount());
     }
 
-    private static void testUnionAll() {
+    @Test
+    void unioningEveryElementCollapsesToASingleSet() {
         int n = 10;
         DisjointSet ds = new DisjointSet(n);
         for (int i = 0; i < n - 1; i++) {
@@ -94,7 +82,8 @@ public class DisjointSetTest {
         }
     }
 
-    private static void testPathCompressionFlattensTree() {
+    @Test
+    void pathCompressionFlattensTheTree() {
         DisjointSet ds = new DisjointSet(5);
         ds.union(0, 1);
         ds.union(1, 2);
@@ -106,7 +95,8 @@ public class DisjointSetTest {
         }
     }
 
-    private static void testUnionByRankKeepsTreeShallow() {
+    @Test
+    void unionByRankKeepsTheTreeShallow() {
         DisjointSet ds = new DisjointSet(8);
         ds.union(0, 1);
         ds.union(2, 3);
@@ -120,58 +110,37 @@ public class DisjointSetTest {
         assertEquals(3, ds.rankOf(root));
     }
 
-    private static void testOutOfRangeThrows() {
-        DisjointSet ds = new DisjointSet(3);
-        assertThrows(IndexOutOfBoundsException.class, () -> ds.find(5));
-        assertThrows(IndexOutOfBoundsException.class, () -> ds.union(0, 10));
-    }
+    // ------------------------------------------------------------------
+    // Boundary case
+    // ------------------------------------------------------------------
 
-    private static void testNegativeNThrows() {
-        assertThrows(IllegalArgumentException.class, () -> new DisjointSet(-1));
-    }
-
-    private static void testSingleElement() {
+    @Test
+    void singleElementIsTriviallyConnectedToItself() {
         DisjointSet ds = new DisjointSet(1);
         assertTrue(ds.connected(0, 0));
         assertEquals(1, ds.setCount());
     }
 
-    private static void testZeroElements() {
+    @Test
+    void zeroElementsHasZeroSetCount() {
         DisjointSet ds = new DisjointSet(0);
         assertEquals(0, ds.setCount());
         assertThrows(IndexOutOfBoundsException.class, () -> ds.find(0));
     }
 
-    // --- tiny assertion helpers ---
+    // ------------------------------------------------------------------
+    // Invalid input
+    // ------------------------------------------------------------------
 
-    private static void assertEquals(int expected, int actual) {
-        if (expected != actual) {
-            throw new AssertionError("expected <" + expected + "> but was <" + actual + ">");
-        }
+    @Test
+    void outOfRangeElementThrows() {
+        DisjointSet ds = new DisjointSet(3);
+        assertThrows(IndexOutOfBoundsException.class, () -> ds.find(5));
+        assertThrows(IndexOutOfBoundsException.class, () -> ds.union(0, 10));
     }
 
-    private static void assertTrue(boolean condition) {
-        if (!condition) {
-            throw new AssertionError("expected true but was false");
-        }
-    }
-
-    private static void assertFalse(boolean condition) {
-        if (condition) {
-            throw new AssertionError("expected false but was true");
-        }
-    }
-
-    private static void assertThrows(Class<? extends Throwable> expectedType, Runnable action) {
-        try {
-            action.run();
-        } catch (Throwable t) {
-            if (expectedType.isInstance(t)) {
-                return;
-            }
-            throw new AssertionError("expected " + expectedType.getSimpleName()
-                    + " but got " + t.getClass().getSimpleName());
-        }
-        throw new AssertionError("expected " + expectedType.getSimpleName() + " but nothing was thrown");
+    @Test
+    void negativeNThrows() {
+        assertThrows(IllegalArgumentException.class, () -> new DisjointSet(-1));
     }
 }
