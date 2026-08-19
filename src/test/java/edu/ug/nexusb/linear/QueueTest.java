@@ -1,5 +1,6 @@
 package edu.ug.nexusb.linear;
 
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,5 +40,51 @@ public class QueueTest {
         assertEquals(2, cq.dequeue());
         assertEquals(3, cq.dequeue());
         assertTrue(cq.isEmpty());
+    }
+
+    @Test
+    public void testPeekFrontReturnsFrontWithoutRemoving() {
+        ArrayCircularQueue<String> queue = new ArrayCircularQueue<>(2);
+        queue.enqueue("Apple");
+        queue.enqueue("Banana");
+
+        assertEquals("Apple", queue.peekFront());
+        assertEquals(2, queue.size(), "peekFront must not remove the element");
+        assertEquals("Apple", queue.dequeue());
+    }
+
+    // ---- boundary case ----
+
+    @Test
+    public void testSingleCapacityQueueFillsAndDrainsCorrectly() {
+        ArrayCircularQueue<Integer> queue = new ArrayCircularQueue<>(1);
+        queue.enqueue(1);
+        assertTrue(queue.isFull());
+        assertEquals(1, queue.dequeue());
+        assertTrue(queue.isEmpty());
+    }
+
+    // ---- invalid input ----
+
+    @Test
+    public void testDequeueOnEmptyQueueThrows() {
+        ArrayCircularQueue<String> queue = new ArrayCircularQueue<>(2);
+        assertThrows(NoSuchElementException.class, queue::dequeue);
+    }
+
+    @Test
+    public void testPeekFrontOnEmptyQueueThrows() {
+        ArrayCircularQueue<String> queue = new ArrayCircularQueue<>(2);
+        assertThrows(NoSuchElementException.class, queue::peekFront);
+    }
+
+    @Test
+    public void testZeroCapacityConstructorThrows() {
+        assertThrows(IllegalArgumentException.class, () -> new ArrayCircularQueue<String>(0));
+    }
+
+    @Test
+    public void testNegativeCapacityConstructorThrows() {
+        assertThrows(IllegalArgumentException.class, () -> new ArrayCircularQueue<String>(-1));
     }
 }
