@@ -1,0 +1,11 @@
+Algorithm,InputSize,AverageTimeNs
+SelectionSort,100,457200
+InsertionSort,100,199333
+SelectionSort,500,4439100
+InsertionSort,500,3595533
+SelectionSort,1000,2857900
+InsertionSort,1000,2223466
+SelectionSort,5000,35234933
+InsertionSort,5000,26292466
+SelectionSort,10000,87860933
+InsertionSort,10000,134545566
