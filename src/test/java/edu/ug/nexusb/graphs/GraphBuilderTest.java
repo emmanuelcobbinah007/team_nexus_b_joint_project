@@ -1,6 +1,7 @@
 package edu.ug.nexusb.graphs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -73,6 +74,20 @@ class GraphBuilderTest {
 
         assertEquals(2, graph.vertexCount());
         assertTrue(graph.containsVertex("99"));
+    }
+
+    // ------------------------------------------------------------------
+    // Invalid input
+    // ------------------------------------------------------------------
+
+    @Test
+    void nullFacilityIdsThrows() {
+        assertThrows(IllegalArgumentException.class, () -> GraphBuilder.buildFromRows(null, List.of()));
+    }
+
+    @Test
+    void nullRoadsThrows() {
+        assertThrows(IllegalArgumentException.class, () -> GraphBuilder.buildFromRows(List.of(), null));
     }
 
     private static List<Integer> idsFrom(int startInclusive, int endInclusive) {

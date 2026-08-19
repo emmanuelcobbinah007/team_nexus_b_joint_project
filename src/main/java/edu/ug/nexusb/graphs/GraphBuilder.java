@@ -47,8 +47,14 @@ public final class GraphBuilder {
      * rows, with no database access at all. This is what tests call
      * directly with hand-written data, so the graph-assembly logic can be
      * verified without a live database or JDBC driver.
+     *
+     * @throws IllegalArgumentException if {@code facilityIds} or {@code roads} is null
      */
     public static MyGraph buildFromRows(List<Integer> facilityIds, List<RoadRow> roads) {
+        if (facilityIds == null || roads == null) {
+            throw new IllegalArgumentException("facilityIds and roads must not be null");
+        }
+
         MyGraph graph = new AdjacencyListGraph();
 
         for (int facilityId : facilityIds) {
