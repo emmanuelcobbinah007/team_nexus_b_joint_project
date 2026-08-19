@@ -10,6 +10,9 @@ public class ArrayCircularQueue<T> implements CircularQueue<T> {
     private int size;
 
     public ArrayCircularQueue(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("capacity must be positive");
+        }
         this.capacity = capacity;
         this.elements = new Object[capacity];
         this.front = 0;
