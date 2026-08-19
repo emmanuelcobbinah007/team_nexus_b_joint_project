@@ -50,4 +50,11 @@ class SelectionSortTest {
         sorter.sort(array, (MyComparator<Integer>) (a, b) -> b - a);
         assertArrayEquals(expectedDescending, array);
     }
+
+    @Test
+    void testSortNullArrayIsSafeNoOp() {
+        // Both sort() overloads treat null as a documented no-op rather than throwing.
+        sorter.sort((Integer[]) null);
+        sorter.sort(null, (MyComparator<Integer>) (a, b) -> a - b);
+    }
 }

@@ -43,8 +43,26 @@ class InsertionSortTest {
     void testSortWithComparator() {
         Integer[] array = {1, 5, 3, 2, 4};
         Integer[] expectedDescending = {5, 4, 3, 2, 1};
-        
+
         sorter.sort(array, (MyComparator<Integer>) (a, b) -> b - a);
         assertArrayEquals(expectedDescending, array);
+    }
+
+    @Test
+    void testSortBoundaryEmptyAndSingle() {
+        Integer[] emptyArray = {};
+        sorter.sort(emptyArray);
+        assertArrayEquals(new Integer[]{}, emptyArray);
+
+        Integer[] singleElement = {42};
+        sorter.sort(singleElement);
+        assertArrayEquals(new Integer[]{42}, singleElement);
+    }
+
+    @Test
+    void testSortNullArrayIsSafeNoOp() {
+        // Both sort() overloads treat null as a documented no-op rather than throwing.
+        sorter.sort((Integer[]) null);
+        sorter.sort(null, (MyComparator<Integer>) (a, b) -> a - b);
     }
 }
