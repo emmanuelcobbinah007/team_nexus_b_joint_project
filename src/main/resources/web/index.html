@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NexusB Ops Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --surface-2: #eef1f6;
+    --border: #dde2ea;
+    --text: #16202e;
+    --text-muted: #5c6b80;
+    --accent: #0d6e6e;
+    --accent-soft: #d9f0ee;
+    --critical: #c0293b;
+    --critical-soft: #fbe3e6;
+    --warning: #b5720b;
+    --warning-soft: #fbeed6;
+    --ok: #1f8a4c;
+    --ok-soft: #ddf3e5;
+    --edge: #c3cad6;
+    --node: #7280a0;
+    --shadow: 0 1px 2px rgba(22,32,46,0.06), 0 4px 16px rgba(22,32,46,0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1420;
+      --surface: #161d2c;
+      --surface-2: #1d2536;
+      --border: #2a3348;
+      --text: #e7ecf7;
+      --text-muted: #8b96ad;
+      --accent: #4fd1c5;
+      --accent-soft: #123834;
+      --critical: #f3707d;
+      --critical-soft: #3a1720;
+      --warning: #f0b649;
+      --warning-soft: #3a2c11;
+      --ok: #57d685;
+      --ok-soft: #123822;
+      --edge: #313c54;
+      --node: #94a1c0;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1420;
+    --surface: #161d2c;
+    --surface-2: #1d2536;
+    --border: #2a3348;
+    --text: #e7ecf7;
+    --text-muted: #8b96ad;
+    --accent: #4fd1c5;
+    --accent-soft: #123834;
+    --critical: #f3707d;
+    --critical-soft: #3a1720;
+    --warning: #f0b649;
+    --warning-soft: #3a2c11;
+    --ok: #57d685;
+    --ok-soft: #123822;
+    --edge: #313c54;
+    --node: #94a1c0;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, "Segoe UI", sans-serif;
+  }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  header {
+    padding: 1.1rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  header h1 { font-size: 1.05rem; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+  header .tag {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: "JetBrains Mono", monospace;
+  }
+  header .stats {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: "JetBrains Mono", monospace;
+  }
+  nav {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  nav button {
+    appearance: none;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 0.7rem 0.85rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  main { padding: 1.25rem 1.5rem 3rem; max-width: 1280px; margin: 0 auto; }
+  .panel { display: none; grid-template-columns: 1.1fr 1fr; gap: 1.25rem; }
+  .panel.active { display: grid; }
+  @media (max-width: 900px) { .panel.active { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    font-size: 0.88rem;
+    margin: 0 0 0.15rem;
+    font-weight: 700;
+  }
+  .card .sub { font-size: 0.76rem; color: var(--text-muted); margin: 0 0 0.9rem; line-height: 1.4; }
+  .row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.6rem; }
+  label { font-size: 0.74rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  select, input, textarea {
+    font: inherit;
+    font-size: 0.82rem;
+    padding: 0.45rem 0.55rem;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    min-width: 0;
+  }
+  textarea { width: 100%; resize: vertical; font-family: "JetBrains Mono", monospace; font-size: 0.78rem; }
+  .field { flex: 1; min-width: 140px; }
+  button.run {
+    appearance: none;
+    border: none;
+    background: var(--accent);
+    color: #06110f;
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  button.run:hover { filter: brightness(1.08); }
+  button.ghost {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.76rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  .result { margin-top: 0.9rem; }
+  .result-empty { color: var(--text-muted); font-size: 0.8rem; font-style: italic; }
+  .stat-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .stat {
+    background: var(--surface-2);
+    border-radius: 9px;
+    padding: 0.5rem 0.7rem;
+    flex: 1;
+    min-width: 110px;
+  }
+  .stat .k { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+  .stat .v { font-family: "JetBrains Mono", monospace; font-size: 1.05rem; font-weight: 600; margin-top: 0.1rem; }
+  .stat.ok { background: var(--ok-soft); } .stat.ok .v { color: var(--ok); }
+  .stat.critical { background: var(--critical-soft); } .stat.critical .v { color: var(--critical); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); }
+  th { color: var(--text-muted); font-weight: 600; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.02em; }
+  td.num { font-family: "JetBrains Mono", monospace; text-align: right; }
+  .pill { display: inline-block; padding: 0.12rem 0.5rem; border-radius: 999px; font-size: 0.68rem; font-weight: 700; }
+  .pill.t1 { background: var(--critical-soft); color: var(--critical); }
+  .pill.t2 { background: var(--warning-soft); color: var(--warning); }
+  .pill.t3, .pill.t4 { background: var(--ok-soft); color: var(--ok); }
+  svg.graph { width: 100%; height: 420px; background: var(--surface-2); border-radius: 10px; display: block; }
+  svg.graph .edge { stroke: var(--edge); stroke-width: 1; }
+  svg.graph .edge.hl { stroke: var(--accent); stroke-width: 2.5; }
+  svg.graph .edge.mst { stroke: var(--ok); stroke-width: 2.5; }
+  svg.graph .node { fill: var(--node); stroke: var(--surface); stroke-width: 1; }
+  svg.graph .node.hl { fill: var(--accent); }
+  svg.graph .node.start { fill: var(--ok); }
+  svg.graph .node.end { fill: var(--critical); }
+  svg.graph text { font-family: "JetBrains Mono", monospace; font-size: 8px; fill: var(--text-muted); }
+  .legend { display: flex; gap: 0.9rem; font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem; flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 0.3rem; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .error-box { background: var(--critical-soft); color: var(--critical); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.8rem; margin-top: 0.75rem; }
+  .footnote { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.75rem; line-height: 1.5; }
+  .split-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  @media (max-width: 640px) { .split-two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>NexusB Ops Console</h1>
+  <span class="tag">Hospital &amp; Clinic Operations Optimizer &middot; live demo</span>
+  <span class="stats" id="headerStats">loading network&hellip;</span>
+</header>
+<nav id="tabs">
+  <button data-tab="routing" class="active">Routing</button>
+  <button data-tab="mst">MST</button>
+  <button data-tab="dispatch">Dispatch</button>
+  <button data-tab="triage">Triage Queue</button>
+  <button data-tab="indexing">Indexing</button>
+  <button data-tab="knapsack">Knapsack</button>
+  <button data-tab="sortsearch">Sort &amp; Search</button>
+</nav>
+<main>
+
+  <!-- ROUTING: Dijkstra + BFS + DFS -->
+  <section class="panel active" id="panel-routing">
+    <div class="card">
+      <h2>Shortest path (Dijkstra, T046)</h2>
+      <p class="sub">Real edge weight = effective travel time (base time &times; traffic &times; road condition), from <code>v_weighted_edge</code>.</p>
+      <div class="row">
+        <div class="field"><label>From</label><select id="dijkstraFrom"></select></div>
+        <div class="field"><label>To</label><select id="dijkstraTo"></select></div>
+      </div>
+      <button class="run" onclick="runDijkstra()">Find shortest path</button>
+      <div id="dijkstraResult" class="result"><p class="result-empty">Pick two facilities and run.</p></div>
+
+      <h2 style="margin-top:1.4rem">Reachability under closed roads (BFS, T047)</h2>
+      <p class="sub">Simulates flooding/roadworks: pick roads to close, see what's still reachable.</p>
+      <div class="row">
+        <div class="field"><label>From</label><select id="bfsFrom"></select></div>
+      </div>
+      <div class="row">
+        <div class="field" style="flex:2"><label>Close road (from &rarr; to)</label>
+          <div class="row" style="margin-bottom:0">
+            <select id="bfsCloseFrom" style="flex:1"></select>
+            <select id="bfsCloseTo" style="flex:1"></select>
+            <button class="ghost" onclick="addClosedRoad()">+ close</button>
+          </div>
+        </div>
+      </div>
+      <div id="closedRoadsList" class="row" style="min-height:1.4rem"></div>
+      <button class="run" onclick="runBfs()">Run BFS reachability</button>
+      <div id="bfsResult" class="result"><p class="result-empty">Pick a start facility and run.</p></div>
+
+      <h2 style="margin-top:1.4rem">Referral loop detection (DFS, T048)</h2>
+      <p class="sub">Whole-network DFS with cycle detection &mdash; finds the first referral loop, if any.</p>
+      <button class="run" onclick="runDfs()">Run DFS cycle check</button>
+      <div id="dfsResult" class="result"><p class="result-empty">Run to check the whole network.</p></div>
+    </div>
+    <div class="card">
+      <svg class="graph" id="routingGraph"></svg>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--edge)"></span>road</span>
+        <span><span class="dot" style="background:var(--accent)"></span>highlighted path</span>
+        <span><span class="dot" style="background:var(--ok)"></span>start</span>
+        <span><span class="dot" style="background:var(--critical)"></span>destination</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MST: Kruskal + Prim -->
+  <section class="panel" id="panel-mst">
+    <div class="card">
+      <h2>Minimum spanning tree &mdash; resupply backbone</h2>
+      <p class="sub">Kruskal (T049, edge-sorted + disjoint set) and Prim (T050, frontier heap) on the full 117-facility network. Both should report the same total weight.</p>
+      <div class="row">
+        <div class="field"><label>Prim start facility</label><select id="primStart"></select></div>
+      </div>
+      <div class="row">
+        <button class="run" onclick="runKruskal()">Run Kruskal</button>
+        <button class="run" onclick="runPrim()" style="background:var(--warning)">Run Prim</button>
+      </div>
+      <div id="mstResult" class="result"><p class="result-empty">Run either algorithm.</p></div>
+    </div>
+    <div class="card">
+      <svg class="graph" id="mstGraph"></svg>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--edge)"></span>road (not selected)</span>
+        <span><span class="dot" style="background:var(--ok)"></span>MST edge</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISPATCH: Greedy vs Optimal -->
+  <section class="panel" id="panel-dispatch">
+    <div class="card">
+      <h2>Greedy vs. optimal dispatch (T051)</h2>
+      <p class="sub">Nearest-first greedy vs. urgency-weighted optimal ordering. The preset below is the engineered counterexample from <code>docs/counterexamples/</code> &mdash; edit it or add your own cases.</p>
+      <div class="row">
+        <div class="field"><label>Resource station</label><select id="dispatchStation"></select></div>
+      </div>
+      <label>Case requests &mdash; one per line: <span class="mono">ref,facilityCode,triageLevel(1-4)</span></label>
+      <textarea id="dispatchCases" rows="5">REQ_ROUTINE,F024,4
+REQ_URGENT,F053,1</textarea>
+      <div class="row" style="margin-top:0.6rem">
+        <button class="run" onclick="runDispatch()">Compare greedy vs. optimal</button>
+        <button class="ghost" onclick="loadCounterexample()">Load counterexample preset</button>
+      </div>
+      <div id="dispatchResult" class="result"><p class="result-empty">Run to compare dispatch orders.</p></div>
+    </div>
+    <div class="card">
+      <h2>Why order matters</h2>
+      <p class="sub">Penalty = &sum; (cumulative travel time to reach each case) &divide; its triage level &mdash; an urgent case has almost no tolerance for delay, so its wait counts almost fully; a routine case tolerates the same wait far better. Lower total penalty is better.</p>
+      <svg class="graph" id="dispatchGraph"></svg>
+    </div>
+  </section>
+
+  <!-- TRIAGE QUEUE -->
+  <section class="panel" id="panel-triage">
+    <div class="card">
+      <h2>FCFS vs. triage-priority queue (T053/T054)</h2>
+      <p class="sub">Same cases, two dispatch policies, fixed 2-time-unit service cost per case. Watch the service order and per-case wait diverge.</p>
+      <label>Cases &mdash; one per line: <span class="mono">id,arrivalTime,severity(1=critical..4=routine)</span></label>
+      <textarea id="triageCases" rows="6">C001,0,3
+C002,1,1
+C003,2,2
+C004,4,1</textarea>
+      <div class="row" style="margin-top:0.6rem">
+        <button class="run" onclick="runTriage()">Run both modes</button>
+      </div>
+      <div id="triageResult" class="result"><p class="result-empty">Run to compare service order.</p></div>
+    </div>
+    <div class="card">
+      <h2>Service order, side by side</h2>
+      <div class="split-two" id="triageOrders">
+        <div class="result-empty">FCFS order appears here.</div>
+        <div class="result-empty">Priority order appears here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDEXING -->
+  <section class="panel" id="panel-indexing">
+    <div class="card">
+      <h2>Hash index &mdash; lookup by reference (T055)</h2>
+      <p class="sub"><code>ChainedHashTable</code>, O(1) average lookup.</p>
+      <div class="row">
+        <div class="field"><label>Case reference</label><input id="indexRef" placeholder="e.g. REQ0001"></div>
+        <button class="run" onclick="runIndexLookup()">Look up</button>
+      </div>
+      <div id="indexLookupResult" class="result"><p class="result-empty">Enter a case reference.</p></div>
+    </div>
+    <div class="card">
+      <h2>Tree index &mdash; range query by time (T055)</h2>
+      <p class="sub">Red-black tree, ordered range scan.</p>
+      <div class="row">
+        <div class="field"><label>From</label><input id="indexFrom" placeholder="7/1/2026 0:00"></div>
+        <div class="field"><label>To</label><input id="indexTo" placeholder="7/5/2026 0:00"></div>
+      </div>
+      <button class="run" onclick="runIndexRange()">Query range</button>
+      <div id="indexRangeResult" class="result"><p class="result-empty">Enter a time range.</p></div>
+    </div>
+  </section>
+
+  <!-- KNAPSACK -->
+  <section class="panel" id="panel-knapsack">
+    <div class="card">
+      <h2>Shift resource allocation (0/1 Knapsack DP, T052)</h2>
+      <p class="sub">Pick the highest-value combination of resources without exceeding the shift's capacity budget.</p>
+      <div class="row">
+        <div class="field"><label>Weights (comma-separated)</label><input id="knapWeights" value="10,20,30" class="mono"></div>
+        <div class="field"><label>Values (comma-separated)</label><input id="knapValues" value="60,100,120" class="mono"></div>
+        <div class="field"><label>Capacity</label><input id="knapCapacity" value="50" class="mono" style="max-width:90px"></div>
+      </div>
+      <button class="run" onclick="runKnapsack()">Solve</button>
+      <div id="knapsackResult" class="result"><p class="result-empty">Enter weights/values/capacity and solve.</p></div>
+    </div>
+    <div class="card">
+      <h2>About this DP</h2>
+      <p class="sub">Builds the full <span class="mono">dp[items][capacity]</span> table bottom-up, then backtracks from <span class="mono">dp[n][capacity]</span> to recover which items were actually chosen &mdash; not just the total value. See <code>docs/traces/trace_knapsack.md</code> for a fully worked, hand-verified example.</p>
+    </div>
+  </section>
+
+  <!-- SORT & SEARCH -->
+  <section class="panel" id="panel-sortsearch">
+    <div class="card">
+      <h2>Sorting (T040/T041)</h2>
+      <div class="row">
+        <div class="field"><label>Algorithm</label>
+          <select id="sortAlgo">
+            <option value="merge">Merge sort</option>
+            <option value="quick">Quicksort</option>
+            <option value="insertion">Insertion sort</option>
+            <option value="selection">Selection sort</option>
+          </select>
+        </div>
+        <div class="field" style="flex:2"><label>Data (comma-separated)</label><input id="sortData" value="8,3,9,1,6,2,7,4,5" class="mono"></div>
+      </div>
+      <button class="run" onclick="runSort()">Sort</button>
+      <div id="sortResult" class="result"><p class="result-empty">Enter data and sort.</p></div>
+    </div>
+    <div class="card">
+      <h2>Searching (T039)</h2>
+      <div class="row">
+        <div class="field"><label>Algorithm</label>
+          <select id="searchAlgo">
+            <option value="binary">Binary search (needs sorted input)</option>
+            <option value="linear">Linear search</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field" style="flex:2"><label>Data (comma-separated)</label><input id="searchData" value="1,2,3,4,5,6,7,8,9" class="mono"></div>
+        <div class="field"><label>Target</label><input id="searchTarget" value="7" class="mono" style="max-width:90px"></div>
+      </div>
+      <button class="run" onclick="runSearch()">Search</button>
+      <div id="searchResult" class="result"><p class="result-empty">Enter data/target and search.</p></div>
+      <p class="footnote">Try unsorted data with binary search &mdash; it can silently report "not found" for a present element. That's the required counterexample (<code>docs/traces/trace_binarysearch.md</code>), not a bug here.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ---------------------------------------------------------------------
+// Data loading
+// ---------------------------------------------------------------------
+let facilities = [];      // [{id, code, name, lat, lon, type}]
+let facilityById = {};    // id -> facility
+let graphData = null;     // {vertices, edges}
+
+async function fetchJson(url) {
+  const res = await fetch(url);
+  const body = await res.json();
+  if (!res.ok) throw new Error(body.error || ('HTTP ' + res.status));
+  return body;
+}
+
+function facilityLabel(id) {
+  const f = facilityById[id];
+  return f ? (f.code + ' — ' + f.name) : id;
+}
+
+function fillSelect(select, includeBlank) {
+  select.innerHTML = '';
+  if (includeBlank) {
+    const opt = document.createElement('option');
+    opt.value = ''; opt.textContent = '(none)';
+    select.appendChild(opt);
+  }
+  facilities.forEach(f => {
+    const opt = document.createElement('option');
+    opt.value = f.id;
+    opt.textContent = f.code + ' — ' + f.name;
+    select.appendChild(opt);
+  });
+}
+
+async function init() {
+  facilities = await fetchJson('/api/facilities');
+  facilities.sort((a, b) => a.code.localeCompare(b.code));
+  facilityById = {};
+  facilities.forEach(f => facilityById[f.id] = f);
+
+  graphData = await fetchJson('/api/graph');
+  document.getElementById('headerStats').textContent =
+    facilities.length + ' facilities · ' + graphData.edges.length + ' directed edges · ' + graphData.representation;
+
+  ['dijkstraFrom','dijkstraTo','bfsFrom','bfsCloseFrom','bfsCloseTo','primStart','dispatchStation']
+    .forEach(id => fillSelect(document.getElementById(id), false));
+
+  // sensible defaults matching the counterexample / common demo path
+  setIfPresent('dijkstraFrom', 'F001'); setIfPresent('dijkstraTo', 'F024');
+  setIfPresent('bfsFrom', 'F001');
+  setIfPresent('primStart', 'F001');
+  setIfPresent('dispatchStation', 'F001');
+
+  drawGraph('routingGraph', {});
+  drawGraph('mstGraph', {});
+  drawGraph('dispatchGraph', {});
+}
+
+function setIfPresent(selectId, code) {
+  const select = document.getElementById(selectId);
+  const f = facilities.find(f => f.code === code);
+  if (f) select.value = f.id;
+}
+
+function codeToId(code) {
+  const f = facilities.find(f => f.code.toLowerCase() === code.trim().toLowerCase());
+  if (!f) throw new Error('Unknown facility code: ' + code);
+  return f.id;
+}
+
+// ---------------------------------------------------------------------
+// Tabs
+// ---------------------------------------------------------------------
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-tab]');
+  if (!btn) return;
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+});
+
+// ---------------------------------------------------------------------
+// Graph rendering (lat/lon projected onto an SVG canvas)
+// ---------------------------------------------------------------------
+function drawGraph(svgId, opts) {
+  const svg = document.getElementById(svgId);
+  const w = svg.clientWidth || 560, h = 420;
+  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svg.innerHTML = '';
+
+  if (!facilities.length) return;
+  const lats = facilities.map(f => f.lat), lons = facilities.map(f => f.lon);
+  const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+  const minLon = Math.min(...lons), maxLon = Math.max(...lons);
+  const pad = 24;
+  const project = (f) => {
+    const x = pad + (f.lon - minLon) / (maxLon - minLon || 1) * (w - 2 * pad);
+    const y = h - pad - (f.lat - minLat) / (maxLat - minLat || 1) * (h - 2 * pad);
+    return [x, y];
+  };
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const highlightNodes = opts.highlightNodes || new Set();
+  const startNode = opts.startNode, endNode = opts.endNode;
+  const highlightEdgeSet = opts.highlightEdges || new Set(); // "from|to"
+  const mstEdgeSet = opts.mstEdges || new Set();
+
+  const edgesSeen = new Set();
+  (opts.edgesOverride || graphData.edges).forEach(e => {
+    const key = [e.from, e.to].sort().join('|');
+    if (edgesSeen.has(key)) return; // dedupe bidirectional pairs for background rendering
+    edgesSeen.add(key);
+    const a = facilityById[e.from], b = facilityById[e.to];
+    if (!a || !b) return;
+    const [x1, y1] = project(a), [x2, y2] = project(b);
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+    let cls = 'edge';
+    if (mstEdgeSet.has(e.from + '|' + e.to) || mstEdgeSet.has(e.to + '|' + e.from)) cls += ' mst';
+    else if (highlightEdgeSet.has(e.from + '|' + e.to) || highlightEdgeSet.has(e.to + '|' + e.from)) cls += ' hl';
+    line.setAttribute('class', cls);
+    svg.appendChild(line);
+  });
+
+  facilities.forEach(f => {
+    const [x, y] = project(f);
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', x); circle.setAttribute('cy', y);
+    circle.setAttribute('r', 3);
+    let cls = 'node';
+    if (f.id === startNode) cls += ' start';
+    else if (f.id === endNode) cls += ' end';
+    else if (highlightNodes.has(f.id)) cls += ' hl';
+    circle.setAttribute('class', cls);
+    circle.appendChild(el('title', {}, f.code + ' - ' + f.name));
+    svg.appendChild(circle);
+  });
+}
+
+function el(tag, attrs, text) {
+  const e = document.createElementNS(tag === 'title' ? 'http://www.w3.org/2000/svg' : null, tag);
+  Object.entries(attrs || {}).forEach(([k, v]) => e.setAttribute(k, v));
+  if (text) e.textContent = text;
+  return e;
+}
+
+// ---------------------------------------------------------------------
+// Routing tab
+// ---------------------------------------------------------------------
+async function runDijkstra() {
+  const from = document.getElementById('dijkstraFrom').value;
+  const to = document.getElementById('dijkstraTo').value;
+  const out = document.getElementById('dijkstraResult');
+  try {
+    const r = await fetchJson('/api/dijkstra?source=' + from + '&dest=' + to);
+    if (!r.reachable) {
+      out.innerHTML = '<div class="error-box">' + facilityLabel(to) + ' is not reachable from ' + facilityLabel(from) + '.</div>';
+      drawGraph('routingGraph', { startNode: from, endNode: to });
+      return;
+    }
+    const pathLabels = r.path.map(facilityLabel);
+    out.innerHTML =
+      statRow([
+        ['Distance (effective min)', r.distance.toFixed(2), 'ok'],
+        ['Hops', r.path.length - 1, '']
+      ]) +
+      '<table><tr><th>#</th><th>Facility</th></tr>' +
+      r.path.map((id, i) => '<tr><td class="num">' + (i + 1) + '</td><td>' + facilityLabel(id) + '</td></tr>').join('') +
+      '</table>';
+    const edgeSet = new Set();
+    for (let i = 0; i < r.path.length - 1; i++) edgeSet.add(r.path[i] + '|' + r.path[i + 1]);
+    drawGraph('routingGraph', { startNode: from, endNode: to, highlightEdges: edgeSet, highlightNodes: new Set(r.path) });
+  } catch (e) {
+    out.innerHTML = '<div class="error-box">' + e.message + '</div>';
+  }
+}
+
+let closedRoads = [];
+function addClosedRoad() {
+  const from = document.getElementById('bfsCloseFrom').value;
+  const to = document.getElementById('bfsCloseTo').value;
+  if (!from || !to || from === to) return;
+  closedRoads.push([from, to]);
+  renderClosedRoads();
+}
+function renderClosedRoads() {
+  const box = document.getElementById('closedRoadsList');
+  box.innerHTML = closedRoads.map((pair, i) =>
+    '<span class="pill t2">' + facilityById[pair[0]].code + ' ✕ ' + facilityById[pair[1]].code +
+    ' <a href="#" onclick="removeClosedRoad(' + i + ');return false" style="color:inherit">×</a></span>'
+  ).join(' ');
+}
+function removeClosedRoad(i) { closedRoads.splice(i, 1); renderClosedRoads(); }
+
+async function runBfs() {
+  const from = document.getElementById('bfsFrom').value;
+  const closed = closedRoads.map(p => p[0] + '-' + p[1]).join(',');
+  const out = document.getElementById('bfsResult');
+  try {
+    const r = await fetchJson('/api/bfs?source=' + from + (closed ? '&closed=' + encodeURIComponent(closed) : ''));
+    out.innerHTML = statRow([
+      ['Reachable facilities', r.reachable.length, 'ok'],
+      ['Closed roads', closedRoads.length, closedRoads.length ? 'critical' : '']
+    ]) + '<p class="footnote">' + r.reachable.map(facilityLabel).join(', ') + '</p>';
+    drawGraph('routingGraph', { startNode: from, highlightNodes: new Set(r.reachable) });
+  } catch (e) {
+    out.innerHTML = '<div class="error-box">' + e.message + '</div>';
+  }
+}
+
+async function runDfs() {
+  const out = document.getElementById('dfsResult');
+  try {
+    const r = await fetchJson('/api/dfs');
+    if (r.hasCycle) {
+      out.innerHTML = '<div class="error-box">Referral loop found: ' + facilityLabel(r.cycleFromId) + ' → ' + facilityLabel(r.cycleToId) + '</div>' +
+        '<p class="footnote">Visited ' + r.visitOrder.length + ' facilities before the loop closed.</p>';
+    } else {
+      out.innerHTML = statRow([['Facilities visited', r.visitOrder.length, 'ok'], ['Cycle found', 'No', 'ok']]);
+    }
+  } catch (e) {
+    out.innerHTML = '<div class="error-box">' + e.message + '</div>';
+  }
+}
+
+// ---------------------------------------------------------------------
+// MST tab
+// ---------------------------------------------------------------------
+async function runKruskal() {
+  const out = document.getElementById('mstResult');
+  try {
+    const r = await fetchJson('/api/kruskal');
+    renderMst(out, r, 'Kruskal');
+  } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+async function runPrim() {
+  const start = document.getElementById('primStart').value;
+  const out = document.getElementById('mstResult');
+  try {
+    const r = await fetchJson('/api/prim?start=' + start);
+    renderMst(out, r, 'Prim (from ' + facilityLabel(start) + ')');
+  } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+function renderMst(out, r, label) {
+  out.innerHTML = statRow([
+    [label + ' total weight', r.totalWeight.toFixed(2), 'ok'],
+    ['Edges selected', r.edges.length, '']
+  ]) + '<p class="footnote">Kruskal\'s <span class="mono">Edge</span> type stores integer weights (its established API), so its input is rounded from the graph\'s real (double) edge weights; Prim consumes the exact doubles directly. Their totals can differ by a few units for this reason — both are still correct minimum spanning trees, just computed against slightly different rounded vs. exact inputs. Run both and compare.</p>';
+  const mstSet = new Set(r.edges.map(e => e.from + '|' + e.to));
+  drawGraph('mstGraph', { mstEdges: mstSet });
+}
+
+// ---------------------------------------------------------------------
+// Dispatch tab
+// ---------------------------------------------------------------------
+function loadCounterexample() {
+  document.getElementById('dispatchCases').value = 'REQ_ROUTINE,F024,4\nREQ_URGENT,F053,1';
+  setIfPresent('dispatchStation', 'F001');
+}
+function parseDispatchCases() {
+  return document.getElementById('dispatchCases').value.trim().split('\n').filter(Boolean).map(line => {
+    const [ref, code, triage] = line.split(',').map(s => s.trim());
+    return ref + ':' + codeToId(code) + ':' + triage;
+  }).join(',');
+}
+async function runDispatch() {
+  const station = document.getElementById('dispatchStation').value;
+  const out = document.getElementById('dispatchResult');
+  try {
+    const cases = parseDispatchCases();
+    const r = await fetchJson('/api/dispatch?station=' + station + '&cases=' + encodeURIComponent(cases));
+    const better = r.optimalPenalty < r.greedyPenalty ? 'optimal' : (r.optimalPenalty > r.greedyPenalty ? 'greedy' : 'tie');
+    out.innerHTML =
+      statRow([
+        ['Greedy penalty', r.greedyPenalty.toFixed(2), better === 'greedy' ? 'ok' : 'critical'],
+        ['Optimal penalty', r.optimalPenalty.toFixed(2), better === 'optimal' ? 'ok' : 'critical']
+      ]) +
+      '<table><tr><th>Order</th><th>Greedy</th><th>Optimal</th></tr>' +
+      r.greedyOrder.map((ref, i) => '<tr><td class="num">' + (i + 1) + '</td><td>' + ref + '</td><td>' + r.optimalOrder[i] + '</td></tr>').join('') +
+      '</table>' +
+      (better !== 'tie' ? '<p class="footnote"><strong>' + better + '</strong> wins on this case set by ' +
+        Math.abs(r.greedyPenalty - r.optimalPenalty).toFixed(2) + ' penalty units.</p>' : '');
+    const caseIds = new Set(r.cases.map(c => c.originFacilityId));
+    caseIds.add(station);
+    drawGraph('dispatchGraph', { startNode: station, highlightNodes: caseIds });
+  } catch (e) {
+    out.innerHTML = '<div class="error-box">' + e.message + '</div>';
+  }
+}
+
+// ---------------------------------------------------------------------
+// Triage tab
+// ---------------------------------------------------------------------
+async function runTriage() {
+  const lines = document.getElementById('triageCases').value.trim().split('\n').filter(Boolean);
+  const cases = lines.map(l => l.split(',').map(s => s.trim()).join(':')).join(',');
+  const out = document.getElementById('triageResult');
+  const orders = document.getElementById('triageOrders');
+  try {
+    const r = await fetchJson('/api/triage?cases=' + encodeURIComponent(cases));
+    const better = r.priorityAverageWait < r.fcfsAverageWait ? 'priority' : (r.priorityAverageWait > r.fcfsAverageWait ? 'fcfs' : 'tie');
+    out.innerHTML = statRow([
+      ['FCFS avg. wait', r.fcfsAverageWait.toFixed(2), better === 'fcfs' ? 'ok' : 'critical'],
+      ['Priority avg. wait', r.priorityAverageWait.toFixed(2), better === 'priority' ? 'ok' : 'critical']
+    ]) + '<p class="footnote">Lower isn\'t automatically "better" here — priority mode trades some cases\' wait for others\'. See T072\'s writeup for why raw average can favor FCFS.</p>';
+    orders.innerHTML = servedTable('FCFS order', r.fcfsOrder) + servedTable('Priority order', r.priorityOrder);
+  } catch (e) {
+    out.innerHTML = '<div class="error-box">' + e.message + '</div>';
+  }
+}
+function servedTable(title, served) {
+  return '<div><h2 style="font-size:0.8rem">' + title + '</h2><table><tr><th>#</th><th>Case</th><th>Sev.</th><th>Wait</th></tr>' +
+    served.map((s, i) => '<tr><td class="num">' + (i + 1) + '</td><td>' + s.caseId + '</td>' +
+      '<td><span class="pill t' + s.severityPriority + '">T' + s.severityPriority + '</span></td>' +
+      '<td class="num">' + s.waitTime + '</td></tr>').join('') + '</table></div>';
+}
+
+// ---------------------------------------------------------------------
+// Indexing tab
+// ---------------------------------------------------------------------
+async function runIndexLookup() {
+  const ref = document.getElementById('indexRef').value.trim();
+  const out = document.getElementById('indexLookupResult');
+  try {
+    const r = await fetchJson('/api/index/lookup?ref=' + encodeURIComponent(ref));
+    out.innerHTML = r.found
+      ? statRow([['Triage level', r.triageLevel, ''], ['Status', r.status, '']]) +
+        '<p class="footnote">' + r.requestedAt + '</p>'
+      : '<div class="error-box">No case with reference "' + ref + '".</div>';
+  } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+async function runIndexRange() {
+  const from = document.getElementById('indexFrom').value.trim();
+  const to = document.getElementById('indexTo').value.trim();
+  const out = document.getElementById('indexRangeResult');
+  try {
+    const r = await fetchJson('/api/index/range?from=' + encodeURIComponent(from) + '&to=' + encodeURIComponent(to));
+    out.innerHTML = statRow([['Cases in range', r.count, 'ok']]) +
+      (r.count ? '<table><tr><th>Ref</th><th>Triage</th><th>Requested</th></tr>' +
+        r.cases.slice(0, 20).map(c => '<tr><td>' + c.caseRef + '</td><td>T' + c.triageLevel + '</td><td>' + c.requestedAt + '</td></tr>').join('') +
+        '</table>' + (r.count > 20 ? '<p class="footnote">showing first 20 of ' + r.count + '</p>' : '') : '');
+  } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+
+// ---------------------------------------------------------------------
+// Knapsack tab
+// ---------------------------------------------------------------------
+async function runKnapsack() {
+  const weights = document.getElementById('knapWeights').value;
+  const values = document.getElementById('knapValues').value;
+  const capacity = document.getElementById('knapCapacity').value;
+  const out = document.getElementById('knapsackResult');
+  try {
+    const r = await fetchJson('/api/knapsack?weights=' + encodeURIComponent(weights) + '&values=' + encodeURIComponent(values) + '&capacity=' + capacity);
+    out.innerHTML = statRow([['Max value', r.maxValue, 'ok'], ['Items selected', r.selected.length, '']]) +
+      '<table><tr><th>Item #</th><th>Weight</th><th>Value</th></tr>' +
+      r.selected.map(s => '<tr><td>' + s.index + '</td><td class="num">' + s.weight + '</td><td class="num">' + s.value + '</td></tr>').join('') +
+      '</table>';
+  } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+
+// ---------------------------------------------------------------------
+// Sort & search tab
+// ---------------------------------------------------------------------
+async function runSort() {
+  const algorithm = document.getElementById('sortAlgo').value;
+  const data = document.getElementById('sortData').value;
+  const out = document.getElementById('sortResult');
+  try {
+    const r = await fetchJson('/api/sort?algorithm=' + algorithm + '&data=' + encodeURIComponent(data));
+    out.innerHTML = statRow([
+      ['Comparisons', r.comparisons ?? '—', ''],
+      ['Movements', r.movements ?? '—', '']
+    ]) + '<p class="mono footnote">[' + r.sorted.join(', ') + ']</p>' +
+      '<p class="footnote">stable: ' + r.isStable + ' &middot; in-place: ' + r.isInPlace +
+      ' &middot; best: ' + r.bestCase + ' &middot; worst: ' + r.worstCase + '</p>';
+  } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+async function runSearch() {
+  const algorithm = document.getElementById('searchAlgo').value;
+  const data = document.getElementById('searchData').value;
+  const target = document.getElementById('searchTarget').value;
+  const out = document.getElementById('searchResult');
+  try {
+    const r = await fetchJson('/api/search?algorithm=' + algorithm + '&data=' + encodeURIComponent(data) + '&target=' + target);
+    out.innerHTML = r.found
+      ? statRow([['Found at index', r.index, 'ok']])
+      : statRow([['Result', 'Not found', 'critical']]);
+  } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+
+// ---------------------------------------------------------------------
+// Shared render helpers
+// ---------------------------------------------------------------------
+function statRow(items) {
+  return '<div class="stat-row">' + items.map(([k, v, cls]) =>
+    '<div class="stat ' + (cls || '') + '"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>'
+  ).join('') + '</div>';
+}
+
+init().catch(err => {
+  document.getElementById('headerStats').textContent = 'failed to load: ' + err.message;
+});
+</script>
+</body>
+</html>
