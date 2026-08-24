@@ -8,11 +8,11 @@ University of Ghana · 26 July – 22 August 2026
 _This file is the assembled Markdown source for `report_final.docx`/`.pdf` (T075) —
 concatenated from `docs/report/01_*.md` through `11_*.md` in order. Convert with
 `pandoc report_master.md -o report_final.docx` (or `.pdf`) once sections 10-11 are
-filled in. As of this assembly, sections 1-9 have real content; sections 10
-(individual contributions) and 11 (conclusion) are intentionally still stubs —
-they depend on every member's own statement and on the Week 4 experiments
-(T070-T072) that are still outstanding. Do not treat this file as final until
-those are in._
+filled in. As of this assembly, sections 1-9 have real content, including all four
+Week 4 experiments (T070-T073); sections 10 (individual contributions) and 11
+(conclusion) are intentionally still stubs — they depend on every member's own
+statement and on the rest of Week 4 (T076-T081). Do not treat this file as final
+until those are in._
 
 ---
 
@@ -411,18 +411,106 @@ Dijkstra across the whole density range post-fix.
 
 ## T070 — hash table load factor vs. collisions
 
-**Status: not yet run** (Johnson Kuzagbr).
+**Status: done.** Run via `edu.ug.nexusb.bench.HashTableExperiments`:
+inserts a growing number of random (seeded, `GENERATION_SEED = 79731`)
+integer keys into one `ChainedHashTable` (default constructor, real
+auto-resize behavior), recording load factor, collision count,
+longest-bucket length, and average `get()` time at each step.
+
+- Data: [`results/csv/hashtable_experiments.csv`](../../results/csv/hashtable_experiments.csv)
+- Charts: [`results/graphs/hashtable_collisions.svg`](../../results/graphs/hashtable_collisions.svg), [`results/graphs/hashtable_get_time.svg`](../../results/graphs/hashtable_get_time.svg)
+
+**A first run with sequential keys (`0..N-1`) was a dead end, worth
+recording why.** Collision count stayed at exactly `0` throughout — not a
+bug, but a property of sequential keys: consecutive integers modulo any
+table size are collision-free by the pigeonhole principle as long as
+`N <= capacity`, which the 0.75-load-factor resize policy always keeps
+true. That measures the resize policy working, not the hash function's
+quality. Switched to random keys (also more realistic — real identifiers
+aren't guaranteed contiguous), which produced real collision data:
+
+| N | Load factor | Capacity | Collisions | Longest bucket | Resizes |
+|---:|---:|---:|---:|---:|---:|
+| 10 | 0.19 | 53 | 1 | 2 | 0 |
+| 100 | 0.45 | 223 | 33 | 3 | 2 |
+| 500 | 0.55 | 907 | 216 | 5 | 4 |
+| 2000 | 0.55 | 3659 | 831 | 5 | 6 |
+
+Collision count climbs steadily with N (and within each resize interval,
+with load factor) — expected under simple uniform hashing, where
+collisions are a probabilistic certainty as more keys compete for the same
+buckets. What matters operationally is that **`longestBucket()` and
+`get()` time both stay bounded** (longest bucket never exceeds 5 across a
+200× growth in N; `get()` time stays in the 20-55 µs range throughout,
+with no upward trend) — direct empirical evidence that the resize policy
+is doing its job: raw collisions accumulate, but no single bucket is ever
+allowed to become a long chain that would degrade lookups toward `O(n)`.
 
 ## T071 — BST vs. balanced tree on sorted input
 
-**Status: not yet run** (Cobbinah Emmanuel).
+**Status: done.** Run via `edu.ug.nexusb.bench.TreeExperiments`: inserts
+`0..N-1` in sorted order into fresh `BinarySearchTree` and `RedBlackTree`
+instances at growing N, recording actual `height()` and total insertion
+time — the exact scenario [`proof_bst_height.md`](../proofs/proof_bst_height.md)
+argues about, now measured rather than only proven.
+
+- Data: [`results/csv/tree_experiments.csv`](../../results/csv/tree_experiments.csv)
+- Charts: [`results/graphs/tree_height.svg`](../../results/graphs/tree_height.svg), [`results/graphs/tree_insert_time.svg`](../../results/graphs/tree_insert_time.svg)
+
+| N | BST height | RB height | `2·log₂(N+1)` bound |
+|---:|---:|---:|---:|
+| 50 | 49 | 8 | 11.3 |
+| 400 | 399 | 14 | 17.6 |
+| 3200 | 3199 | 20 | 23.3 |
+
+Results match the proof precisely: BST height is exactly `N-1` at every N
+tested — a linked list wearing a tree's interface, exactly the degenerate
+case sorted input is supposed to trigger — while the RB tree's height
+stays logarithmic and comfortably inside the proof's own bound at every N.
+Insertion time for the BST grows near-quadratically as expected (each of
+N inserts costs `O(height)`, and height is itself `O(N)`, so total cost is
+`O(N²)`). The RB tree's insertion timing shows more run-to-run noise at
+small N (216 µs at N=50 vs. 612 µs at N=3200 is a far smaller ratio than
+`O(N log N)` predicts) — benchmark/JIT overhead dominates the true
+`O(log N)`-per-insert cost when N is tiny, a measurement-floor effect
+worth naming rather than over-reading. The height numbers, which are the
+proof's actual claim, are unambiguous regardless of that timing noise.
 
 ## T072 — triage-priority vs. first-come-first-served outcomes
 
-**Status: not yet run** (Obeng Jessica). Note: `TriageComparison.compare()`
-(fixed for T054, see the FCFS-ordering bug note in that section) already
-returns real average-wait numbers per mode and is ready to drive this
-experiment once someone runs it across multiple case-list configurations.
+**Status: done.** Run via `edu.ug.nexusb.bench.TriageExperiments`:
+generates deterministic (seeded) synthetic case lists of growing size
+(random arrival times, random severity 1-4) and runs both dispatch modes
+via `TriageComparison.compare()` (fixed for T054's FCFS-ordering bug — see
+[07_testing_and_verification.md](07_testing_and_verification.md)) to see
+how the two policies' average wait time diverges as case volume grows.
+
+- Data: [`results/csv/triage_experiments.csv`](../../results/csv/triage_experiments.csv)
+- Chart: [`results/graphs/triage_average_wait.svg`](../../results/graphs/triage_average_wait.svg)
+
+| N | FCFS avg. wait | Triage-priority avg. wait |
+|---:|---:|---:|
+| 10 | 0.30 | 2.60 |
+| 100 | 3.14 | 28.96 |
+| 800 | 12.82 | 240.44 |
+
+**Raw average wait is not automatically better under triage-priority
+mode — it's consistently worse**, and the gap widens sharply with case
+volume. This is not a bug in the experiment or in `TriageComparison`; it's
+the same structural point the T051 greedy-dispatch counterexample and the
+T054 fix already made, now independently reproduced with different
+generated data: an *unweighted* average doesn't capture what triage
+priority is actually for. Priority mode deliberately makes low-severity
+cases — which can tolerate the wait — wait longer, specifically so that
+high-severity cases get served fast. That trade only reads as an
+improvement under a severity-weighted metric (the way
+`GreedyDispatch.totalWeightedPenalty` weights urgency in T051's
+counterexample); under a flat average, serving high-severity cases first
+just means someone else waits longer, and the flat average has no way to
+say that trade was worth it. A genuine T072 follow-up worth naming for
+future work: rerun this experiment with a severity-weighted wait metric
+and confirm triage-priority wins under *that* one, the way T051's
+optimal-dispatch ordering does.
 
 
 ---
