@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="450" y="28" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a2e">T071: BST vs. Red-Black Tree Height on Sorted Input</text>
+<line x1="90" y1="450.00" x2="680" y2="450.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="454.00" font-size="11" text-anchor="end" fill="#555">8</text>
+<line x1="90" y1="372.00" x2="680" y2="372.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="376.00" font-size="11" text-anchor="end" fill="#555">646.20</text>
+<line x1="90" y1="294.00" x2="680" y2="294.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="298.00" font-size="11" text-anchor="end" fill="#555">1284.40</text>
+<line x1="90" y1="216.00" x2="680" y2="216.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="220.00" font-size="11" text-anchor="end" fill="#555">1922.60</text>
+<line x1="90" y1="138.00" x2="680" y2="138.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="142.00" font-size="11" text-anchor="end" fill="#555">2560.80</text>
+<line x1="90" y1="60.00" x2="680" y2="60.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="64.00" font-size="11" text-anchor="end" fill="#555">3199</text>
+<line x1="90.00" y1="60" x2="90.00" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="90.00" y="470" font-size="11" text-anchor="middle" fill="#555">50</text>
+<line x1="188.33" y1="60" x2="188.33" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="188.33" y="470" font-size="11" text-anchor="middle" fill="#555">100</text>
+<line x1="286.67" y1="60" x2="286.67" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="286.67" y="470" font-size="11" text-anchor="middle" fill="#555">200</text>
+<line x1="385.00" y1="60" x2="385.00" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="385.00" y="470" font-size="11" text-anchor="middle" fill="#555">400</text>
+<line x1="483.33" y1="60" x2="483.33" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="483.33" y="470" font-size="11" text-anchor="middle" fill="#555">800</text>
+<line x1="581.67" y1="60" x2="581.67" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="581.67" y="470" font-size="11" text-anchor="middle" fill="#555">1600</text>
+<line x1="680.00" y1="60" x2="680.00" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="680.00" y="470" font-size="11" text-anchor="middle" fill="#555">3200</text>
+<line x1="90" y1="450" x2="680" y2="450" stroke="#1a1a2e" stroke-width="1.5"/>
+<line x1="90" y1="60" x2="90" y2="450" stroke="#1a1a2e" stroke-width="1.5"/>
+<text x="385" y="500" font-size="12" text-anchor="middle" fill="#1a1a2e">N (sorted keys inserted) (log scale)</text>
+<text x="20" y="255" font-size="12" text-anchor="middle" fill="#1a1a2e" transform="rotate(-90 20 255)">Tree height</text>
+<circle cx="90.00" cy="444.99" r="3.5" fill="#4c6ef5"/>
+<circle cx="188.33" cy="438.88" r="3.5" fill="#4c6ef5"/>
+<circle cx="286.67" cy="426.66" r="3.5" fill="#4c6ef5"/>
+<circle cx="385.00" cy="402.21" r="3.5" fill="#4c6ef5"/>
+<circle cx="483.33" cy="353.32" r="3.5" fill="#4c6ef5"/>
+<circle cx="581.67" cy="255.55" r="3.5" fill="#4c6ef5"/>
+<circle cx="680.00" cy="60.00" r="3.5" fill="#4c6ef5"/>
+<path d="M 90.00 444.99 L 188.33 438.88 L 286.67 426.66 L 385.00 402.21 L 483.33 353.32 L 581.67 255.55 L 680.00 60.00" fill="none" stroke="#4c6ef5" stroke-width="2"/>
+<line x1="700" y1="72" x2="724" y2="72" stroke="#4c6ef5" stroke-width="3"/>
+<text x="730" y="76" font-size="12" fill="#1a1a2e">BinarySearchTree</text>
+<circle cx="90.00" cy="450.00" r="3.5" fill="#e8590c"/>
+<circle cx="188.33" cy="449.76" r="3.5" fill="#e8590c"/>
+<circle cx="286.67" cy="449.51" r="3.5" fill="#e8590c"/>
+<circle cx="385.00" cy="449.27" r="3.5" fill="#e8590c"/>
+<circle cx="483.33" cy="449.02" r="3.5" fill="#e8590c"/>
+<circle cx="581.67" cy="448.78" r="3.5" fill="#e8590c"/>
+<circle cx="680.00" cy="448.53" r="3.5" fill="#e8590c"/>
+<path d="M 90.00 450.00 L 188.33 449.76 L 286.67 449.51 L 385.00 449.27 L 483.33 449.02 L 581.67 448.78 L 680.00 448.53" fill="none" stroke="#e8590c" stroke-width="2"/>
+<line x1="700" y1="96" x2="724" y2="96" stroke="#e8590c" stroke-width="3"/>
+<text x="730" y="100" font-size="12" fill="#1a1a2e">RedBlackTree</text>
+</svg>

@@ -1,0 +1,15 @@
+Series,N,Height,AverageInsertAllTimeNs
+BinarySearchTree,50,49,162809
+RedBlackTree,50,8,216618
+BinarySearchTree,100,99,273048
+RedBlackTree,100,10,137797
+BinarySearchTree,200,199,234087
+RedBlackTree,200,12,290346
+BinarySearchTree,400,399,762967
+RedBlackTree,400,14,242159
+BinarySearchTree,800,799,2404479
+RedBlackTree,800,16,260170
+BinarySearchTree,1600,1599,7171244
+RedBlackTree,1600,18,624793
+BinarySearchTree,3200,3199,26393579
+RedBlackTree,3200,20,612341
