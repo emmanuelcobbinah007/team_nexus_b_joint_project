@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="450" y="28" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a2e">T072: FCFS vs. Triage-Priority Average Wait Time vs. Case Volume</text>
+<line x1="90" y1="450.00" x2="680" y2="450.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="454.00" font-size="11" text-anchor="end" fill="#555">0.30</text>
+<line x1="90" y1="372.00" x2="680" y2="372.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="376.00" font-size="11" text-anchor="end" fill="#555">48.33</text>
+<line x1="90" y1="294.00" x2="680" y2="294.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="298.00" font-size="11" text-anchor="end" fill="#555">96.36</text>
+<line x1="90" y1="216.00" x2="680" y2="216.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="220.00" font-size="11" text-anchor="end" fill="#555">144.39</text>
+<line x1="90" y1="138.00" x2="680" y2="138.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="142.00" font-size="11" text-anchor="end" fill="#555">192.42</text>
+<line x1="90" y1="60.00" x2="680" y2="60.00" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="64.00" font-size="11" text-anchor="end" fill="#555">240.44</text>
+<line x1="90.00" y1="60" x2="90.00" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="90.00" y="470" font-size="11" text-anchor="middle" fill="#555">10</text>
+<line x1="183.33" y1="60" x2="183.33" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="183.33" y="470" font-size="11" text-anchor="middle" fill="#555">20</text>
+<line x1="306.70" y1="60" x2="306.70" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="306.70" y="470" font-size="11" text-anchor="middle" fill="#555">50</text>
+<line x1="400.02" y1="60" x2="400.02" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="400.02" y="470" font-size="11" text-anchor="middle" fill="#555">100</text>
+<line x1="493.35" y1="60" x2="493.35" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="493.35" y="470" font-size="11" text-anchor="middle" fill="#555">200</text>
+<line x1="586.67" y1="60" x2="586.67" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="586.67" y="470" font-size="11" text-anchor="middle" fill="#555">400</text>
+<line x1="680.00" y1="60" x2="680.00" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="680.00" y="470" font-size="11" text-anchor="middle" fill="#555">800</text>
+<line x1="90" y1="450" x2="680" y2="450" stroke="#1a1a2e" stroke-width="1.5"/>
+<line x1="90" y1="60" x2="90" y2="450" stroke="#1a1a2e" stroke-width="1.5"/>
+<text x="385" y="500" font-size="12" text-anchor="middle" fill="#1a1a2e">Number of cases (N) (log scale)</text>
+<text x="20" y="255" font-size="12" text-anchor="middle" fill="#1a1a2e" transform="rotate(-90 20 255)">Average wait time (units)</text>
+<circle cx="90.00" cy="450.00" r="3.5" fill="#4c6ef5"/>
+<circle cx="183.33" cy="448.62" r="3.5" fill="#4c6ef5"/>
+<circle cx="306.70" cy="443.31" r="3.5" fill="#4c6ef5"/>
+<circle cx="400.02" cy="445.39" r="3.5" fill="#4c6ef5"/>
+<circle cx="493.35" cy="446.05" r="3.5" fill="#4c6ef5"/>
+<circle cx="586.67" cy="448.24" r="3.5" fill="#4c6ef5"/>
+<circle cx="680.00" cy="429.67" r="3.5" fill="#4c6ef5"/>
+<path d="M 90.00 450.00 L 183.33 448.62 L 306.70 443.31 L 400.02 445.39 L 493.35 446.05 L 586.67 448.24 L 680.00 429.67" fill="none" stroke="#4c6ef5" stroke-width="2"/>
+<line x1="700" y1="72" x2="724" y2="72" stroke="#4c6ef5" stroke-width="3"/>
+<text x="730" y="76" font-size="12" fill="#1a1a2e">FCFS</text>
+<circle cx="90.00" cy="446.26" r="3.5" fill="#e8590c"/>
+<circle cx="183.33" cy="442.61" r="3.5" fill="#e8590c"/>
+<circle cx="306.70" cy="424.57" r="3.5" fill="#e8590c"/>
+<circle cx="400.02" cy="403.46" r="3.5" fill="#e8590c"/>
+<circle cx="493.35" cy="358.10" r="3.5" fill="#e8590c"/>
+<circle cx="586.67" cy="278.63" r="3.5" fill="#e8590c"/>
+<circle cx="680.00" cy="60.00" r="3.5" fill="#e8590c"/>
+<path d="M 90.00 446.26 L 183.33 442.61 L 306.70 424.57 L 400.02 403.46 L 493.35 358.10 L 586.67 278.63 L 680.00 60.00" fill="none" stroke="#e8590c" stroke-width="2"/>
+<line x1="700" y1="96" x2="724" y2="96" stroke="#e8590c" stroke-width="3"/>
+<text x="730" y="100" font-size="12" fill="#1a1a2e">TriagePriority</text>
+</svg>
