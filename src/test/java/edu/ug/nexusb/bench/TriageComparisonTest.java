@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.ug.nexusb.bench.TriageComparison.ComparisonResult;
+import edu.ug.nexusb.bench.TriageComparison.DetailedResult;
 import edu.ug.nexusb.bench.TriageComparison.TriageCase;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,40 @@ class TriageComparisonTest {
         assertEquals(0.0, result.priorityAverageWait, 1e-9);
     }
 
+    @Test
+    void compareDetailedAveragesMatchCompareAndOrdersReflectEachModesRule() {
+        List<TriageCase> cases = List.of(
+            new TriageCase("C001", 0, 3),
+            new TriageCase("C002", 1, 1),
+            new TriageCase("C003", 2, 2),
+            new TriageCase("C004", 4, 1)
+        );
+
+        DetailedResult detailed = TriageComparison.compareDetailed(cases);
+        ComparisonResult aggregate = TriageComparison.compare(cases);
+
+        // The detailed breakdown must average out to exactly the same
+        // numbers compare() reports -- same simulation, just itemized.
+        assertEquals(aggregate.fcfsAverageWait, detailed.fcfsAverageWait, 1e-9);
+        assertEquals(aggregate.priorityAverageWait, detailed.priorityAverageWait, 1e-9);
+
+        assertEquals(4, detailed.fcfsOrder.length);
+        assertEquals(4, detailed.priorityOrder.length);
+
+        // FCFS order is strictly arrival-time ascending.
+        assertEquals("C001", detailed.fcfsOrder[0].caseId());
+        assertEquals("C002", detailed.fcfsOrder[1].caseId());
+        assertEquals("C003", detailed.fcfsOrder[2].caseId());
+        assertEquals("C004", detailed.fcfsOrder[3].caseId());
+
+        // Priority order is severity ascending, tie-broken by arrival:
+        // C002 (sev1@1), C004 (sev1@4), C003 (sev2@2), C001 (sev3@0).
+        assertEquals("C002", detailed.priorityOrder[0].caseId());
+        assertEquals("C004", detailed.priorityOrder[1].caseId());
+        assertEquals("C003", detailed.priorityOrder[2].caseId());
+        assertEquals("C001", detailed.priorityOrder[3].caseId());
+    }
+
     // ------------------------------------------------------------------
     // Boundary case
     // ------------------------------------------------------------------
@@ -89,6 +124,11 @@ class TriageComparisonTest {
     @Test
     void nullCasesThrows() {
         assertThrows(IllegalArgumentException.class, () -> TriageComparison.compare(null));
+    }
+
+    @Test
+    void compareDetailedNullCasesThrows() {
+        assertThrows(IllegalArgumentException.class, () -> TriageComparison.compareDetailed(null));
     }
 
     @Test
