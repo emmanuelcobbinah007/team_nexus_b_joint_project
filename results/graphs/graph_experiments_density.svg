@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="450" y="28" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a2e">T073: Graph Algorithms vs. Graph Density (|E|), fixed |V| = 300</text>
+<line x1="90" y1="503.97" x2="680" y2="503.97" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="507.97" font-size="11" text-anchor="end" fill="#555">100 µs</text>
+<line x1="90" y1="289.17" x2="680" y2="289.17" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="293.17" font-size="11" text-anchor="end" fill="#555">1 ms</text>
+<line x1="90" y1="74.38" x2="680" y2="74.38" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="78.38" font-size="11" text-anchor="end" fill="#555">10 ms</text>
+<line x1="90" y1="-140.41" x2="680" y2="-140.41" stroke="#e0e0e0" stroke-width="1"/>
+<text x="80" y="-136.41" font-size="11" text-anchor="end" fill="#555">100 ms</text>
+<line x1="90.00" y1="60" x2="90.00" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="90.00" y="470" font-size="11" text-anchor="middle" fill="#555">299</text>
+<line x1="293.46" y1="60" x2="293.46" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="293.46" y="470" font-size="11" text-anchor="middle" fill="#555">895</text>
+<line x1="422.82" y1="60" x2="422.82" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="422.82" y="470" font-size="11" text-anchor="middle" fill="#555">1797</text>
+<line x1="551.03" y1="60" x2="551.03" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="551.03" y="470" font-size="11" text-anchor="middle" fill="#555">3586</text>
+<line x1="680.00" y1="60" x2="680.00" y2="450" stroke="#f0f0f0" stroke-width="1"/>
+<text x="680.00" y="470" font-size="11" text-anchor="middle" fill="#555">7185</text>
+<line x1="90" y1="450" x2="680" y2="450" stroke="#1a1a2e" stroke-width="1.5"/>
+<line x1="90" y1="60" x2="90" y2="450" stroke="#1a1a2e" stroke-width="1.5"/>
+<text x="385" y="500" font-size="12" text-anchor="middle" fill="#1a1a2e">Edges (|E|) (log scale)</text>
+<text x="20" y="255" font-size="12" text-anchor="middle" fill="#1a1a2e" transform="rotate(-90 20 255)">Average time (log scale)</text>
+<circle cx="90.00" cy="334.51" r="3.5" fill="#4c6ef5"/>
+<circle cx="293.46" cy="301.00" r="3.5" fill="#4c6ef5"/>
+<circle cx="422.82" cy="247.24" r="3.5" fill="#4c6ef5"/>
+<circle cx="551.03" cy="214.71" r="3.5" fill="#4c6ef5"/>
+<circle cx="680.00" cy="164.52" r="3.5" fill="#4c6ef5"/>
+<path d="M 90.00 334.51 L 293.46 301.00 L 422.82 247.24 L 551.03 214.71 L 680.00 164.52" fill="none" stroke="#4c6ef5" stroke-width="2"/>
+<line x1="700" y1="72" x2="724" y2="72" stroke="#4c6ef5" stroke-width="3"/>
+<text x="730" y="76" font-size="12" fill="#1a1a2e">BFS_Reachability</text>
+<circle cx="90.00" cy="343.40" r="3.5" fill="#e8590c"/>
+<circle cx="293.46" cy="301.38" r="3.5" fill="#e8590c"/>
+<circle cx="422.82" cy="283.40" r="3.5" fill="#e8590c"/>
+<circle cx="551.03" cy="220.71" r="3.5" fill="#e8590c"/>
+<circle cx="680.00" cy="243.99" r="3.5" fill="#e8590c"/>
+<path d="M 90.00 343.40 L 293.46 301.38 L 422.82 283.40 L 551.03 220.71 L 680.00 243.99" fill="none" stroke="#e8590c" stroke-width="2"/>
+<line x1="700" y1="96" x2="724" y2="96" stroke="#e8590c" stroke-width="3"/>
+<text x="730" y="100" font-size="12" fill="#1a1a2e">DFS</text>
+<circle cx="90.00" cy="276.86" r="3.5" fill="#2f9e44"/>
+<circle cx="293.46" cy="218.89" r="3.5" fill="#2f9e44"/>
+<circle cx="422.82" cy="168.54" r="3.5" fill="#2f9e44"/>
+<circle cx="551.03" cy="111.07" r="3.5" fill="#2f9e44"/>
+<circle cx="680.00" cy="60.00" r="3.5" fill="#2f9e44"/>
+<path d="M 90.00 276.86 L 293.46 218.89 L 422.82 168.54 L 551.03 111.07 L 680.00 60.00" fill="none" stroke="#2f9e44" stroke-width="2"/>
+<line x1="700" y1="120" x2="724" y2="120" stroke="#2f9e44" stroke-width="3"/>
+<text x="730" y="124" font-size="12" fill="#1a1a2e">Dijkstra</text>
+<circle cx="90.00" cy="450.00" r="3.5" fill="#e03131"/>
+<circle cx="293.46" cy="355.83" r="3.5" fill="#e03131"/>
+<circle cx="422.82" cy="311.17" r="3.5" fill="#e03131"/>
+<circle cx="551.03" cy="274.24" r="3.5" fill="#e03131"/>
+<circle cx="680.00" cy="217.65" r="3.5" fill="#e03131"/>
+<path d="M 90.00 450.00 L 293.46 355.83 L 422.82 311.17 L 551.03 274.24 L 680.00 217.65" fill="none" stroke="#e03131" stroke-width="2"/>
+<line x1="700" y1="144" x2="724" y2="144" stroke="#e03131" stroke-width="3"/>
+<text x="730" y="148" font-size="12" fill="#1a1a2e">Kruskal</text>
+<circle cx="90.00" cy="269.16" r="3.5" fill="#7048e6"/>
+<circle cx="293.46" cy="206.84" r="3.5" fill="#7048e6"/>
+<circle cx="422.82" cy="177.13" r="3.5" fill="#7048e6"/>
+<circle cx="551.03" cy="132.52" r="3.5" fill="#7048e6"/>
+<circle cx="680.00" cy="117.08" r="3.5" fill="#7048e6"/>
+<path d="M 90.00 269.16 L 293.46 206.84 L 422.82 177.13 L 551.03 132.52 L 680.00 117.08" fill="none" stroke="#7048e6" stroke-width="2"/>
+<line x1="700" y1="168" x2="724" y2="168" stroke="#7048e6" stroke-width="3"/>
+<text x="730" y="172" font-size="12" fill="#1a1a2e">Prim</text>
+</svg>

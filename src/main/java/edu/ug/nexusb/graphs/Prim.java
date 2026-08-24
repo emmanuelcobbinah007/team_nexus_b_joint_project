@@ -5,6 +5,8 @@ import edu.ug.nexusb.core.MyComparator;
 import edu.ug.nexusb.core.MyIterator;
 import edu.ug.nexusb.linear.BinaryHeapPriorityQueue;
 import edu.ug.nexusb.linear.MyPriorityQueue;
+import edu.ug.nexusb.trees.ChainedHashTable;
+import edu.ug.nexusb.trees.MyHashTable;
 
 /**
  * Prim's minimum spanning tree algorithm for the facility road network.
@@ -47,8 +49,9 @@ public final class Prim {
         }
 
         String[] vertexIds = collectVertexIds(graph);
+        MyHashTable<String, Integer> vertexIndex = indexVertexIds(vertexIds);
         Edge[][] incidentEdges =
-                buildIncidentEdges(graph, vertexIds);
+                buildIncidentEdges(graph, vertexIds, vertexIndex);
 
         boolean[] inTree = new boolean[vertexIds.length];
         Edge[] selected =
@@ -58,7 +61,7 @@ public final class Prim {
         int visitedCount = 1;
         double totalWeight = 0.0;
 
-        int startIndex = indexOf(vertexIds, startId);
+        int startIndex = indexOf(vertexIndex, startId);
         inTree[startIndex] = true;
 
         MyPriorityQueue<Edge> frontier =
@@ -69,14 +72,15 @@ public final class Prim {
                 vertexIds,
                 incidentEdges,
                 inTree,
-                frontier);
+                frontier,
+                vertexIndex);
 
         while (!frontier.isEmpty()
                 && selectedCount < selected.length) {
 
             Edge lightest = frontier.extractTop();
             int destinationIndex =
-                    indexOf(vertexIds, lightest.toId());
+                    indexOf(vertexIndex, lightest.toId());
 
             if (inTree[destinationIndex]) {
                 continue;
@@ -94,7 +98,8 @@ public final class Prim {
                     vertexIds,
                     incidentEdges,
                     inTree,
-                    frontier);
+                    frontier,
+                    vertexIndex);
         }
 
         if (visitedCount != vertexIds.length) {
@@ -116,15 +121,16 @@ public final class Prim {
     }
 
     private static void addFrontierEdges(
-            int vertexIndex,
+            int currentIndex,
             String[] vertexIds,
             Edge[][] incidentEdges,
             boolean[] inTree,
-            MyPriorityQueue<Edge> frontier) {
+            MyPriorityQueue<Edge> frontier,
+            MyHashTable<String, Integer> vertexIndex) {
 
-        String fromId = vertexIds[vertexIndex];
+        String fromId = vertexIds[currentIndex];
 
-        for (Edge edge : incidentEdges[vertexIndex]) {
+        for (Edge edge : incidentEdges[currentIndex]) {
             String destinationId;
 
             if (edge.fromId().equals(fromId)) {
@@ -134,7 +140,7 @@ public final class Prim {
             }
 
             int destinationIndex =
-                    indexOf(vertexIds, destinationId);
+                    indexOf(vertexIndex, destinationId);
 
             if (!inTree[destinationIndex]) {
                 frontier.insert(
@@ -148,10 +154,11 @@ public final class Prim {
 
     private static Edge[][] buildIncidentEdges(
             MyGraph graph,
-            String[] vertexIds) {
+            String[] vertexIds,
+            MyHashTable<String, Integer> vertexIndex) {
 
         int[] degrees = new int[vertexIds.length];
-        countIncidentEdges(graph, vertexIds, degrees);
+        countIncidentEdges(graph, degrees, vertexIndex);
 
         Edge[][] incident = new Edge[vertexIds.length][];
 
@@ -171,9 +178,9 @@ public final class Prim {
             while (edges.hasNext()) {
                 Edge edge = edges.next();
                 int from =
-                        indexOf(vertexIds, edge.fromId());
+                        indexOf(vertexIndex, edge.fromId());
                 int to =
-                        indexOf(vertexIds, edge.toId());
+                        indexOf(vertexIndex, edge.toId());
 
                 if (from != to) {
                     incident[from][next[from]] = edge;
@@ -190,8 +197,8 @@ public final class Prim {
 
     private static void countIncidentEdges(
             MyGraph graph,
-            String[] vertexIds,
-            int[] degrees) {
+            int[] degrees,
+            MyHashTable<String, Integer> vertexIndex) {
 
         MyIterator<String> vertices =
                 graph.vertices().iterator();
@@ -204,9 +211,9 @@ public final class Prim {
             while (edges.hasNext()) {
                 Edge edge = edges.next();
                 int from =
-                        indexOf(vertexIds, edge.fromId());
+                        indexOf(vertexIndex, edge.fromId());
                 int to =
-                        indexOf(vertexIds, edge.toId());
+                        indexOf(vertexIndex, edge.toId());
 
                 if (from != to) {
                     degrees[from]++;
@@ -233,19 +240,32 @@ public final class Prim {
         return vertexIds;
     }
 
+    /**
+     * Builds a {@code vertexId -> array index} lookup once, up front, so
+     * every later lookup ({@link #indexOf}) is an {@code O(1)} hash lookup
+     * instead of an {@code O(V)} linear scan repeated for every edge —
+     * the original per-edge {@code String[]} scan made the whole algorithm
+     * effectively {@code O(E*V)} instead of the intended {@code O(E log V)}.
+     */
+    private static MyHashTable<String, Integer> indexVertexIds(String[] vertexIds) {
+        MyHashTable<String, Integer> vertexIndex = new ChainedHashTable<>();
+        for (int i = 0; i < vertexIds.length; i++) {
+            vertexIndex.put(vertexIds[i], i);
+        }
+        return vertexIndex;
+    }
+
     private static int indexOf(
-            String[] vertexIds,
+            MyHashTable<String, Integer> vertexIndex,
             String targetId) {
 
-        for (int i = 0; i < vertexIds.length; i++) {
-            if (vertexIds[i].equals(targetId)) {
-                return i;
-            }
+        Integer index = vertexIndex.get(targetId);
+        if (index == null) {
+            throw new KeyNotFoundException(
+                    "No such vertex in this Prim run: "
+                            + targetId);
         }
-
-        throw new KeyNotFoundException(
-                "No such vertex in this Prim run: "
-                        + targetId);
+        return index;
     }
 
     private static final MyComparator<Edge> EDGE_ORDER =
