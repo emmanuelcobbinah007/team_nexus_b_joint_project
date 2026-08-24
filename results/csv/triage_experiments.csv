@@ -1,0 +1,15 @@
+Series,N,AverageWait
+FCFS,10,0.3
+TriagePriority,10,2.6
+FCFS,20,1.15
+TriagePriority,20,4.85
+FCFS,50,4.42
+TriagePriority,50,15.96
+FCFS,100,3.14
+TriagePriority,100,28.96
+FCFS,200,2.73
+TriagePriority,200,56.885
+FCFS,400,1.3825
+TriagePriority,400,105.8225
+FCFS,800,12.82
+TriagePriority,800,240.44375
