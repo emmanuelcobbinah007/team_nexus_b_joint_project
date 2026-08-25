@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   :root {
     --bg: #f4f6f9;
@@ -119,10 +120,11 @@
   }
   nav button:hover { color: var(--text); }
   nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
-  main { padding: 1.25rem 1.5rem 3rem; max-width: 1280px; margin: 0 auto; }
+  main { padding: 1.25rem 1.5rem 3rem; max-width: 1520px; margin: 0 auto; }
   .panel { display: none; grid-template-columns: 1.1fr 1fr; gap: 1.25rem; }
   .panel.active { display: grid; }
-  @media (max-width: 900px) { .panel.active { grid-template-columns: 1fr; } }
+  .panel.has-map.active { grid-template-columns: 0.85fr 1.25fr; }
+  @media (max-width: 900px) { .panel.active, .panel.has-map.active { grid-template-columns: 1fr; } }
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -196,15 +198,12 @@
   .pill.t1 { background: var(--critical-soft); color: var(--critical); }
   .pill.t2 { background: var(--warning-soft); color: var(--warning); }
   .pill.t3, .pill.t4 { background: var(--ok-soft); color: var(--ok); }
-  svg.graph { width: 100%; height: 420px; background: var(--surface-2); border-radius: 10px; display: block; }
-  svg.graph .edge { stroke: var(--edge); stroke-width: 1; }
-  svg.graph .edge.hl { stroke: var(--accent); stroke-width: 2.5; }
-  svg.graph .edge.mst { stroke: var(--ok); stroke-width: 2.5; }
-  svg.graph .node { fill: var(--node); stroke: var(--surface); stroke-width: 1; }
-  svg.graph .node.hl { fill: var(--accent); }
-  svg.graph .node.start { fill: var(--ok); }
-  svg.graph .node.end { fill: var(--critical); }
-  svg.graph text { font-family: "JetBrains Mono", monospace; font-size: 8px; fill: var(--text-muted); }
+  .graph-map { width: 100%; height: 660px; border-radius: 10px; overflow: hidden; background: var(--surface-2); }
+  @media (max-width: 900px) { .graph-map { height: 420px; } }
+  .graph-map .leaflet-control-attribution { background: rgba(0,0,0,0.55); color: #fff; font-size: 0.6rem; }
+  .graph-map .leaflet-control-attribution a { color: #cfe3ff; }
+  .graph-map .leaflet-tooltip { font-family: "JetBrains Mono", monospace; font-size: 0.75rem; }
+  .map-toolbar { display: flex; justify-content: flex-end; margin-bottom: 0.5rem; }
   .legend { display: flex; gap: 0.9rem; font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem; flex-wrap: wrap; }
   .legend span { display: inline-flex; align-items: center; gap: 0.3rem; }
   .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
@@ -232,7 +231,7 @@
 <main>
 
   <!-- ROUTING: Dijkstra + BFS + DFS -->
-  <section class="panel active" id="panel-routing">
+  <section class="panel has-map active" id="panel-routing">
     <div class="card">
       <h2>Shortest path (Dijkstra, T046)</h2>
       <p class="sub">Real edge weight = effective travel time (base time &times; traffic &times; road condition), from <code>v_weighted_edge</code>.</p>
@@ -267,10 +266,13 @@
       <div id="dfsResult" class="result"><p class="result-empty">Run to check the whole network.</p></div>
     </div>
     <div class="card">
-      <svg class="graph" id="routingGraph"></svg>
+      <div class="map-toolbar">
+        <button class="ghost" id="routingGraphToggle" onclick="toggleOnlyRelevant('routingGraph')">Hide background roads</button>
+      </div>
+      <div class="graph-map" id="routingGraph"></div>
       <div class="legend">
         <span><span class="dot" style="background:var(--edge)"></span>road</span>
-        <span><span class="dot" style="background:var(--accent)"></span>highlighted path</span>
+        <span><span class="dot" style="background:var(--accent)"></span>path &middot; &#9650; = travel direction</span>
         <span><span class="dot" style="background:var(--ok)"></span>start</span>
         <span><span class="dot" style="background:var(--critical)"></span>destination</span>
       </div>
@@ -278,7 +280,7 @@
   </section>
 
   <!-- MST: Kruskal + Prim -->
-  <section class="panel" id="panel-mst">
+  <section class="panel has-map" id="panel-mst">
     <div class="card">
       <h2>Minimum spanning tree &mdash; resupply backbone</h2>
       <p class="sub">Kruskal (T049, edge-sorted + disjoint set) and Prim (T050, frontier heap) on the full 117-facility network. Both should report the same total weight.</p>
@@ -292,7 +294,10 @@
       <div id="mstResult" class="result"><p class="result-empty">Run either algorithm.</p></div>
     </div>
     <div class="card">
-      <svg class="graph" id="mstGraph"></svg>
+      <div class="map-toolbar">
+        <button class="ghost" id="mstGraphToggle" onclick="toggleOnlyRelevant('mstGraph')">Hide background roads</button>
+      </div>
+      <div class="graph-map" id="mstGraph"></div>
       <div class="legend">
         <span><span class="dot" style="background:var(--edge)"></span>road (not selected)</span>
         <span><span class="dot" style="background:var(--ok)"></span>MST edge</span>
@@ -301,7 +306,7 @@
   </section>
 
   <!-- DISPATCH: Greedy vs Optimal -->
-  <section class="panel" id="panel-dispatch">
+  <section class="panel has-map" id="panel-dispatch">
     <div class="card">
       <h2>Greedy vs. optimal dispatch (T051)</h2>
       <p class="sub">Nearest-first greedy vs. urgency-weighted optimal ordering. The preset below is the engineered counterexample from <code>docs/counterexamples/</code> &mdash; edit it or add your own cases.</p>
@@ -320,7 +325,15 @@ REQ_URGENT,F053,1</textarea>
     <div class="card">
       <h2>Why order matters</h2>
       <p class="sub">Penalty = &sum; (cumulative travel time to reach each case) &divide; its triage level &mdash; an urgent case has almost no tolerance for delay, so its wait counts almost fully; a routine case tolerates the same wait far better. Lower total penalty is better.</p>
-      <svg class="graph" id="dispatchGraph"></svg>
+      <div class="map-toolbar">
+        <button class="ghost" id="dispatchGraphToggle" onclick="toggleOnlyRelevant('dispatchGraph')">Hide background roads</button>
+      </div>
+      <div class="graph-map" id="dispatchGraph"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--ok)"></span>station</span>
+        <span><span class="dot" style="background:var(--accent)"></span>case</span>
+      </div>
+      <p class="footnote">Dashed line + arrows = the <strong>optimal</strong> visit order, station to last case. It's a straight "as the crow flies" connector between stops, not a literal road route (see the Routing tab for actual roads) &mdash; greedy's order is in the table above instead of on the map, since drawing both orders at once over the same points would be unreadable.</p>
     </div>
   </section>
 
@@ -430,6 +443,7 @@ C004,4,1</textarea>
 
 </main>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // ---------------------------------------------------------------------
 // Data loading
@@ -485,8 +499,6 @@ async function init() {
   setIfPresent('dispatchStation', 'F001');
 
   drawGraph('routingGraph', {});
-  drawGraph('mstGraph', {});
-  drawGraph('dispatchGraph', {});
 }
 
 function setIfPresent(selectId, code) {
@@ -510,34 +522,121 @@ document.getElementById('tabs').addEventListener('click', (e) => {
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  const panel = document.getElementById('panel-' + btn.dataset.tab);
+  panel.classList.add('active');
+  requestAnimationFrame(() => {
+    panel.querySelectorAll('.graph-map').forEach(container => {
+      if (mapInstances[container.id]) {
+        mapInstances[container.id].invalidateSize();
+      } else {
+        drawGraph(container.id, lastDrawOpts[container.id] || {});
+      }
+    });
+  });
 });
 
 // ---------------------------------------------------------------------
-// Graph rendering (lat/lon projected onto an SVG canvas)
+// Graph rendering (Leaflet + Esri World Imagery satellite basemap,
+// facilities/roads plotted at their real lat/lon)
 // ---------------------------------------------------------------------
-function drawGraph(svgId, opts) {
-  const svg = document.getElementById(svgId);
-  const w = svg.clientWidth || 560, h = 420;
-  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-  svg.innerHTML = '';
+const mapInstances = {};
+const lastDrawOpts = {};
+const onlyRelevantState = {}; // containerId -> boolean, true = hide non-relevant background roads
 
+function toggleOnlyRelevant(containerId) {
+  onlyRelevantState[containerId] = !onlyRelevantState[containerId];
+  syncToggleLabel(containerId);
+  drawGraph(containerId, lastDrawOpts[containerId] || {});
+}
+
+function syncToggleLabel(containerId) {
+  const btn = document.getElementById(containerId + 'Toggle');
+  if (btn) btn.textContent = onlyRelevantState[containerId] ? 'Show all roads' : 'Hide background roads';
+}
+
+// Every fresh algorithm result defaults to the focused view -- only the
+// nodes/roads the result actually involves -- so the output is legible
+// without the user having to remember to click the toggle first.
+function focusMap(containerId) {
+  onlyRelevantState[containerId] = true;
+  syncToggleLabel(containerId);
+}
+
+function cssVar(name, fallback) {
+  const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return v || fallback;
+}
+
+// Compass bearing (0 = north, 90 = east) from point a to point b.
+function bearingDeg(a, b) {
+  const toRad = d => d * Math.PI / 180, toDeg = r => r * 180 / Math.PI;
+  const phi1 = toRad(a.lat), phi2 = toRad(b.lat), dLambda = toRad(b.lon - a.lon);
+  const y = Math.sin(dLambda) * Math.cos(phi2);
+  const x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(dLambda);
+  return (toDeg(Math.atan2(y, x)) + 360) % 360;
+}
+
+// A small CSS triangle (points north by default) rotated to the given
+// compass bearing, used to mark direction of travel along a path hop.
+function arrowIcon(bearing, color) {
+  return L.divIcon({
+    className: '',
+    html: '<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;' +
+      'border-bottom:12px solid ' + color + ';transform:rotate(' + bearing + 'deg);' +
+      'filter:drop-shadow(0 0 2px #000) drop-shadow(0 0 1px #000);"></div>',
+    iconSize: [12, 12],
+    iconAnchor: [6, 6]
+  });
+}
+
+function getMap(containerId) {
+  if (mapInstances[containerId]) return mapInstances[containerId];
+
+  const map = L.map(containerId, { zoomControl: true });
+
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics',
+    maxZoom: 18
+  }).addTo(map);
+
+  // Road/place-name reference layer over the satellite imagery, so the
+  // map stays readable rather than just being a photo -- the standard
+  // Esri "hybrid" pairing with World_Imagery.
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Labels &copy; Esri',
+    maxZoom: 18,
+    opacity: 0.9
+  }).addTo(map);
+
+  map._dataLayer = L.layerGroup().addTo(map);
+  mapInstances[containerId] = map;
+  return map;
+}
+
+function drawGraph(containerId, opts) {
+  lastDrawOpts[containerId] = opts;
   if (!facilities.length) return;
-  const lats = facilities.map(f => f.lat), lons = facilities.map(f => f.lon);
-  const minLat = Math.min(...lats), maxLat = Math.max(...lats);
-  const minLon = Math.min(...lons), maxLon = Math.max(...lons);
-  const pad = 24;
-  const project = (f) => {
-    const x = pad + (f.lon - minLon) / (maxLon - minLon || 1) * (w - 2 * pad);
-    const y = h - pad - (f.lat - minLat) / (maxLat - minLat || 1) * (h - 2 * pad);
-    return [x, y];
-  };
+  const map = getMap(containerId);
+  map._dataLayer.clearLayers();
 
-  const ns = 'http://www.w3.org/2000/svg';
   const highlightNodes = opts.highlightNodes || new Set();
   const startNode = opts.startNode, endNode = opts.endNode;
   const highlightEdgeSet = opts.highlightEdges || new Set(); // "from|to"
   const mstEdgeSet = opts.mstEdges || new Set();
+  const onlyRelevant = !!onlyRelevantState[containerId];
+
+  const edgeColor = cssVar('--edge', '#c3cad6');
+  const hlColor = cssVar('--accent', '#0d6e6e');
+  const mstColor = cssVar('--ok', '#1f8a4c');
+  const nodeColor = cssVar('--node', '#7280a0');
+  const startColor = cssVar('--ok', '#1f8a4c');
+  const endColor = cssVar('--critical', '#c0293b');
+
+  // Nodes that are endpoints of a rendered edge, plus anything already
+  // flagged relevant by the caller -- what "only relevant" mode keeps.
+  const relevantNodes = new Set(highlightNodes);
+  if (startNode) relevantNodes.add(startNode);
+  if (endNode) relevantNodes.add(endNode);
 
   const edgesSeen = new Set();
   (opts.edgesOverride || graphData.edges).forEach(e => {
@@ -546,37 +645,61 @@ function drawGraph(svgId, opts) {
     edgesSeen.add(key);
     const a = facilityById[e.from], b = facilityById[e.to];
     if (!a || !b) return;
-    const [x1, y1] = project(a), [x2, y2] = project(b);
-    const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', x1); line.setAttribute('y1', y1);
-    line.setAttribute('x2', x2); line.setAttribute('y2', y2);
-    let cls = 'edge';
-    if (mstEdgeSet.has(e.from + '|' + e.to) || mstEdgeSet.has(e.to + '|' + e.from)) cls += ' mst';
-    else if (highlightEdgeSet.has(e.from + '|' + e.to) || highlightEdgeSet.has(e.to + '|' + e.from)) cls += ' hl';
-    line.setAttribute('class', cls);
-    svg.appendChild(line);
+
+    const isMst = mstEdgeSet.has(e.from + '|' + e.to) || mstEdgeSet.has(e.to + '|' + e.from);
+    const isHl = highlightEdgeSet.has(e.from + '|' + e.to) || highlightEdgeSet.has(e.to + '|' + e.from);
+    if (onlyRelevant && !isMst && !isHl) return; // skip background roads not part of the result
+
+    relevantNodes.add(e.from);
+    relevantNodes.add(e.to);
+
+    const color = isMst ? mstColor : isHl ? hlColor : edgeColor;
+    const weight = (isMst || isHl) ? 4 : 1.5;
+    const latlngs = [[a.lat, a.lon], [b.lat, b.lon]];
+
+    // dark casing under every line so routes stay legible over bright imagery
+    L.polyline(latlngs, { color: '#000', weight: weight + 2, opacity: 0.35 }).addTo(map._dataLayer);
+    L.polyline(latlngs, { color: color, weight: weight, opacity: (isMst || isHl) ? 0.95 : 0.55 }).addTo(map._dataLayer);
   });
+
+  // An explicit, ordered stop sequence (Dijkstra's path, or a dispatch
+  // visit order) -- drawn as its own directed overlay, with an arrow per
+  // hop, so travel direction is unambiguous regardless of which way the
+  // underlying background edge happened to be stored.
+  if (opts.directedPath && opts.directedPath.length > 1) {
+    const path = opts.directedPath;
+    const dashArray = opts.pathStyle === 'dashed' ? '7,7' : null;
+    for (let i = 0; i < path.length - 1; i++) {
+      const a = facilityById[path[i]], b = facilityById[path[i + 1]];
+      if (!a || !b) continue;
+      relevantNodes.add(path[i]);
+      relevantNodes.add(path[i + 1]);
+      const latlngs = [[a.lat, a.lon], [b.lat, b.lon]];
+      L.polyline(latlngs, { color: '#000', weight: 6, opacity: 0.35, dashArray: dashArray }).addTo(map._dataLayer);
+      L.polyline(latlngs, { color: hlColor, weight: 4, opacity: 0.95, dashArray: dashArray }).addTo(map._dataLayer);
+      const mid = { lat: (a.lat + b.lat) / 2, lon: (a.lon + b.lon) / 2 };
+      L.marker([mid.lat, mid.lon], { icon: arrowIcon(bearingDeg(a, b), hlColor), interactive: false }).addTo(map._dataLayer);
+    }
+  }
 
   facilities.forEach(f => {
-    const [x, y] = project(f);
-    const circle = document.createElementNS(ns, 'circle');
-    circle.setAttribute('cx', x); circle.setAttribute('cy', y);
-    circle.setAttribute('r', 3);
-    let cls = 'node';
-    if (f.id === startNode) cls += ' start';
-    else if (f.id === endNode) cls += ' end';
-    else if (highlightNodes.has(f.id)) cls += ' hl';
-    circle.setAttribute('class', cls);
-    circle.appendChild(el('title', {}, f.code + ' - ' + f.name));
-    svg.appendChild(circle);
+    if (onlyRelevant && !relevantNodes.has(f.id)) return; // hide facilities not involved in this result
+    let color = nodeColor, radius = 4;
+    if (f.id === startNode) { color = startColor; radius = 7; }
+    else if (f.id === endNode) { color = endColor; radius = 7; }
+    else if (highlightNodes.has(f.id)) { color = hlColor; radius = 6; }
+    L.circleMarker([f.lat, f.lon], { radius: radius, color: '#fff', weight: 1.5, fillColor: color, fillOpacity: 0.95 })
+      .bindTooltip(f.code + ' — ' + f.name)
+      .addTo(map._dataLayer);
   });
-}
 
-function el(tag, attrs, text) {
-  const e = document.createElementNS(tag === 'title' ? 'http://www.w3.org/2000/svg' : null, tag);
-  Object.entries(attrs || {}).forEach(([k, v]) => e.setAttribute(k, v));
-  if (text) e.textContent = text;
-  return e;
+  if (!map._fitDone) {
+    const size = map.getSize();
+    if (size.x > 0 && size.y > 0) {
+      map.fitBounds(L.latLngBounds(facilities.map(f => [f.lat, f.lon])), { padding: [16, 16] });
+      map._fitDone = true;
+    }
+  }
 }
 
 // ---------------------------------------------------------------------
@@ -602,9 +725,8 @@ async function runDijkstra() {
       '<table><tr><th>#</th><th>Facility</th></tr>' +
       r.path.map((id, i) => '<tr><td class="num">' + (i + 1) + '</td><td>' + facilityLabel(id) + '</td></tr>').join('') +
       '</table>';
-    const edgeSet = new Set();
-    for (let i = 0; i < r.path.length - 1; i++) edgeSet.add(r.path[i] + '|' + r.path[i + 1]);
-    drawGraph('routingGraph', { startNode: from, endNode: to, highlightEdges: edgeSet, highlightNodes: new Set(r.path) });
+    focusMap('routingGraph');
+    drawGraph('routingGraph', { startNode: from, endNode: to, directedPath: r.path, highlightNodes: new Set(r.path) });
   } catch (e) {
     out.innerHTML = '<div class="error-box">' + e.message + '</div>';
   }
@@ -637,6 +759,11 @@ async function runBfs() {
       ['Reachable facilities', r.reachable.length, 'ok'],
       ['Closed roads', closedRoads.length, closedRoads.length ? 'critical' : '']
     ]) + '<p class="footnote">' + r.reachable.map(facilityLabel).join(', ') + '</p>';
+    // Reachability is about the whole network's connectivity, so show full
+    // context rather than the (possibly still-focused) state from a
+    // previous Dijkstra/dispatch run on this same map.
+    onlyRelevantState['routingGraph'] = false;
+    syncToggleLabel('routingGraph');
     drawGraph('routingGraph', { startNode: from, highlightNodes: new Set(r.reachable) });
   } catch (e) {
     out.innerHTML = '<div class="error-box">' + e.message + '</div>';
@@ -682,6 +809,7 @@ function renderMst(out, r, label) {
     ['Edges selected', r.edges.length, '']
   ]) + '<p class="footnote">Kruskal\'s <span class="mono">Edge</span> type stores integer weights (its established API), so its input is rounded from the graph\'s real (double) edge weights; Prim consumes the exact doubles directly. Their totals can differ by a few units for this reason — both are still correct minimum spanning trees, just computed against slightly different rounded vs. exact inputs. Run both and compare.</p>';
   const mstSet = new Set(r.edges.map(e => e.from + '|' + e.to));
+  focusMap('mstGraph');
   drawGraph('mstGraph', { mstEdges: mstSet });
 }
 
@@ -717,7 +845,11 @@ async function runDispatch() {
         Math.abs(r.greedyPenalty - r.optimalPenalty).toFixed(2) + ' penalty units.</p>' : '');
     const caseIds = new Set(r.cases.map(c => c.originFacilityId));
     caseIds.add(station);
-    drawGraph('dispatchGraph', { startNode: station, highlightNodes: caseIds });
+    const facilityByRef = {};
+    r.cases.forEach(c => { facilityByRef[c.caseRef] = c.originFacilityId; });
+    const optimalPath = [station, ...r.optimalOrder.map(ref => facilityByRef[ref])];
+    focusMap('dispatchGraph');
+    drawGraph('dispatchGraph', { startNode: station, highlightNodes: caseIds, directedPath: optimalPath, pathStyle: 'dashed' });
   } catch (e) {
     out.innerHTML = '<div class="error-box">' + e.message + '</div>';
   }
