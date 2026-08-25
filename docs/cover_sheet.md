@@ -1,15 +1,37 @@
-# Cover Sheet
+# DCIT 204/308 Project Submission Checklist and Cover Sheet
 
-## Hospital & Clinic Operations Optimizer
+_Matches the official template (`Joint_DSA_Project_Checklist_Cover_Sheet.docx`) field for field._
 
-**Course:** DCIT 204/308 — Joint Data Structures & Algorithms Project
-**Institution:** University of Ghana
-**Group:** 29 — Team Nexus B
-**Submission date:** _____________________ (target: Saturday 22 August 2026, by the afternoon)
+| | |
+|---|---|
+| Team name | Team Nexus B (Group 29) |
+| Selected Ghana context | Hospital / clinic operations (Greater Accra district health network) |
+| Organisation/problem modelled | Ghana Smart Service Operations Optimizer — triage, ambulance dispatch, and routing across a real Greater Accra facility network |
+| Database used | SQLite (`nexus.db`, built from `data/schema.sql`) |
+| Programming language/version | Java 17 |
+| Total records in dataset | 672 (117 facilities + 217 road links + 306 case requests + 32 resources) |
+| Repository or submitted ZIP name | `team_nexus_b_joint_project` |
+
+## Checklist
+
+| Requirement | Tick | Evidence location |
+|---|:---:|---|
+| Local dataset with data dictionary | ✅ | [`docs/data_dictionary.md`](data_dictionary.md), [`data/locations.csv`](../data/locations.csv), [`data/roads.csv`](../data/roads.csv), [`data/request.csv`](../data/request.csv), [`data/resources.csv`](../data/resources.csv) |
+| Database schema and seed data | ✅ | [`data/schema.sql`](../data/schema.sql); seeded via `DBLoader` (`mvn exec:java -Dexec.args="--init-db"`) |
+| Custom data structures implemented | ✅ | `src/main/java/edu/ug/nexusb/{linear,trees,graphs}/` — see [05_data_structures.md](report/05_data_structures.md) |
+| Searching and sorting algorithms | ✅ | `src/main/java/edu/ug/nexusb/algorithms/` (linear/binary search, selection/insertion/merge/quicksort) |
+| Graph algorithms implemented | ✅ | `src/main/java/edu/ug/nexusb/graphs/` (BFS, DFS, Dijkstra, Prim, Kruskal) |
+| Greedy and DP algorithms | ✅ | `src/main/java/edu/ug/nexusb/optimization/` (`GreedyDispatch`, `KnapsackDP`) |
+| Correctness tests and trace tables | ✅ | 459+ tests (`mvn test`); [`docs/traces/`](traces/) (8 trace tables); [`docs/proofs/`](proofs/) (4 proof sketches); [`docs/counterexamples/`](counterexamples/) |
+| Performance CSV and graphs | ✅ | [`results/csv/`](../results/csv/), [`results/graphs/`](../results/graphs/) — 6 experiments (search/sort comparison, hash table load factor, BST vs. balanced tree, heap insert/extract, triage-priority vs. FCFS, graph algorithms vs. size/density) |
+| Technical report | ✅ | [`docs/report/report_master.md`](report/report_master.md) |
+| Demo video / oral defense prepared | ☐ | Pending T076 (video) / T078 (mock defense, 21 Aug) |
 
 ---
 
-## Team roster
+## Additional detail (beyond the official template)
+
+### Team roster
 
 | # | Name | Index number | Role |
 |---|---|---|---|
@@ -32,9 +54,7 @@
 Sub-team D (Graphs) also includes Frederick Kankam (lead) and Irene Tetteh,
 per [`README.md`](../README.md)'s team table.
 
----
-
-## Declaration
+### Declaration
 
 We confirm that:
 
@@ -54,9 +74,7 @@ We confirm that:
 5. The full test suite (`mvn clean test`) passes on a clean clone with no
    local-only state required.
 
----
-
-## Signatures
+### Signatures
 
 | Name | Signature | Date |
 |---|---|---|
@@ -64,5 +82,5 @@ We confirm that:
 | Frederick Kankam (Planning & Delivery Lead) | _____________________ | _________ |
 | Cobbinah Emmanuel (Technical Lead) | _____________________ | _________ |
 
-_This cover sheet is a template — signatures are added by hand (or the
-team's actual sign-off process) before submission, not filled in here._
+_Signatures are added by hand (or the team's actual sign-off process)
+before submission, not filled in here._

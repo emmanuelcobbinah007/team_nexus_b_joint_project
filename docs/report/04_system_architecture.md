@@ -1,4 +1,4 @@
-# 4. System Design & Architecture
+# 4. System Architecture and Module Design
 
 Full contract text: [`interfaces.md`](../interfaces.md). Summarized here.
 
@@ -29,18 +29,22 @@ independent, machine-agnostic evidence backing it up.
 ## Module layout
 
 One package per sub-team — `data/` (A), `linear/` (B), `trees/` (C),
-`graphs/` (D), `algorithms/`+`bench/` (E) — plus `core/` (frozen, shared)
-and `app/` (triage/dispatch wiring, console menu). Two people never edit
-the same file, so ownership boundaries alone prevent most merge conflicts;
-`docs/interfaces.md` documents each package's specific contracts and the
-cross-team dependencies worth protecting (e.g. `MyPriorityQueue
-.decreaseKey()` exists solely for Dijkstra's benefit — nothing in
-Sub-team B's own module calls it, but it must not be dropped as
-"unused").
+`graphs/` (D), `algorithms/`+`bench/` (E) — plus `core/` (frozen, shared),
+`app/` (triage/dispatch wiring, console menu), and `web/` (a live HTTP
+API + browser frontend added after Week 4's tracker tasks, exposing every
+capability above interactively — see
+[06_algorithm_implementation.md](06_algorithm_implementation.md)). Two
+people never edit the same file, so ownership boundaries alone prevent
+most merge conflicts; `docs/interfaces.md` documents each package's
+specific contracts and the cross-team dependencies worth protecting (e.g.
+`MyPriorityQueue.decreaseKey()` exists solely for Dijkstra's benefit —
+nothing in Sub-team B's own module calls it, but it must not be dropped
+as "unused").
 
 ## Data flow
 
 `data/*.csv` → `DBLoader` → `nexus.db` (SQLite) → `GraphBuilder` /
 `IndexingEngine` / `TriageDispatchEngine` build in-memory structures from
-the DB → `app.ExaminerConsole` demonstrates each capability against real
-data end to end (T056).
+the DB → either `app.ExaminerConsole` (text menu, T056) or
+`web.ApiServer` + the browser frontend demonstrates each capability
+against the same real data, end to end.

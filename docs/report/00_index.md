@@ -1,25 +1,22 @@
 # Report
 
 Each report section lives in its own file in this folder, numbered in
-reading order. **This 11-section structure is a best-effort scaffold, not
-confirmed against the actual course brief** — whoever owns T075 should
-check it against the real rubric before treating the numbering as final;
-sections can be renamed, merged, or split without touching anything else in
-this repo, since nothing else links to them by number.
+reading order. This 12-section structure matches the DCIT 204/308 course
+brief's own required report structure exactly — checked directly against
+the brief, not just the team's own tracker interpretation.
 
-Every file below is a stub: a heading, its scope, and pointers to the real
-evidence already in this repo that the section should draw from. None of
-them contain finished prose yet — that's genuinely Week 4 work (T075), once
-the Week 4 experiments (T070-T074) have real `results/` output to report on.
-
-- [01_introduction.md](01_introduction.md) — problem statement, scope
-- [02_requirements_and_scope.md](02_requirements_and_scope.md) — what the system does and doesn't cover
-- [03_data_and_assumptions.md](03_data_and_assumptions.md) — links [../data_dictionary.md](../data_dictionary.md), [../evidence_note.md](../evidence_note.md)
-- [04_system_design.md](04_system_design.md) — links [../interfaces.md](../interfaces.md), [../parameters.md](../parameters.md)
+- [01_cover_page.md](01_cover_page.md) — team, context, problem modelled
+- [02_problem_statement.md](02_problem_statement.md) — problem statement, assumptions, input/output definitions, system boundaries
+- [03_dataset_description.md](03_dataset_description.md) — dataset, data dictionary, database schema; links [../data_dictionary.md](../data_dictionary.md), [../evidence_note.md](../evidence_note.md)
+- [04_system_architecture.md](04_system_architecture.md) — system architecture and module design; links [../interfaces.md](../interfaces.md), [../parameters.md](../parameters.md)
 - [05_data_structures.md](05_data_structures.md) — one subsection per sub-team's structures (linear/trees/graphs)
-- [06_algorithms_and_complexity.md](06_algorithms_and_complexity.md) — links [../traces/](../traces/) and [../proofs/](../proofs/)
-- [07_testing_and_verification.md](07_testing_and_verification.md) — test counts/coverage, links `mvn test` evidence
-- [08_benchmarks_and_results.md](08_benchmarks_and_results.md) — links [../../results/](../../results/) (empty until T070-T074 run)
-- [09_discussion_and_limitations.md](09_discussion_and_limitations.md) — trade-offs, known gaps, future work
-- [10_individual_contributions.md](10_individual_contributions.md) — per-member contribution statements
-- [11_conclusion.md](11_conclusion.md) — summary, what was learned
+- [06_algorithm_implementation.md](06_algorithm_implementation.md) — algorithms, pseudocode, Java snippets, complexity; links [../traces/](../traces/) and [../proofs/](../proofs/)
+- [07_correctness_evidence.md](07_correctness_evidence.md) — test counts/coverage, trace/proof/counterexample index, edge-case checklist
+- [08_performance_analysis.md](08_performance_analysis.md) — all six benchmark experiments against the brief's minimum ranges; links [../../results/](../../results/)
+- [09_database_integration_evidence.md](09_database_integration_evidence.md) — real load/read/write evidence for every schema table
+- [10_responsible_algorithm_selection.md](10_responsible_algorithm_selection.md) — why these algorithms for this problem, trade-offs, known limitations, future work, conclusion
+- [11_individual_contributions_and_defense_notes.md](11_individual_contributions_and_defense_notes.md) — per-member contribution statements, oral-defense preparation notes
+- [12_references_and_appendices.md](12_references_and_appendices.md) — citations, dependencies, deliverable location index
+
+[`report_master.md`](report_master.md) concatenates all twelve into a
+single document for submission.

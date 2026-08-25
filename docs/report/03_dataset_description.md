@@ -1,8 +1,27 @@
-# 3. Data & Assumptions
+# 3. Dataset Description, Data Dictionary & Database Schema
 
 Full detail: [`data_dictionary.md`](../data_dictionary.md) (field-level
 schema for every CSV) and [`evidence_note.md`](../evidence_note.md) (what
 the dataset approximates and why). Summarized here.
+
+## Database schema
+
+Seven tables in `data/schema.sql` (SQLite):
+
+| Table | Purpose |
+|---|---|
+| `facility` | Every health facility — the graph's vertices |
+| `road_link` | Weighted edges between facilities; `v_weighted_edge` (a view over it) computes the effective travel-time weight every routing algorithm uses |
+| `case_request` | Incoming cases — queued, prioritised, searched, and sorted |
+| `resource` | Ambulances, response teams, beds — assignable units |
+| `assignment` | Which resource was assigned to which case, the route taken, the dispatch policy used (`FCFS`/`TRIAGE_PRIORITY`), and whether its response window was met |
+| `algorithm_run` | Empirical runtime measurements written by `DatabaseBenchmark` (T042) — `algorithm_name`, `input_size`, `repetition`, `elapsed_ns` |
+| `audit_event` | Stack-based undo/audit trail (T026, T057) |
+
+Built and seeded by `DBLoader` (`mvn exec:java -Dexec.args="--init-db"`),
+which reads `data/schema.sql` then loads all four CSVs in foreign-key
+order, resolving each CSV's text `code` references (e.g. `F001`) to the
+generated integer primary keys as it goes.
 
 ## What's real, what's synthetic
 
