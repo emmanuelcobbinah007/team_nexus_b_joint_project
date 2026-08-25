@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+<rect width="100%" height="100%" fill="white"/>
+<text x="320" y="20" text-anchor="middle" font-size="14">Average wait for critical cases (triage level 1) vs request volume</text>
+<line x1="60" y1="340" x2="580" y2="340" stroke="black"/>
+<line x1="60" y1="60" x2="60" y2="340" stroke="black"/>
+<polyline fill="none" stroke="red" stroke-width="2" points="60,307 233,302 406,171 580,60 "/>
+<polyline fill="none" stroke="blue" stroke-width="2" points="60,307 233,317 406,206 580,107 "/>
+<text x="60" y="360" text-anchor="middle" font-size="11">50</text>
+<text x="233" y="360" text-anchor="middle" font-size="11">100</text>
+<text x="406" y="360" text-anchor="middle" font-size="11">200</text>
+<text x="580" y="360" text-anchor="middle" font-size="11">500</text>
+<circle cx="490" cy="40" r="5" fill="red"/>
+<text x="500" y="44" font-size="12">FCFS</text>
+<circle cx="490" cy="58" r="5" fill="blue"/>
+<text x="500" y="62" font-size="12">Triage-Priority</text>
+</svg>
