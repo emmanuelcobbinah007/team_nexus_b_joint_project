@@ -682,20 +682,38 @@ function drawGraph(containerId, opts) {
     }
   }
 
+  // Permanent on-map labels only make sense for a small result (a path, a
+  // handful of dispatch stops) -- for something like a full MST that still
+  // touches every facility, "focused" only means fewer background roads,
+  // not 117 labels stacked on top of each other.
+  const labelsFit = onlyRelevant && relevantNodes.size <= 20;
+
   facilities.forEach(f => {
     if (onlyRelevant && !relevantNodes.has(f.id)) return; // hide facilities not involved in this result
-    let color = nodeColor, radius = 4;
-    if (f.id === startNode) { color = startColor; radius = 7; }
-    else if (f.id === endNode) { color = endColor; radius = 7; }
-    else if (highlightNodes.has(f.id)) { color = hlColor; radius = 6; }
-    L.circleMarker([f.lat, f.lon], { radius: radius, color: '#fff', weight: 1.5, fillColor: color, fillOpacity: 0.95 })
-      .bindTooltip(f.code + ' — ' + f.name)
+    let color = nodeColor, radius = labelsFit ? 6 : 4;
+    if (f.id === startNode) { color = startColor; radius = labelsFit ? 10 : 7; }
+    else if (f.id === endNode) { color = endColor; radius = labelsFit ? 10 : 7; }
+    else if (highlightNodes.has(f.id)) { color = hlColor; radius = labelsFit ? 8 : 6; }
+    L.circleMarker([f.lat, f.lon], { radius: radius, color: '#fff', weight: 2, fillColor: color, fillOpacity: 0.95 })
+      .bindTooltip(f.code + ' — ' + f.name, { permanent: labelsFit, direction: 'top', offset: [0, -radius - 2] })
       .addTo(map._dataLayer);
   });
 
-  if (!map._fitDone) {
-    const size = map.getSize();
-    if (size.x > 0 && size.y > 0) {
+  const size = map.getSize();
+  if (size.x > 0 && size.y > 0) {
+    if (onlyRelevant && relevantNodes.size > 0) {
+      // Focused result: zoom to just the nodes involved, every time, so a
+      // small local path fills the map instead of sitting lost inside the
+      // whole network's bounding box.
+      const pts = facilities.filter(f => relevantNodes.has(f.id)).map(f => [f.lat, f.lon]);
+      if (pts.length === 1) {
+        map.setView(pts[0], 15);
+      } else {
+        map.fitBounds(L.latLngBounds(pts), { padding: [48, 48], maxZoom: 15 });
+      }
+    } else if (!map._fitDone) {
+      // Full-network view: fit once so the whole 117-facility spread is
+      // visible, then leave pan/zoom alone on later unfocused redraws.
       map.fitBounds(L.latLngBounds(facilities.map(f => [f.lat, f.lon])), { padding: [16, 16] });
       map._fitDone = true;
     }
