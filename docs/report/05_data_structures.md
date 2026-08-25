@@ -23,7 +23,7 @@ executed count is higher).
 - **`BinaryHeapPriorityQueue`** (11 tests) — `O(log n)` insert/extract,
   `O(1)` peek, `O(n)` `buildFrom` (heapify) rather than n repeated inserts.
   `decreaseKey()` exists specifically for Dijkstra's benefit — see
-  [04_system_design.md](04_system_design.md).
+  [04_system_architecture.md](04_system_architecture.md).
 
 ## Trees (`trees/`, Sub-team C)
 
@@ -54,6 +54,6 @@ executed count is higher).
   `MyGraph` from the `facility`/`road_link` tables.
 
 Every graph *algorithm* (Dijkstra, Kruskal, Prim, BFS, DFS) is covered in
-[06_algorithms_and_complexity.md](06_algorithms_and_complexity.md) rather
+[06_algorithm_implementation.md](06_algorithm_implementation.md) rather
 than here, since the interesting claims about them are complexity and
 correctness, not structural invariants.
