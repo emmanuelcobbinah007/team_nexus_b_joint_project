@@ -41,6 +41,45 @@ public class TriageComparison {
         }
     }
 
+    /** One case as actually served: its place in service order and how long it waited. */
+    public record ServedCase(String caseId, int arrivalTime, int severityPriority, int waitTime) {
+    }
+
+    /** Full per-case breakdown of both dispatch modes, for visualizing the queue rather than just its average. */
+    public static class DetailedResult {
+        public final ServedCase[] fcfsOrder;
+        public final ServedCase[] priorityOrder;
+        public final double fcfsAverageWait;
+        public final double priorityAverageWait;
+
+        public DetailedResult(ServedCase[] fcfsOrder, ServedCase[] priorityOrder) {
+            this.fcfsOrder = fcfsOrder;
+            this.priorityOrder = priorityOrder;
+            this.fcfsAverageWait = averageWait(fcfsOrder);
+            this.priorityAverageWait = averageWait(priorityOrder);
+        }
+
+        private static double averageWait(ServedCase[] served) {
+            long total = 0;
+            for (ServedCase s : served) {
+                total += s.waitTime();
+            }
+            return served.length == 0 ? 0.0 : (double) total / served.length;
+        }
+    }
+
+    /**
+     * Same simulation as {@link #compare}, but returns each case's actual
+     * service order and individual wait time under both modes instead of
+     * only the aggregate average -- what a queue visualization needs.
+     *
+     * @throws IllegalArgumentException if {@code cases} is null, empty, or contains a null element
+     */
+    public static DetailedResult compareDetailed(List<TriageCase> cases) {
+        requireCases(cases);
+        return new DetailedResult(runFcfsDetailed(cases), runPriorityDetailed(cases));
+    }
+
     /**
      * Simulates dispatching {@code cases} two ways over a fixed 2-time-unit
      * processing cost per case -- first-come-first-served (arrival-time
@@ -80,36 +119,56 @@ public class TriageComparison {
     // happens to be in" -- explicitly sorting a copy is what makes this
     // correct for a cases list that isn't already arrival-ordered.
     private static double runFcfs(List<TriageCase> cases, boolean verbose) {
-        List<TriageCase> ordered = new ArrayList<>(cases);
-        ordered.sort(Comparator.comparingInt(TriageCase::getArrivalTime));
-
-        int currentTime = 0;
+        ServedCase[] served = runFcfsDetailed(cases);
         double totalWait = 0;
-        for (TriageCase c : ordered) {
-            int waitTime = Math.max(0, currentTime - c.getArrivalTime());
-            totalWait += waitTime;
+        for (ServedCase s : served) {
             if (verbose) {
-                System.out.println("Processed Case: " + c.getCaseId() + " | Arrival: " + c.getArrivalTime() + " | Wait Time: " + waitTime);
+                System.out.println("Processed Case: " + s.caseId() + " | Arrival: " + s.arrivalTime() + " | Wait Time: " + s.waitTime());
             }
-            currentTime += 2; // Assume 2 units of processing time per case
+            totalWait += s.waitTime();
         }
         return totalWait / cases.size();
     }
 
     private static double runPriority(List<TriageCase> cases, boolean verbose) {
-        PriorityQueue<TriageCase> queue = new PriorityQueue<>(cases);
-        int currentTime = 0;
+        ServedCase[] served = runPriorityDetailed(cases);
         double totalWait = 0;
+        for (ServedCase s : served) {
+            if (verbose) {
+                System.out.println("Processed Case: " + s.caseId() + " | Priority: " + s.severityPriority() + " | Wait Time: " + s.waitTime());
+            }
+            totalWait += s.waitTime();
+        }
+        return totalWait / cases.size();
+    }
+
+    private static ServedCase[] runFcfsDetailed(List<TriageCase> cases) {
+        List<TriageCase> ordered = new ArrayList<>(cases);
+        ordered.sort(Comparator.comparingInt(TriageCase::getArrivalTime));
+
+        ServedCase[] served = new ServedCase[ordered.size()];
+        int currentTime = 0;
+        for (int i = 0; i < ordered.size(); i++) {
+            TriageCase c = ordered.get(i);
+            int waitTime = Math.max(0, currentTime - c.getArrivalTime());
+            served[i] = new ServedCase(c.getCaseId(), c.getArrivalTime(), c.getSeverityPriority(), waitTime);
+            currentTime += 2; // Assume 2 units of processing time per case
+        }
+        return served;
+    }
+
+    private static ServedCase[] runPriorityDetailed(List<TriageCase> cases) {
+        PriorityQueue<TriageCase> queue = new PriorityQueue<>(cases);
+        ServedCase[] served = new ServedCase[cases.size()];
+        int currentTime = 0;
+        int i = 0;
         while (!queue.isEmpty()) {
             TriageCase c = queue.poll();
             int waitTime = Math.max(0, currentTime - c.getArrivalTime());
-            totalWait += waitTime;
-            if (verbose) {
-                System.out.println("Processed Case: " + c.getCaseId() + " | Priority: " + c.getSeverityPriority() + " | Wait Time: " + waitTime);
-            }
+            served[i++] = new ServedCase(c.getCaseId(), c.getArrivalTime(), c.getSeverityPriority(), waitTime);
             currentTime += 2;
         }
-        return totalWait / cases.size();
+        return served;
     }
 
     private static void requireCases(List<TriageCase> cases) {

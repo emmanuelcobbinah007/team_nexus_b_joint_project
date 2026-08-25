@@ -32,6 +32,17 @@ mvn exec:java -Dexec.args="--init-db"    # runs data/schema.sql then loads all C
 Expected row counts after loading: 50+ facilities, 100+ road links,
 300+ cases, 30+ resources.
 
+**Interactive web console** (routing, MST, dispatch, triage, indexing,
+knapsack, sorting/searching — all backed by the real algorithm classes,
+not a mock):
+
+```bash
+mvn compile exec:java -Dexec.mainClass=edu.ug.nexusb.web.ApiServer
+```
+
+Then open <http://localhost:8080/>. Auto-initializes the database on first
+run, same as `--init-db`.
+
 ---
 
 ## What the system does
