@@ -34,7 +34,13 @@ public final class HashTableExperiments {
     public static void main(String[] args) throws IOException {
         System.out.println("Starting Hash Table Experiments (T070)...");
 
-        int[] keyCounts = {10, 25, 50, 75, 100, 150, 200, 300, 500, 800, 1200, 2000};
+        // 100 to 20,000, per the brief's minimum for this experiment
+        // (Section 9): "Hash table load factor: 100 to 20,000 keys with
+        // different table sizes". The auto-resize policy means the table's
+        // capacity genuinely differs across this range (53 at the low end,
+        // tens of thousands by the top), rather than needing separate runs
+        // at separately-fixed capacities.
+        int[] keyCounts = {100, 300, 800, 1500, 3000, 5000, 8000, 12000, 16000, 20000};
 
         try (FileWriter csv = new FileWriter("results/csv/hashtable_experiments.csv")) {
             csv.write("Series,N,LoadFactor,Capacity,CollisionCount,LongestBucket,ResizeCount,AverageGetTimeNs\n");

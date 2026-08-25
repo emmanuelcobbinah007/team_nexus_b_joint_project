@@ -23,8 +23,8 @@ public class EarlyExperiments {
 
         System.out.println("Starting Early Experiments (T064)...");
 
-        try (FileWriter searchWriter = new FileWriter("search_comparison.csv");
-             FileWriter sortWriter = new FileWriter("sorting_comparison.csv")) {
+        try (FileWriter searchWriter = new FileWriter("results/csv/search_comparison.csv");
+             FileWriter sortWriter = new FileWriter("results/csv/sorting_comparison.csv")) {
 
             searchWriter.write("Algorithm,InputSize,AverageTimeNs\n");
             sortWriter.write("Algorithm,InputSize,AverageTimeNs\n");
