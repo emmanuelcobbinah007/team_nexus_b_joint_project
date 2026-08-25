@@ -682,20 +682,19 @@ function drawGraph(containerId, opts) {
     }
   }
 
-  // Permanent on-map labels only make sense for a small result (a path, a
-  // handful of dispatch stops) -- for something like a full MST that still
-  // touches every facility, "focused" only means fewer background roads,
-  // not 117 labels stacked on top of each other.
-  const labelsFit = onlyRelevant && relevantNodes.size <= 20;
+  // Bigger markers for a small focused result, but the name/code label
+  // only ever shows on hover -- permanent on-map labels got cluttered
+  // fast even for a handful of nodes once roads/arrows were nearby too.
+  const zoomedIn = onlyRelevant && relevantNodes.size <= 20;
 
   facilities.forEach(f => {
     if (onlyRelevant && !relevantNodes.has(f.id)) return; // hide facilities not involved in this result
-    let color = nodeColor, radius = labelsFit ? 6 : 4;
-    if (f.id === startNode) { color = startColor; radius = labelsFit ? 10 : 7; }
-    else if (f.id === endNode) { color = endColor; radius = labelsFit ? 10 : 7; }
-    else if (highlightNodes.has(f.id)) { color = hlColor; radius = labelsFit ? 8 : 6; }
+    let color = nodeColor, radius = zoomedIn ? 6 : 4;
+    if (f.id === startNode) { color = startColor; radius = zoomedIn ? 10 : 7; }
+    else if (f.id === endNode) { color = endColor; radius = zoomedIn ? 10 : 7; }
+    else if (highlightNodes.has(f.id)) { color = hlColor; radius = zoomedIn ? 8 : 6; }
     L.circleMarker([f.lat, f.lon], { radius: radius, color: '#fff', weight: 2, fillColor: color, fillOpacity: 0.95 })
-      .bindTooltip(f.code + ' — ' + f.name, { permanent: labelsFit, direction: 'top', offset: [0, -radius - 2] })
+      .bindTooltip(f.code + ' — ' + f.name, { direction: 'top', offset: [0, -radius - 2] })
       .addTo(map._dataLayer);
   });
 
