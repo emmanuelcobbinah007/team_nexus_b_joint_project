@@ -93,6 +93,7 @@ public final class ApiServer {
         http.createContext("/api/triage", server::handleTriage);
         http.createContext("/api/index/lookup", server::handleIndexLookup);
         http.createContext("/api/index/range", server::handleIndexRange);
+        http.createContext("/api/simulation/cases", server::handleSimulationCases);
         http.createContext("/api/knapsack", server::handleKnapsack);
         http.createContext("/api/sort", server::handleSort);
         http.createContext("/api/search", server::handleSearch);
@@ -129,6 +130,12 @@ public final class ApiServer {
                     : "application/octet-stream";
             byte[] body = in.readAllBytes();
             exchange.getResponseHeaders().add("Content-Type", contentType);
+            // This file changes across development iterations; without an
+            // explicit no-cache directive, browsers can keep serving a
+            // stale cached copy of the page's JS after the server-side
+            // file has already moved on, which looks like a regression
+            // that isn't actually present in the code being served.
+            exchange.getResponseHeaders().add("Cache-Control", "no-cache, no-store, must-revalidate");
             exchange.sendResponseHeaders(200, body.length);
             try (OutputStream out = exchange.getResponseBody()) {
                 out.write(body);
@@ -198,14 +205,26 @@ public final class ApiServer {
 
             PathResult result = Dijkstra.shortestPaths(graph, source);
 
+            // Full step-by-step trace for the simulation view: each vertex
+            // in the exact order Dijkstra finalized it, with the distance
+            // and predecessor it had *at that moment* -- real algorithm
+            // state read back out, not reconstructed after the fact.
             Json visitOrder = Json.array();
+            Json visitSteps = Json.array();
             for (var it = result.visitOrder().iterator(); it.hasNext(); ) {
-                visitOrder.element(it.next());
+                String id = it.next();
+                visitOrder.element(id);
+                String pred = result.predecessorOf(id);
+                visitSteps.element(Json.object()
+                        .field("id", id)
+                        .field("distance", result.distanceTo(id))
+                        .field("via", pred == null ? "" : pred));
             }
 
             Json response = Json.object()
                     .field("sourceId", result.sourceId())
-                    .field("visitOrder", visitOrder);
+                    .field("visitOrder", visitOrder)
+                    .field("visitSteps", visitSteps);
 
             if (dest != null) {
                 boolean reachable = result.isReachable(dest);
@@ -295,8 +314,22 @@ public final class ApiServer {
                         .field("to", vertexIds[edge.dest])
                         .field("weight", edge.weight));
             }
+
+            // Every sorted edge Kruskal actually considered, accepted or
+            // rejected, in order -- the real union-find decision trace for
+            // the simulation view, not the MST alone.
+            Json consideredArray = Json.array();
+            for (Kruskal.ConsideredEdge step : result.consideredEdges) {
+                consideredArray.element(Json.object()
+                        .field("from", vertexIds[step.edge.src])
+                        .field("to", vertexIds[step.edge.dest])
+                        .field("weight", step.edge.weight)
+                        .field("accepted", step.accepted));
+            }
+
             return Json.object()
                     .field("edges", edgeArray)
+                    .field("consideredEdges", consideredArray)
                     .field("totalWeight", (double) result.totalWeight)
                     .field("isSpanning", result.isSpanning)
                     .close();
@@ -503,6 +536,36 @@ public final class ApiServer {
                         .field("status", row.status()));
             }
             return Json.object().field("count", rows.size()).field("cases", array).close();
+        });
+    }
+
+    // ------------------------------------------------------------------
+    // End-to-end simulation: real pending cases from the database, for
+    // the "walk through the whole hospital system" demo.
+    // ------------------------------------------------------------------
+
+    private void handleSimulationCases(HttpExchange exchange) {
+        respondJson(exchange, () -> {
+            String limitParam = param(exchange, "limit");
+            int limit = limitParam == null ? 6 : Math.max(1, Math.min(20, Integer.parseInt(limitParam)));
+
+            Json array = Json.array();
+            String sql = "SELECT case_ref, origin_facility_id, triage_level, requested_at, case_type "
+                    + "FROM case_request WHERE status = 'PENDING' ORDER BY requested_at LIMIT ?";
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setInt(1, limit);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        array.element(Json.object()
+                                .field("caseRef", rs.getString("case_ref"))
+                                .field("originFacilityId", String.valueOf(rs.getInt("origin_facility_id")))
+                                .field("triageLevel", rs.getInt("triage_level"))
+                                .field("requestedAt", rs.getString("requested_at"))
+                                .field("caseType", rs.getString("case_type")));
+                    }
+                }
+            }
+            return Json.object().field("cases", array).close();
         });
     }
 
