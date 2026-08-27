@@ -263,13 +263,21 @@
   .chapter-pill.done { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
   .sim-cases { display: flex; flex-direction: column; gap: 0.4rem; }
   .sim-case {
-    display: flex; align-items: center; gap: 0.6rem;
+    display: flex; align-items: center; gap: 0.6rem; flex-wrap: nowrap;
     background: var(--surface-2); border-radius: 8px; padding: 0.5rem 0.7rem;
-    font-size: 0.8rem; opacity: 0.35; transition: opacity 0.25s;
+    font-size: 0.78rem; opacity: 0.35; transition: opacity 0.25s;
   }
   .sim-case.revealed { opacity: 1; }
   .sim-case.current { outline: 2px solid var(--accent); }
-  .sim-case .ref { font-family: "JetBrains Mono", monospace; font-weight: 700; }
+  .sim-case .ref { font-family: "JetBrains Mono", monospace; font-weight: 700; flex: 0 0 5.2rem; }
+  .sim-case .facility {
+    flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sim-case .when { flex: 0 0 6.5rem; white-space: nowrap; }
+  .sim-case .type { flex: 0 0 auto; white-space: nowrap; display: none; }
+  @media (min-width: 1400px) { .sim-case .type { display: inline; flex-basis: 11rem; } }
+  .sim-case button.run { flex: 0 0 auto; white-space: nowrap; margin-left: auto; }
   .legend { display: flex; gap: 0.9rem; font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem; flex-wrap: wrap; }
   .legend span { display: inline-flex; align-items: center; gap: 0.3rem; }
   .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
@@ -297,17 +305,18 @@
 </nav>
 <main>
 
-  <!-- SIMULATION: end-to-end walkthrough using real pending cases -->
+  <!-- SIMULATION: follow one real request from arrival to completion -->
   <section class="panel has-map" id="panel-simulation">
     <div class="card">
-      <h2>How the whole system runs, end to end</h2>
-      <p class="sub">Pulls real <span class="mono">PENDING</span> cases straight out of <span class="mono">case_request</span> and walks them through every stage this project models &mdash; indexing, triage, dispatch, and routing &mdash; using the exact same algorithms as the tabs above, one step at a time.</p>
+      <h2>Follow one request, start to completion</h2>
+      <p class="sub">Pick a real <span class="mono">PENDING</span> row out of <span class="mono">case_request</span> and watch it move through this system's actual lifecycle &mdash; <span class="mono">PENDING &rarr; TRIAGED &rarr; ASSIGNED &rarr; IN_TRANSIT &rarr; COMPLETED</span> &mdash; using the real hash index, the real triage heap, real dispatch scoring, and real Dijkstra routing at each stage, against real facilities and resources.</p>
       <div class="row">
-        <button class="run" onclick="startSimulation()">Load real cases &amp; start</button>
-        <button class="ghost" onclick="restartSimulation()">Restart</button>
+        <button class="run" onclick="startSimulation()">Load pending requests</button>
+        <button class="ghost" onclick="restartSimulation()">Pick a different request</button>
       </div>
+      <div id="simPicker"></div>
       <div class="chapter-list" id="simChapters"></div>
-      <div id="simBody"><p class="result-empty">Click "Load real cases &amp; start" to pull pending requests from the database.</p></div>
+      <div id="simBody"><p class="result-empty">Click "Load pending requests" to see what's actually waiting in the database right now.</p></div>
     </div>
     <div class="card">
       <div class="map-toolbar">
@@ -1186,15 +1195,16 @@ async function runTriage() {
     out.innerHTML = '<div class="error-box">' + e.message + '</div>';
   }
 }
-function servedTable(title, served, revealCount) {
+function servedTable(title, served, revealCount, highlightId) {
   const shown = revealCount === undefined ? served.length : revealCount;
   return '<div><h2 style="font-size:0.8rem">' + title + '</h2><table><tr><th>#</th><th>Case</th><th>Sev.</th><th>Wait</th></tr>' +
-    served.map((s, i) => i < shown
-      ? '<tr' + (i === shown - 1 ? ' style="outline:2px solid var(--accent)"' : '') + '><td class="num">' + (i + 1) + '</td><td>' + s.caseId + '</td>' +
+    served.map((s, i) => {
+      if (i >= shown) return '<tr style="opacity:0.25"><td class="num">' + (i + 1) + '</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>';
+      const outline = highlightId && s.caseId === highlightId ? 'outline:2px solid var(--accent)' : i === shown - 1 ? 'outline:1px solid var(--border)' : '';
+      return '<tr style="' + outline + '"><td class="num">' + (i + 1) + '</td><td>' + s.caseId + '</td>' +
         '<td><span class="pill t' + s.severityPriority + '">T' + s.severityPriority + '</span></td>' +
-        '<td class="num">' + s.waitTime + '</td></tr>'
-      : '<tr style="opacity:0.25"><td class="num">' + (i + 1) + '</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>'
-    ).join('') + '</table></div>';
+        '<td class="num">' + s.waitTime + '</td></tr>';
+    }).join('') + '</table></div>';
 }
 function animateTriage(fcfsOrder, priorityOrder) {
   const orders = document.getElementById('triageOrders');
@@ -1284,68 +1294,112 @@ async function runSearch() {
 }
 
 // ---------------------------------------------------------------------
-// Simulation tab -- one end-to-end walkthrough over real PENDING cases
-// pulled straight from case_request, chaining the exact same API calls
-// (and algorithms behind them) as the individual tabs above: indexing,
-// triage, dispatch, routing, and the resupply backbone for context.
+// Simulation tab -- follow one real request through this system's actual
+// lifecycle (case_request.status: PENDING -> TRIAGED -> ASSIGNED ->
+// IN_TRANSIT -> COMPLETED), chaining the exact same API calls as the
+// individual tabs above at each stage: indexing, triage, dispatch,
+// routing, plus the resupply backbone for closing context.
 // ---------------------------------------------------------------------
 let simState = null;
-const SIM_STATION = '1'; // Korle Bu -- fixed hub for the dispatch/routing chapters
 
 async function startSimulation() {
   const body = document.getElementById('simBody');
+  const picker = document.getElementById('simPicker');
   body.innerHTML = '<p class="result-empty">Loading real PENDING cases from case_request&hellip;</p>';
   document.getElementById('simChapters').innerHTML = '';
+  document.getElementById('simPlayer').style.display = 'none';
   try {
-    const capRes = await fetchJson('/api/simulation/cases?limit=6');
+    const capRes = await fetchJson('/api/simulation/cases?limit=8');
     const cases = capRes.cases;
     if (!cases.length) {
       body.innerHTML = '<div class="error-box">No PENDING cases found in the database right now &mdash; everything has already been triaged/dispatched/completed.</div>';
+      picker.innerHTML = '';
       return;
     }
-    await buildSimulation(cases);
+    simState = { cases };
+    body.innerHTML = '<p class="result-empty">Pick a request below to follow it through the system.</p>';
+    renderCasePicker(cases);
   } catch (e) {
     body.innerHTML = '<div class="error-box">' + e.message + '</div>';
   }
 }
 
 function restartSimulation() {
-  if (simState) buildSimulation(simState.cases);
-  else startSimulation();
+  if (simState && simState.cases) {
+    document.getElementById('simChapters').innerHTML = '';
+    document.getElementById('simPlayer').style.display = 'none';
+    document.getElementById('simBody').innerHTML = '<p class="result-empty">Pick a request below to follow it through the system.</p>';
+    renderCasePicker(simState.cases);
+    drawGraph('simulationGraph', {});
+  } else {
+    startSimulation();
+  }
 }
 
-async function buildSimulation(cases) {
-  const body = document.getElementById('simBody');
-  body.innerHTML = '<p class="result-empty">Running triage, dispatch, and routing against these ' + cases.length + ' real cases&hellip;</p>';
+function renderCasePicker(cases) {
+  const picker = document.getElementById('simPicker');
+  picker.innerHTML = '<div class="sim-cases">' + cases.map(c =>
+    '<div class="sim-case revealed">' +
+      '<span class="ref">' + c.caseRef + '</span>' +
+      '<span class="facility" title="' + facilityLabel(c.originFacilityId) + '">' + facilityLabel(c.originFacilityId) + '</span>' +
+      '<span class="pill t' + c.triageLevel + '">T' + c.triageLevel + '</span>' +
+      '<span class="when mono" style="color:var(--text-muted)">' + c.requestedAt + '</span>' +
+      '<span class="type" style="color:var(--text-muted)">' + c.caseType + '</span>' +
+      '<button class="run" onclick="followRequest(\'' + c.caseRef + '\')">Follow &rarr;</button>' +
+    '</div>'
+  ).join('') + '</div>';
+  drawGraph('simulationGraph', { highlightNodes: new Set(cases.map(c => c.originFacilityId)) });
+}
 
-  // Arrival order = the order the database already returned them in
-  // (sorted by requested_at) -- case index doubles as TriageComparison's
-  // relative arrivalTime, since real timestamps aren't the simple
-  // integers that comparator expects.
+async function followRequest(caseRef) {
+  const cases = simState.cases;
+  const caseObj = cases.find(c => c.caseRef === caseRef);
+  const body = document.getElementById('simBody');
+  const picker = document.getElementById('simPicker');
+  picker.innerHTML = '';
+  body.innerHTML = '<p class="result-empty">Running the real index lookup, triage heap, resource assignment, and routing for ' + caseRef + '&hellip;</p>';
+
+  // ---- Stage: indexing ----
+  const indexLookup = await fetchJson('/api/index/lookup?ref=' + encodeURIComponent(caseRef));
+
+  // ---- Stage: triage (this case's real siblings, same batch as the picker) ----
   const triageParam = cases.map((c, i) => c.caseRef + ':' + i + ':' + c.triageLevel).join(',');
   const triageResult = await fetchJson('/api/triage?cases=' + encodeURIComponent(triageParam));
 
+  // ---- Stage: nearest qualified, available resource (real /resource rows) ----
+  const resourcesRes = await fetchJson('/api/simulation/resources?type=AMBULANCE');
+  const distFromCase = await fetchJson('/api/dijkstra?source=' + caseObj.originFacilityId);
+  const distById = {};
+  distFromCase.visitSteps.forEach(s => { distById[s.id] = s.distance; });
+  const qualified = resourcesRes.resources
+    .filter(r => r.careLevel >= caseObj.requiredCareLevel && distById[r.homeFacilityId] !== undefined)
+    .map(r => ({ ...r, distance: distById[r.homeFacilityId] }))
+    .sort((a, b) => a.distance - b.distance);
+  const resource = qualified[0];
+
+  // ---- Stage: dispatch context from that resource's station ----
   const dispatchParam = cases.map(c => c.caseRef + ':' + c.originFacilityId + ':' + c.triageLevel).join(',');
-  const dispatchResult = await fetchJson('/api/dispatch?station=' + SIM_STATION + '&cases=' + encodeURIComponent(dispatchParam));
+  const dispatchResult = await fetchJson('/api/dispatch?station=' + resource.homeFacilityId + '&cases=' + encodeURIComponent(dispatchParam));
+  const optimalRank = dispatchResult.optimalOrder.indexOf(caseRef) + 1;
+  const greedyRank = dispatchResult.greedyOrder.indexOf(caseRef) + 1;
 
-  const firstStopRef = dispatchResult.optimalOrder[0];
-  const firstStopCase = dispatchResult.cases.find(c => c.caseRef === firstStopRef);
-  const routeResult = await fetchJson('/api/dijkstra?source=' + SIM_STATION + '&dest=' + firstStopCase.originFacilityId);
-
-  const mstResult = await fetchJson('/api/kruskal');
-
-  simState = { cases, triageResult, dispatchResult, routeResult, mstResult };
-
-  // ---- flat step list across every chapter ----
-  const routeDestIdx = routeResult.visitSteps.findIndex(s => s.id === firstStopCase.originFacilityId);
+  // ---- Stage: the real route the ambulance drives ----
+  const routeResult = await fetchJson('/api/dijkstra?source=' + resource.homeFacilityId + '&dest=' + caseObj.originFacilityId);
+  const routeDestIdx = routeResult.visitSteps.findIndex(s => s.id === caseObj.originFacilityId);
   const routeSteps = routeResult.visitSteps.slice(0, routeDestIdx + 1);
 
+  // ---- Epilogue: resupply backbone, independent of this one case ----
+  const mstResult = await fetchJson('/api/kruskal');
+
+  const ctx = { caseObj, indexLookup, triageResult, resource, qualified, dispatchResult, optimalRank, greedyRank, routeResult, routeSteps, mstResult };
+
   const chapters = [
-    { key: 'arrivals', label: '1. Cases arrive', count: cases.length },
-    { key: 'triage', label: '2. Triage decision', count: cases.length },
-    { key: 'dispatch', label: '3. Dispatch order', count: dispatchResult.optimalOrder.length },
-    { key: 'routing', label: '4. Route the ambulance', count: routeSteps.length },
-    { key: 'resupply', label: '5. Resupply backbone', count: 1 }
+    { key: 'arrival', label: '1. Arrived (PENDING)', count: 2 },
+    { key: 'triage', label: '2. Triage (TRIAGED)', count: cases.length },
+    { key: 'assignment', label: '3. Assigned (ASSIGNED)', count: 2 },
+    { key: 'enroute', label: '4. En route (IN_TRANSIT)', count: routeSteps.length },
+    { key: 'completed', label: '5. Completed', count: 1 },
+    { key: 'resupply', label: '6. Resupply backbone', count: 1 }
   ];
   const flat = [];
   chapters.forEach(ch => { for (let i = 0; i < ch.count; i++) flat.push({ chapter: ch.key, i }); });
@@ -1359,18 +1413,15 @@ async function buildSimulation(cases) {
 
   createStepPlayer('simPlayer', 'simNarration', flat.length, (globalIndex) => {
     const step = flat[globalIndex];
-    // Each chapter looks at a different, mostly-unrelated set of
-    // nodes/roads (six scattered arrivals, one specific route, the whole
-    // 117-facility backbone) -- re-frame the map fresh at the start of
-    // every chapter instead of keeping whatever the previous chapter zoomed to.
     if (step.i === 0) resetFit('simulationGraph');
     updateChapterPills(step.chapter, chapters);
-    if (step.chapter === 'arrivals') renderSimArrivals(cases, step.i);
-    else if (step.chapter === 'triage') renderSimTriage(cases, triageResult, step.i);
-    else if (step.chapter === 'dispatch') renderSimDispatch(dispatchResult, step.i);
-    else if (step.chapter === 'routing') renderSimRouting(routeResult, routeSteps, firstStopCase, step.i);
+    if (step.chapter === 'arrival') renderSimArrival(ctx, step.i);
+    else if (step.chapter === 'triage') renderSimTriage(cases, caseRef, triageResult, step.i);
+    else if (step.chapter === 'assignment') renderSimAssignment(ctx, step.i);
+    else if (step.chapter === 'enroute') renderSimRouting(ctx, step.i);
+    else if (step.chapter === 'completed') renderSimCompleted(ctx);
     else if (step.chapter === 'resupply') renderSimResupply(mstResult);
-    setNarration('simNarration', globalIndex, flat.length, narrationFor(step, { cases, triageResult, dispatchResult, routeResult, routeSteps, firstStopCase, firstStopRef }));
+    setNarration('simNarration', globalIndex, flat.length, narrationFor(step, ctx));
   });
 }
 
@@ -1385,69 +1436,82 @@ function updateChapterPills(activeKey, chapters) {
   });
 }
 
-function renderSimArrivals(cases, i) {
+function renderSimArrival(ctx, i) {
   const body = document.getElementById('simBody');
-  body.innerHTML = '<div class="sim-cases">' + cases.map((c, idx) =>
-    '<div class="sim-case' + (idx <= i ? ' revealed' : '') + (idx === i ? ' current' : '') + '">' +
-      '<span class="ref">' + c.caseRef + '</span>' +
-      '<span>' + facilityLabel(c.originFacilityId) + '</span>' +
-      '<span class="pill t' + c.triageLevel + '">T' + c.triageLevel + '</span>' +
-      '<span class="mono" style="color:var(--text-muted)">' + c.requestedAt + '</span>' +
-      '<span style="color:var(--text-muted)">' + c.caseType + '</span>' +
-    '</div>'
-  ).join('') + '</div>';
-  drawGraph('simulationGraph', { highlightNodes: new Set(cases.slice(0, i + 1).map(c => c.originFacilityId)) });
+  const c = ctx.caseObj;
+  const rows = [
+    ['Reference', c.caseRef], ['Facility', facilityLabel(c.originFacilityId)],
+    ['Case type', c.caseType], ['Triage level', 'T' + c.triageLevel],
+    ['Required care level', c.requiredCareLevel], ['Requested at', c.requestedAt],
+    ['Status (case_request.status)', c.status]
+  ];
+  body.innerHTML = '<table>' + rows.map(([k, v]) => '<tr><td>' + k + '</td><td class="num">' + v + '</td></tr>').join('') + '</table>' +
+    (i >= 1 ? '<p class="footnote"><strong style="color:var(--ok)">Confirmed indexed:</strong> a live <span class="mono">/api/index/lookup?ref=' + c.caseRef + '</span> call against the real <span class="mono">ChainedHashTable</span> returned this exact row in O(1) average time &mdash; found=' + ctx.indexLookup.found + '.</p>' : '');
+  drawGraph('simulationGraph', { highlightNodes: new Set([c.originFacilityId]) });
 }
 
-function renderSimTriage(cases, triageResult, i) {
+function renderSimTriage(cases, caseRef, triageResult, i) {
   const body = document.getElementById('simBody');
-  body.innerHTML = servedTable('FCFS order', triageResult.fcfsOrder, i + 1) +
-    servedTable('Priority order (real severities from the DB)', triageResult.priorityOrder, i + 1);
-  const ids = new Set(cases.map(c => c.originFacilityId));
-  drawGraph('simulationGraph', { highlightNodes: ids });
+  body.innerHTML = servedTable('FCFS order', triageResult.fcfsOrder, i + 1, caseRef) +
+    servedTable('Priority order (real severities from the DB)', triageResult.priorityOrder, i + 1, caseRef);
+  drawGraph('simulationGraph', { highlightNodes: new Set(cases.map(c => c.originFacilityId)) });
 }
 
-function renderSimDispatch(dispatchResult, i) {
+function renderSimAssignment(ctx, i) {
   const body = document.getElementById('simBody');
-  body.innerHTML =
-    statRow([
-      ['Greedy penalty', dispatchResult.greedyPenalty.toFixed(2), ''],
-      ['Optimal penalty', dispatchResult.optimalPenalty.toFixed(2), 'ok']
-    ]) +
-    '<table><tr><th>#</th><th>Optimal order</th><th>Facility</th></tr>' +
-    dispatchResult.optimalOrder.map((ref, idx) => {
-      const c = dispatchResult.cases.find(cc => cc.caseRef === ref);
-      return '<tr style="' + (idx > i ? 'opacity:0.25' : idx === i ? 'outline:2px solid var(--accent)' : '') + '">' +
-        '<td class="num">' + (idx + 1) + '</td><td>' + ref + '</td><td>' + facilityLabel(c.originFacilityId) + '</td></tr>';
-    }).join('') + '</table>';
-
-  const caseByRef = {}; dispatchResult.cases.forEach(c => { caseByRef[c.caseRef] = c; });
-  const path = [SIM_STATION, ...dispatchResult.optimalOrder.slice(0, i + 1).map(ref => caseByRef[ref].originFacilityId)];
+  const c = ctx.caseObj;
+  let html = '<table><tr><th>Ambulance</th><th>Home facility</th><th>Care level</th><th>Distance</th></tr>' +
+    ctx.qualified.slice(0, 5).map((r, idx) =>
+      '<tr style="' + (idx === 0 ? 'outline:2px solid var(--ok)' : '') + '"><td class="mono">' + r.code + '</td><td>' + facilityLabel(r.homeFacilityId) +
+      '</td><td class="num">' + r.careLevel + '</td><td class="num">' + r.distance.toFixed(2) + '</td></tr>'
+    ).join('') + '</table>';
+  if (i >= 1) {
+    html += statRow([
+      ['Optimal-order rank', '#' + ctx.optimalRank + ' of ' + ctx.dispatchResult.optimalOrder.length, 'ok'],
+      ['Greedy-order rank', '#' + ctx.greedyRank + ' of ' + ctx.dispatchResult.greedyOrder.length, ctx.optimalRank !== ctx.greedyRank ? 'critical' : '']
+    ]) + '<p class="footnote">Ranking this case among its real peers, dispatched from ' + facilityLabel(ctx.resource.homeFacilityId) + '.' +
+      (ctx.optimalRank !== ctx.greedyRank ? ' Its position changes between greedy (nearest-first) and optimal (urgency-weighted) ordering &mdash; the same effect the required counterexample demonstrates.' : ' Greedy and optimal agree on this case\'s position here.') + '</p>';
+  }
+  body.innerHTML = html;
   drawGraph('simulationGraph', {
-    startNode: SIM_STATION,
-    highlightNodes: new Set(path),
-    directedPath: path,
-    pathStyle: 'dashed'
+    startNode: ctx.resource.homeFacilityId,
+    endNode: c.originFacilityId,
+    highlightNodes: new Set([ctx.resource.homeFacilityId, c.originFacilityId])
   });
 }
 
-function renderSimRouting(routeResult, routeSteps, firstStopCase, i) {
+function renderSimRouting(ctx, i) {
   const body = document.getElementById('simBody');
-  const visited = routeSteps.slice(0, i + 1);
+  const visited = ctx.routeSteps.slice(0, i + 1);
   body.innerHTML = '<table><tr><th>#</th><th>Facility</th><th>Distance</th></tr>' +
     visited.map((s, idx) => '<tr><td class="num">' + (idx + 1) + '</td><td>' + facilityLabel(s.id) + '</td><td class="num">' + s.distance.toFixed(2) + '</td></tr>').join('') +
     '</table>';
 
   const treeEdges = new Set();
   visited.forEach(s => { if (s.via) treeEdges.add(s.via + '|' + s.id); });
-  const isFinal = i === routeSteps.length - 1;
+  const isFinal = i === ctx.routeSteps.length - 1;
   drawGraph('simulationGraph', {
-    startNode: SIM_STATION,
-    endNode: isFinal ? firstStopCase.originFacilityId : null,
+    startNode: ctx.resource.homeFacilityId,
+    endNode: isFinal ? ctx.caseObj.originFacilityId : null,
     highlightNodes: new Set(visited.map(s => s.id)),
     highlightEdges: treeEdges,
-    directedPath: isFinal ? routeResult.path : null
+    directedPath: isFinal ? ctx.routeResult.path : null
   });
+}
+
+function renderSimCompleted(ctx) {
+  const body = document.getElementById('simBody');
+  body.innerHTML = statRow([
+    ['Total distance', ctx.routeResult.distance.toFixed(2), 'ok'],
+    ['Hops', ctx.routeResult.path.length - 1, '']
+  ]) + '<table>' +
+    '<tr><td>Request</td><td class="num">' + ctx.caseObj.caseRef + '</td></tr>' +
+    '<tr><td>Resource</td><td class="num">' + ctx.resource.code + '</td></tr>' +
+    '<tr><td>Route</td><td class="num">' + facilityLabel(ctx.resource.homeFacilityId) + ' &rarr; ' + facilityLabel(ctx.caseObj.originFacilityId) + '</td></tr>' +
+    '</table>' +
+    '<p class="footnote"><strong style="color:var(--ok)">Lifecycle complete:</strong> <span class="mono">PENDING &rarr; TRIAGED &rarr; ASSIGNED &rarr; IN_TRANSIT &rarr; COMPLETED</span>. ' +
+    'This walkthrough only reads the database (no row is actually written back), which is also why the picker list above still shows this case as PENDING if you restart &mdash; see the project overview\'s notes on the not-yet-written <span class="mono">assignment</span> table for the real gap this reflects.</p>';
+  drawGraph('simulationGraph', { startNode: ctx.resource.homeFacilityId, endNode: ctx.caseObj.originFacilityId, directedPath: ctx.routeResult.path, highlightNodes: new Set(ctx.routeResult.path) });
 }
 
 function renderSimResupply(mstResult) {
@@ -1455,38 +1519,42 @@ function renderSimResupply(mstResult) {
   body.innerHTML = statRow([
     ['MST total weight', mstResult.totalWeight.toFixed(2), 'ok'],
     ['Roads in the backbone', mstResult.edges.length, '']
-  ]) + '<p class="footnote">Independent of any single case: this is the minimum-cost set of roads that keeps every one of the 117 facilities connected, computed fresh with Kruskal every time &mdash; see the MST tab to watch it get built edge by edge.</p>';
+  ]) + '<p class="footnote">Independent of this one request: this is the minimum-cost set of roads that keeps every one of the 117 facilities connected, computed fresh with Kruskal every time &mdash; see the MST tab to watch it get built edge by edge.</p>';
   const mstSet = new Set(mstResult.edges.map(e => e.from + '|' + e.to));
   drawGraph('simulationGraph', { mstEdges: mstSet });
 }
 
 function narrationFor(step, ctx) {
-  if (step.chapter === 'arrivals') {
-    const c = ctx.cases[step.i];
-    return 'A real <span class="mono">PENDING</span> row from <span class="mono">case_request</span>: <strong>' + c.caseRef + '</strong> ' +
-      'at ' + facilityLabel(c.originFacilityId) + ', triage <strong>T' + c.triageLevel + '</strong>, requested ' + c.requestedAt + '.';
+  const c = ctx.caseObj;
+  if (step.chapter === 'arrival') {
+    return step.i === 0
+      ? 'Request <strong>' + c.caseRef + '</strong> is a real <span class="mono">PENDING</span> row in <span class="mono">case_request</span>: ' + c.caseType.toLowerCase().replace(/_/g, ' ') + ' at ' + facilityLabel(c.originFacilityId) + ', triage <strong>T' + c.triageLevel + '</strong>.'
+      : 'Looked up by reference through the real <span class="mono">ChainedHashTable</span> index &mdash; confirms the row exists and is retrievable in O(1) average time, independent of table size.';
   }
   if (step.chapter === 'triage') {
     const f = ctx.triageResult.fcfsOrder[step.i], p = ctx.triageResult.priorityOrder[step.i];
-    return 'FCFS would serve <strong>' + f.caseId + '</strong> next (arrival order). ' +
-      'The binary heap instead extracts <strong>' + p.caseId + '</strong> (severity T' + p.severityPriority + ') as its current highest-priority case.';
+    let html = 'FCFS would serve <strong>' + f.caseId + '</strong> next. The binary heap instead extracts <strong>' + p.caseId + '</strong> (T' + p.severityPriority + ') as its current highest-priority case.';
+    if (f.caseId === c.caseRef || p.caseId === c.caseRef) html += ' <strong style="color:var(--accent)">That\'s our request.</strong>';
+    return html;
   }
-  if (step.chapter === 'dispatch') {
-    const ref = ctx.dispatchResult.optimalOrder[step.i];
-    const c = ctx.dispatchResult.cases.find(cc => cc.caseRef === ref);
-    return 'Dispatching from Korle Bu (the fixed hub for this walkthrough): stop ' + (step.i + 1) + ' is <strong>' + ref + '</strong> ' +
-      'at ' + facilityLabel(c.originFacilityId) + ' (T' + c.triageLevel + ', distance ' + c.distance.toFixed(2) + ') under the <strong>optimal</strong> ordering.';
+  if (step.chapter === 'assignment') {
+    return step.i === 0
+      ? 'Scanning available <span class="mono">AMBULANCE</span> resources with care level &ge; ' + c.requiredCareLevel + ': nearest qualified is <strong>' + ctx.resource.code + '</strong> at ' + facilityLabel(ctx.resource.homeFacilityId) + ', distance ' + ctx.resource.distance.toFixed(2) + ' (found by running Dijkstra once from the request\'s facility and reading off the shortest distance to every candidate\'s home base).'
+      : 'Assigned. Status moves <span class="mono">TRIAGED &rarr; ASSIGNED</span>. Ranked #' + ctx.optimalRank + ' under optimal dispatch ordering among its real peers waiting on the same resource.';
   }
-  if (step.chapter === 'routing') {
+  if (step.chapter === 'enroute') {
     const s = ctx.routeSteps[step.i];
     const isFinal = step.i === ctx.routeSteps.length - 1;
     let html = step.i === 0
-      ? 'Dijkstra starts at Korle Bu, distance 0.'
+      ? 'Status moves <span class="mono">ASSIGNED &rarr; IN_TRANSIT</span>. Dijkstra starts at ' + facilityLabel(ctx.resource.homeFacilityId) + ', distance 0.'
       : 'Extract <strong>' + facilityLabel(s.id) + '</strong>, distance ' + s.distance.toFixed(2) + ', via ' + facilityLabel(s.via) + '.';
-    if (isFinal) html += ' <strong style="color:var(--ok)">Arrived at ' + ctx.firstStopRef + '\'s facility &mdash; the ambulance route for the top-priority stop.</strong>';
+    if (isFinal) html += ' <strong style="color:var(--ok)">Arrived at ' + facilityLabel(c.originFacilityId) + '.</strong>';
     return html;
   }
-  return 'Meanwhile, independent of any single case: the resupply backbone (Kruskal\'s MST) keeps all 117 facilities connected at minimum total road cost.';
+  if (step.chapter === 'completed') {
+    return 'Status moves <span class="mono">IN_TRANSIT &rarr; COMPLETED</span>. Request <strong>' + c.caseRef + '</strong> served in ' + ctx.routeResult.distance.toFixed(2) + ' effective minutes across ' + (ctx.routeResult.path.length - 1) + ' hops.';
+  }
+  return 'Meanwhile, independent of this request: the resupply backbone (Kruskal\'s MST) keeps all 117 facilities connected at minimum total road cost.';
 }
 
 // ---------------------------------------------------------------------

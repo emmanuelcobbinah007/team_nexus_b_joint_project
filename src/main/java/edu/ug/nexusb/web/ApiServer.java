@@ -94,6 +94,7 @@ public final class ApiServer {
         http.createContext("/api/index/lookup", server::handleIndexLookup);
         http.createContext("/api/index/range", server::handleIndexRange);
         http.createContext("/api/simulation/cases", server::handleSimulationCases);
+        http.createContext("/api/simulation/resources", server::handleSimulationResources);
         http.createContext("/api/knapsack", server::handleKnapsack);
         http.createContext("/api/sort", server::handleSort);
         http.createContext("/api/search", server::handleSearch);
@@ -550,8 +551,9 @@ public final class ApiServer {
             int limit = limitParam == null ? 6 : Math.max(1, Math.min(20, Integer.parseInt(limitParam)));
 
             Json array = Json.array();
-            String sql = "SELECT case_ref, origin_facility_id, triage_level, requested_at, case_type "
-                    + "FROM case_request WHERE status = 'PENDING' ORDER BY requested_at LIMIT ?";
+            String sql = "SELECT case_ref, origin_facility_id, triage_level, requested_at, case_type, "
+                    + "required_care_level, status FROM case_request "
+                    + "WHERE status = 'PENDING' ORDER BY requested_at LIMIT ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setInt(1, limit);
                 try (ResultSet rs = stmt.executeQuery()) {
@@ -561,11 +563,37 @@ public final class ApiServer {
                                 .field("originFacilityId", String.valueOf(rs.getInt("origin_facility_id")))
                                 .field("triageLevel", rs.getInt("triage_level"))
                                 .field("requestedAt", rs.getString("requested_at"))
-                                .field("caseType", rs.getString("case_type")));
+                                .field("caseType", rs.getString("case_type"))
+                                .field("requiredCareLevel", rs.getInt("required_care_level"))
+                                .field("status", rs.getString("status")));
                     }
                 }
             }
             return Json.object().field("cases", array).close();
+        });
+    }
+
+    private void handleSimulationResources(HttpExchange exchange) {
+        respondJson(exchange, () -> {
+            String type = param(exchange, "type");
+            if (type == null) type = "AMBULANCE";
+
+            Json array = Json.array();
+            String sql = "SELECT code, resource_type, home_facility_id, care_level "
+                    + "FROM resource WHERE resource_type = ? AND is_available = 1";
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setString(1, type);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        array.element(Json.object()
+                                .field("code", rs.getString("code"))
+                                .field("resourceType", rs.getString("resource_type"))
+                                .field("homeFacilityId", String.valueOf(rs.getInt("home_facility_id")))
+                                .field("careLevel", rs.getInt("care_level")));
+                    }
+                }
+            }
+            return Json.object().field("resources", array).close();
         });
     }
 
