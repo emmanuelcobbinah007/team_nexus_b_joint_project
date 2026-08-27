@@ -21,16 +21,35 @@ public class Kruskal {
         }
     }
 
+    /**
+     * One edge as Kruskal actually considered it, in sorted order: whether
+     * union-find accepted it into the MST (no cycle) or rejected it
+     * (would have closed a cycle). This is the real per-step decision
+     * trace, not a reconstruction after the fact -- recorded during the
+     * same loop {@link #run} already does, not a second pass.
+     */
+    public static class ConsideredEdge {
+        public final Edge edge;
+        public final boolean accepted;
+
+        ConsideredEdge(Edge edge, boolean accepted) {
+            this.edge = edge;
+            this.accepted = accepted;
+        }
+    }
+
     /** Result of running Kruskal's algorithm. */
     public static class Result {
         public final Edge[] mstEdges;
         public final long totalWeight;
         public final boolean isSpanning; // false if the graph was disconnected
+        public final ConsideredEdge[] consideredEdges; // every sorted edge, accept/reject in order
 
-        Result(Edge[] mstEdges, long totalWeight, boolean isSpanning) {
+        Result(Edge[] mstEdges, long totalWeight, boolean isSpanning, ConsideredEdge[] consideredEdges) {
             this.mstEdges = mstEdges;
             this.totalWeight = totalWeight;
             this.isSpanning = isSpanning;
+            this.consideredEdges = consideredEdges;
         }
     }
 
@@ -45,12 +64,15 @@ public class Kruskal {
 
         DisjointSet dsu = new DisjointSet(numVertices);
         Edge[] mst = new Edge[Math.max(numVertices - 1, 0)];
+        ConsideredEdge[] considered = new ConsideredEdge[sorted.length];
         long totalWeight = 0;
         int edgesUsed = 0;
 
-        for (int i = 0; i < sorted.length && edgesUsed < mst.length; i++) {
+        for (int i = 0; i < sorted.length; i++) {
             Edge edge = sorted[i];
-            if (dsu.union(edge.src, edge.dest)) {
+            boolean accepted = edgesUsed < mst.length && dsu.union(edge.src, edge.dest);
+            considered[i] = new ConsideredEdge(edge, accepted);
+            if (accepted) {
                 mst[edgesUsed] = edge;
                 totalWeight += edge.weight;
                 edgesUsed++;
@@ -62,7 +84,7 @@ public class Kruskal {
         System.arraycopy(mst, 0, trimmed, 0, edgesUsed);
 
         boolean isSpanning = (dsu.setCount() == 1);
-        return new Result(trimmed, totalWeight, isSpanning);
+        return new Result(trimmed, totalWeight, isSpanning, considered);
     }
 
     private static void validateInput(int numVertices, Edge[] edges) {

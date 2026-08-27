@@ -203,7 +203,73 @@
   .graph-map .leaflet-control-attribution { background: rgba(0,0,0,0.55); color: #fff; font-size: 0.6rem; }
   .graph-map .leaflet-control-attribution a { color: #cfe3ff; }
   .graph-map .leaflet-tooltip { font-family: "JetBrains Mono", monospace; font-size: 0.75rem; }
-  .map-toolbar { display: flex; justify-content: flex-end; margin-bottom: 0.5rem; }
+  .map-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; gap: 0.5rem; flex-wrap: wrap; }
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 0.35rem 0.5rem;
+  }
+  .player button {
+    appearance: none;
+    border: none;
+    background: var(--accent);
+    color: #06110f;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.55rem;
+    border-radius: 6px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .player button:disabled { opacity: 0.4; cursor: default; }
+  .player button.pause { background: var(--warning); }
+  .player .step-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    min-width: 4.5rem;
+    text-align: center;
+  }
+  .player select {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.3rem;
+  }
+  .narration {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text);
+    margin-top: 0.6rem;
+    min-height: 1.4rem;
+    line-height: 1.4;
+  }
+  .narration .step-count { color: var(--text-muted); font-family: "JetBrains Mono", monospace; font-size: 0.7rem; display: block; margin-bottom: 0.15rem; }
+  .chapter-list { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+  .chapter-pill {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .chapter-pill.active { background: var(--accent); color: #06110f; border-color: var(--accent); }
+  .chapter-pill.done { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
+  .sim-cases { display: flex; flex-direction: column; gap: 0.4rem; }
+  .sim-case {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: var(--surface-2); border-radius: 8px; padding: 0.5rem 0.7rem;
+    font-size: 0.8rem; opacity: 0.35; transition: opacity 0.25s;
+  }
+  .sim-case.revealed { opacity: 1; }
+  .sim-case.current { outline: 2px solid var(--accent); }
+  .sim-case .ref { font-family: "JetBrains Mono", monospace; font-weight: 700; }
   .legend { display: flex; gap: 0.9rem; font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem; flex-wrap: wrap; }
   .legend span { display: inline-flex; align-items: center; gap: 0.3rem; }
   .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
@@ -220,6 +286,7 @@
   <span class="stats" id="headerStats">loading network&hellip;</span>
 </header>
 <nav id="tabs">
+  <button data-tab="simulation">Simulation</button>
   <button data-tab="routing" class="active">Routing</button>
   <button data-tab="mst">MST</button>
   <button data-tab="dispatch">Dispatch</button>
@@ -229,6 +296,28 @@
   <button data-tab="sortsearch">Sort &amp; Search</button>
 </nav>
 <main>
+
+  <!-- SIMULATION: end-to-end walkthrough using real pending cases -->
+  <section class="panel has-map" id="panel-simulation">
+    <div class="card">
+      <h2>How the whole system runs, end to end</h2>
+      <p class="sub">Pulls real <span class="mono">PENDING</span> cases straight out of <span class="mono">case_request</span> and walks them through every stage this project models &mdash; indexing, triage, dispatch, and routing &mdash; using the exact same algorithms as the tabs above, one step at a time.</p>
+      <div class="row">
+        <button class="run" onclick="startSimulation()">Load real cases &amp; start</button>
+        <button class="ghost" onclick="restartSimulation()">Restart</button>
+      </div>
+      <div class="chapter-list" id="simChapters"></div>
+      <div id="simBody"><p class="result-empty">Click "Load real cases &amp; start" to pull pending requests from the database.</p></div>
+    </div>
+    <div class="card">
+      <div class="map-toolbar">
+        <button class="ghost" id="simulationGraphToggle" onclick="toggleOnlyRelevant('simulationGraph')">Hide background roads</button>
+        <div class="player" id="simPlayer" style="display:none"></div>
+      </div>
+      <div class="graph-map" id="simulationGraph"></div>
+      <div class="narration" id="simNarration"><span class="step-count">&nbsp;</span>Nothing running yet.</div>
+    </div>
+  </section>
 
   <!-- ROUTING: Dijkstra + BFS + DFS -->
   <section class="panel has-map active" id="panel-routing">
@@ -267,9 +356,11 @@
     </div>
     <div class="card">
       <div class="map-toolbar">
+        <div class="player" id="routingPlayer" style="display:none"></div>
         <button class="ghost" id="routingGraphToggle" onclick="toggleOnlyRelevant('routingGraph')">Hide background roads</button>
       </div>
       <div class="graph-map" id="routingGraph"></div>
+      <div class="narration" id="routingNarration" style="display:none"><span class="step-count">&nbsp;</span></div>
       <div class="legend">
         <span><span class="dot" style="background:var(--edge)"></span>road</span>
         <span><span class="dot" style="background:var(--accent)"></span>path &middot; &#9650; = travel direction</span>
@@ -295,12 +386,15 @@
     </div>
     <div class="card">
       <div class="map-toolbar">
+        <div class="player" id="mstPlayer" style="display:none"></div>
         <button class="ghost" id="mstGraphToggle" onclick="toggleOnlyRelevant('mstGraph')">Hide background roads</button>
       </div>
       <div class="graph-map" id="mstGraph"></div>
+      <div class="narration" id="mstNarration" style="display:none"><span class="step-count">&nbsp;</span></div>
       <div class="legend">
         <span><span class="dot" style="background:var(--edge)"></span>road (not selected)</span>
         <span><span class="dot" style="background:var(--ok)"></span>MST edge</span>
+        <span><span class="dot" style="background:var(--critical)"></span>rejected (would cycle)</span>
       </div>
     </div>
   </section>
@@ -326,9 +420,11 @@ REQ_URGENT,F053,1</textarea>
       <h2>Why order matters</h2>
       <p class="sub">Penalty = &sum; (cumulative travel time to reach each case) &divide; its triage level &mdash; an urgent case has almost no tolerance for delay, so its wait counts almost fully; a routine case tolerates the same wait far better. Lower total penalty is better.</p>
       <div class="map-toolbar">
+        <div class="player" id="dispatchPlayer" style="display:none"></div>
         <button class="ghost" id="dispatchGraphToggle" onclick="toggleOnlyRelevant('dispatchGraph')">Hide background roads</button>
       </div>
       <div class="graph-map" id="dispatchGraph"></div>
+      <div class="narration" id="dispatchNarration" style="display:none"><span class="step-count">&nbsp;</span></div>
       <div class="legend">
         <span><span class="dot" style="background:var(--ok)"></span>station</span>
         <span><span class="dot" style="background:var(--accent)"></span>case</span>
@@ -353,11 +449,15 @@ C004,4,1</textarea>
       <div id="triageResult" class="result"><p class="result-empty">Run to compare service order.</p></div>
     </div>
     <div class="card">
-      <h2>Service order, side by side</h2>
+      <div class="map-toolbar">
+        <h2 style="margin:0">Service order, side by side</h2>
+        <div class="player" id="triagePlayer" style="display:none"></div>
+      </div>
       <div class="split-two" id="triageOrders">
         <div class="result-empty">FCFS order appears here.</div>
         <div class="result-empty">Priority order appears here.</div>
       </div>
+      <div class="narration" id="triageNarration" style="display:none"><span class="step-count">&nbsp;</span></div>
     </div>
   </section>
 
@@ -567,6 +667,106 @@ function cssVar(name, fallback) {
   return v || fallback;
 }
 
+// ---------------------------------------------------------------------
+// Step player -- shared step-by-step / auto-play engine used by every
+// "simulate this algorithm" view (routing, MST, triage, dispatch, and
+// the end-to-end Simulation tab). Owns only playback state; the caller
+// supplies onStep(index) to actually render that step.
+// ---------------------------------------------------------------------
+const activePlayers = {};
+
+function createStepPlayer(playerContainerId, narrationId, totalSteps, onStep) {
+  if (activePlayers[playerContainerId]) activePlayers[playerContainerId].destroy();
+
+  const container = document.getElementById(playerContainerId);
+  const narration = narrationId ? document.getElementById(narrationId) : null;
+  container.style.display = 'flex';
+  if (narration) narration.style.display = 'block';
+
+  container.innerHTML =
+    '<button data-act="first" title="First step">&laquo;</button>' +
+    '<button data-act="prev" title="Previous step">&lsaquo;</button>' +
+    '<button data-act="playpause" title="Play/pause">&#9654;</button>' +
+    '<span class="step-label">0 / ' + totalSteps + '</span>' +
+    '<button data-act="next" title="Next step">&rsaquo;</button>' +
+    '<button data-act="last" title="Last step">&raquo;</button>' +
+    '<select data-act="speed" title="Playback speed">' +
+      '<option value="1400">0.5&times;</option>' +
+      '<option value="700" selected>1&times;</option>' +
+      '<option value="350">2&times;</option>' +
+      '<option value="150">4&times;</option>' +
+    '</select>';
+
+  const stepLabel = container.querySelector('.step-label');
+  const playBtn = container.querySelector('[data-act="playpause"]');
+  const speedSelect = container.querySelector('[data-act="speed"]');
+
+  const state = { index: -1, playing: false, timer: null };
+
+  function render() {
+    stepLabel.textContent = (state.index + 1) + ' / ' + totalSteps;
+    container.querySelector('[data-act="prev"]').disabled = state.index <= 0;
+    container.querySelector('[data-act="first"]').disabled = state.index <= 0;
+    container.querySelector('[data-act="next"]').disabled = state.index >= totalSteps - 1;
+    container.querySelector('[data-act="last"]').disabled = state.index >= totalSteps - 1;
+    if (state.index >= 0) onStep(state.index);
+  }
+
+  function goTo(i) {
+    state.index = Math.max(0, Math.min(totalSteps - 1, i));
+    render();
+    if (state.index >= totalSteps - 1) pause();
+  }
+
+  function play() {
+    if (totalSteps === 0) return;
+    state.playing = true;
+    playBtn.innerHTML = '&#10074;&#10074;';
+    playBtn.classList.add('pause');
+    if (state.index >= totalSteps - 1) state.index = -1;
+    tick();
+  }
+  function tick() {
+    goTo(state.index + 1);
+    if (state.index < totalSteps - 1 && state.playing) {
+      state.timer = setTimeout(tick, Number(speedSelect.value));
+    } else {
+      pause();
+    }
+  }
+  function pause() {
+    state.playing = false;
+    playBtn.innerHTML = '&#9654;';
+    playBtn.classList.remove('pause');
+    if (state.timer) { clearTimeout(state.timer); state.timer = null; }
+  }
+
+  container.onclick = (e) => {
+    const btn = e.target.closest('button[data-act]');
+    if (!btn) return;
+    const act = btn.dataset.act;
+    if (act === 'first') goTo(0);
+    else if (act === 'prev') goTo(state.index - 1);
+    else if (act === 'next') goTo(state.index + 1);
+    else if (act === 'last') goTo(totalSteps - 1);
+    else if (act === 'playpause') state.playing ? pause() : play();
+  };
+
+  const player = {
+    goTo, play, pause,
+    destroy() { pause(); container.onclick = null; }
+  };
+  activePlayers[playerContainerId] = player;
+  goTo(0);
+  return player;
+}
+
+function setNarration(narrationId, index, total, html) {
+  const el = document.getElementById(narrationId);
+  if (!el) return;
+  el.innerHTML = '<span class="step-count">STEP ' + (index + 1) + ' OF ' + total + '</span>' + html;
+}
+
 // Compass bearing (0 = north, 90 = east) from point a to point b.
 function bearingDeg(a, b) {
   const toRad = d => d * Math.PI / 180, toDeg = r => r * 180 / Math.PI;
@@ -623,11 +823,13 @@ function drawGraph(containerId, opts) {
   const startNode = opts.startNode, endNode = opts.endNode;
   const highlightEdgeSet = opts.highlightEdges || new Set(); // "from|to"
   const mstEdgeSet = opts.mstEdges || new Set();
+  const rejectedEdgeSet = opts.rejectedEdges || new Set(); // "from|to", e.g. Kruskal edges that would cycle
   const onlyRelevant = !!onlyRelevantState[containerId];
 
   const edgeColor = cssVar('--edge', '#c3cad6');
   const hlColor = cssVar('--accent', '#0d6e6e');
   const mstColor = cssVar('--ok', '#1f8a4c');
+  const rejectColor = cssVar('--critical', '#c0293b');
   const nodeColor = cssVar('--node', '#7280a0');
   const startColor = cssVar('--ok', '#1f8a4c');
   const endColor = cssVar('--critical', '#c0293b');
@@ -648,18 +850,19 @@ function drawGraph(containerId, opts) {
 
     const isMst = mstEdgeSet.has(e.from + '|' + e.to) || mstEdgeSet.has(e.to + '|' + e.from);
     const isHl = highlightEdgeSet.has(e.from + '|' + e.to) || highlightEdgeSet.has(e.to + '|' + e.from);
-    if (onlyRelevant && !isMst && !isHl) return; // skip background roads not part of the result
+    const isRejected = rejectedEdgeSet.has(e.from + '|' + e.to) || rejectedEdgeSet.has(e.to + '|' + e.from);
+    if (onlyRelevant && !isMst && !isHl && !isRejected) return; // skip background roads not part of the result
 
     relevantNodes.add(e.from);
     relevantNodes.add(e.to);
 
-    const color = isMst ? mstColor : isHl ? hlColor : edgeColor;
-    const weight = (isMst || isHl) ? 4 : 1.5;
+    const color = isMst ? mstColor : isRejected ? rejectColor : isHl ? hlColor : edgeColor;
+    const weight = (isMst || isHl) ? 4 : isRejected ? 3 : 1.5;
     const latlngs = [[a.lat, a.lon], [b.lat, b.lon]];
 
     // dark casing under every line so routes stay legible over bright imagery
     L.polyline(latlngs, { color: '#000', weight: weight + 2, opacity: 0.35 }).addTo(map._dataLayer);
-    L.polyline(latlngs, { color: color, weight: weight, opacity: (isMst || isHl) ? 0.95 : 0.55 }).addTo(map._dataLayer);
+    L.polyline(latlngs, { color: color, weight: weight, opacity: (isMst || isHl) ? 0.95 : isRejected ? 0.8 : 0.55, dashArray: isRejected ? '5,5' : null }).addTo(map._dataLayer);
   });
 
   // An explicit, ordered stop sequence (Dijkstra's path, or a dispatch
@@ -722,18 +925,29 @@ function drawGraph(containerId, opts) {
 // ---------------------------------------------------------------------
 // Routing tab
 // ---------------------------------------------------------------------
+function resetFit(containerId) {
+  if (mapInstances[containerId]) mapInstances[containerId]._fitDone = false;
+}
+
 async function runDijkstra() {
   const from = document.getElementById('dijkstraFrom').value;
   const to = document.getElementById('dijkstraTo').value;
   const out = document.getElementById('dijkstraResult');
+  if (from === to) {
+    out.innerHTML = '<div class="error-box">"From" and "To" are the same facility (' + facilityLabel(from) + ') &mdash; pick two different ones to find a route between them.</div>';
+    document.getElementById('routingPlayer').style.display = 'none';
+    document.getElementById('routingNarration').style.display = 'none';
+    return;
+  }
   try {
     const r = await fetchJson('/api/dijkstra?source=' + from + '&dest=' + to);
     if (!r.reachable) {
       out.innerHTML = '<div class="error-box">' + facilityLabel(to) + ' is not reachable from ' + facilityLabel(from) + '.</div>';
+      document.getElementById('routingPlayer').style.display = 'none';
+      document.getElementById('routingNarration').style.display = 'none';
       drawGraph('routingGraph', { startNode: from, endNode: to });
       return;
     }
-    const pathLabels = r.path.map(facilityLabel);
     out.innerHTML =
       statRow([
         ['Distance (effective min)', r.distance.toFixed(2), 'ok'],
@@ -742,8 +956,43 @@ async function runDijkstra() {
       '<table><tr><th>#</th><th>Facility</th></tr>' +
       r.path.map((id, i) => '<tr><td class="num">' + (i + 1) + '</td><td>' + facilityLabel(id) + '</td></tr>').join('') +
       '</table>';
+
+    // Trim the real visit trace at the destination -- Dijkstra's own
+    // finalization order, just not continued past the answer we asked for.
+    const destIdx = r.visitSteps.findIndex(s => s.id === to);
+    const steps = r.visitSteps.slice(0, destIdx + 1);
+
+    resetFit('routingGraph');
     focusMap('routingGraph');
-    drawGraph('routingGraph', { startNode: from, endNode: to, directedPath: r.path, highlightNodes: new Set(r.path) });
+    // Prime the view once against the full path so the frame doesn't jump around per step.
+    drawGraph('routingGraph', { startNode: from, endNode: to, highlightNodes: new Set(r.path) });
+
+    createStepPlayer('routingPlayer', 'routingNarration', steps.length, (i) => {
+      const visited = steps.slice(0, i + 1);
+      const treeEdges = new Set();
+      visited.forEach(s => { if (s.via) treeEdges.add(s.via + '|' + s.id); });
+      const isFinal = i === steps.length - 1;
+
+      drawGraph('routingGraph', {
+        startNode: from,
+        endNode: isFinal ? to : null,
+        highlightNodes: new Set(visited.map(s => s.id)),
+        highlightEdges: treeEdges,
+        directedPath: isFinal ? r.path : null
+      });
+
+      const cur = steps[i];
+      let html;
+      if (i === 0) {
+        html = 'Start at <strong>' + facilityLabel(cur.id) + '</strong>, distance 0 &mdash; insert it into the priority queue.';
+      } else {
+        html = 'Extract <strong>' + facilityLabel(cur.id) + '</strong>, the closest unvisited node in the queue ' +
+          '(distance <span class="mono">' + cur.distance.toFixed(2) + '</span>, reached via ' + facilityLabel(cur.via) + ') ' +
+          '&mdash; relax its outgoing edges and update the queue.';
+      }
+      if (isFinal) html += ' <strong style="color:var(--ok)">Destination reached &mdash; the highlighted path is the answer.</strong>';
+      setNarration('routingNarration', i, steps.length, html);
+    });
   } catch (e) {
     out.innerHTML = '<div class="error-box">' + e.message + '</div>';
   }
@@ -809,7 +1058,7 @@ async function runKruskal() {
   const out = document.getElementById('mstResult');
   try {
     const r = await fetchJson('/api/kruskal');
-    renderMst(out, r, 'Kruskal');
+    renderMstAnimated(out, r, 'Kruskal', r.consideredEdges);
   } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
 }
 async function runPrim() {
@@ -817,17 +1066,46 @@ async function runPrim() {
   const out = document.getElementById('mstResult');
   try {
     const r = await fetchJson('/api/prim?start=' + start);
-    renderMst(out, r, 'Prim (from ' + facilityLabel(start) + ')');
+    // Prim's edges() is already real chronological selection order -- no
+    // rejects to show (every extracted frontier edge that survives the
+    // "already in tree" check is accepted by construction).
+    const steps = r.edges.map(e => ({ from: e.from, to: e.to, weight: e.weight, accepted: true }));
+    renderMstAnimated(out, r, 'Prim (from ' + facilityLabel(start) + ')', steps);
   } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
 }
-function renderMst(out, r, label) {
+function renderMstAnimated(out, r, label, steps) {
   out.innerHTML = statRow([
     [label + ' total weight', r.totalWeight.toFixed(2), 'ok'],
     ['Edges selected', r.edges.length, '']
   ]) + '<p class="footnote">Kruskal\'s <span class="mono">Edge</span> type stores integer weights (its established API), so its input is rounded from the graph\'s real (double) edge weights; Prim consumes the exact doubles directly. Their totals can differ by a few units for this reason — both are still correct minimum spanning trees, just computed against slightly different rounded vs. exact inputs. Run both and compare.</p>';
-  const mstSet = new Set(r.edges.map(e => e.from + '|' + e.to));
+
+  resetFit('mstGraph');
   focusMap('mstGraph');
-  drawGraph('mstGraph', { mstEdges: mstSet });
+  const mstSetFull = new Set(r.edges.map(e => e.from + '|' + e.to));
+  drawGraph('mstGraph', { mstEdges: mstSetFull });
+
+  createStepPlayer('mstPlayer', 'mstNarration', steps.length, (i) => {
+    const acceptedSoFar = new Set();
+    let acceptedCount = 0, weightSoFar = 0;
+    for (let k = 0; k <= i; k++) {
+      if (steps[k].accepted) {
+        acceptedSoFar.add(steps[k].from + '|' + steps[k].to);
+        acceptedCount++;
+        weightSoFar += steps[k].weight;
+      }
+    }
+    const cur = steps[i];
+    const rejectedNow = cur.accepted ? new Set() : new Set([cur.from + '|' + cur.to]);
+
+    drawGraph('mstGraph', { mstEdges: acceptedSoFar, rejectedEdges: rejectedNow });
+
+    const label2 = facilityLabel(cur.from) + ' &harr; ' + facilityLabel(cur.to);
+    let html = 'Considering <strong>' + label2 + '</strong> (weight <span class="mono">' + Number(cur.weight).toFixed(2) + '</span>) &mdash; ';
+    html += cur.accepted
+      ? '<strong style="color:var(--ok)">accepted</strong>: connects two separate components. Tree so far: ' + acceptedCount + ' edges, total weight ' + weightSoFar.toFixed(2) + '.'
+      : '<strong style="color:var(--critical)">rejected</strong>: both endpoints are already in the same component &mdash; adding it would close a cycle.';
+    setNarration('mstNarration', i, steps.length, html);
+  });
 }
 
 // ---------------------------------------------------------------------
@@ -862,11 +1140,28 @@ async function runDispatch() {
         Math.abs(r.greedyPenalty - r.optimalPenalty).toFixed(2) + ' penalty units.</p>' : '');
     const caseIds = new Set(r.cases.map(c => c.originFacilityId));
     caseIds.add(station);
-    const facilityByRef = {};
-    r.cases.forEach(c => { facilityByRef[c.caseRef] = c.originFacilityId; });
-    const optimalPath = [station, ...r.optimalOrder.map(ref => facilityByRef[ref])];
+    const caseByRef = {};
+    r.cases.forEach(c => { caseByRef[c.caseRef] = c; });
+    const optimalPath = [station, ...r.optimalOrder.map(ref => caseByRef[ref].originFacilityId)];
+
+    resetFit('dispatchGraph');
     focusMap('dispatchGraph');
     drawGraph('dispatchGraph', { startNode: station, highlightNodes: caseIds, directedPath: optimalPath, pathStyle: 'dashed' });
+
+    createStepPlayer('dispatchPlayer', 'dispatchNarration', r.optimalOrder.length, (i) => {
+      drawGraph('dispatchGraph', {
+        startNode: station,
+        highlightNodes: new Set([station, ...r.optimalOrder.slice(0, i + 1).map(ref => caseByRef[ref].originFacilityId)]),
+        directedPath: optimalPath.slice(0, i + 2),
+        pathStyle: 'dashed'
+      });
+      const ref = r.optimalOrder[i];
+      const c = caseByRef[ref];
+      const html = 'Stop ' + (i + 1) + ': <strong>' + ref + '</strong> at ' + facilityLabel(c.originFacilityId) +
+        ' (severity T' + c.triageLevel + ', distance from station <span class="mono">' + c.distance.toFixed(2) + '</span>) ' +
+        '&mdash; optimal order sorts by distance &times; triage level, so this case\'s urgency directly earned it this position.';
+      setNarration('dispatchNarration', i, r.optimalOrder.length, html);
+    });
   } catch (e) {
     out.innerHTML = '<div class="error-box">' + e.message + '</div>';
   }
@@ -879,7 +1174,6 @@ async function runTriage() {
   const lines = document.getElementById('triageCases').value.trim().split('\n').filter(Boolean);
   const cases = lines.map(l => l.split(',').map(s => s.trim()).join(':')).join(',');
   const out = document.getElementById('triageResult');
-  const orders = document.getElementById('triageOrders');
   try {
     const r = await fetchJson('/api/triage?cases=' + encodeURIComponent(cases));
     const better = r.priorityAverageWait < r.fcfsAverageWait ? 'priority' : (r.priorityAverageWait > r.fcfsAverageWait ? 'fcfs' : 'tie');
@@ -887,16 +1181,32 @@ async function runTriage() {
       ['FCFS avg. wait', r.fcfsAverageWait.toFixed(2), better === 'fcfs' ? 'ok' : 'critical'],
       ['Priority avg. wait', r.priorityAverageWait.toFixed(2), better === 'priority' ? 'ok' : 'critical']
     ]) + '<p class="footnote">Lower isn\'t automatically "better" here — priority mode trades some cases\' wait for others\'. See T072\'s writeup for why raw average can favor FCFS.</p>';
-    orders.innerHTML = servedTable('FCFS order', r.fcfsOrder) + servedTable('Priority order', r.priorityOrder);
+    animateTriage(r.fcfsOrder, r.priorityOrder);
   } catch (e) {
     out.innerHTML = '<div class="error-box">' + e.message + '</div>';
   }
 }
-function servedTable(title, served) {
+function servedTable(title, served, revealCount) {
+  const shown = revealCount === undefined ? served.length : revealCount;
   return '<div><h2 style="font-size:0.8rem">' + title + '</h2><table><tr><th>#</th><th>Case</th><th>Sev.</th><th>Wait</th></tr>' +
-    served.map((s, i) => '<tr><td class="num">' + (i + 1) + '</td><td>' + s.caseId + '</td>' +
-      '<td><span class="pill t' + s.severityPriority + '">T' + s.severityPriority + '</span></td>' +
-      '<td class="num">' + s.waitTime + '</td></tr>').join('') + '</table></div>';
+    served.map((s, i) => i < shown
+      ? '<tr' + (i === shown - 1 ? ' style="outline:2px solid var(--accent)"' : '') + '><td class="num">' + (i + 1) + '</td><td>' + s.caseId + '</td>' +
+        '<td><span class="pill t' + s.severityPriority + '">T' + s.severityPriority + '</span></td>' +
+        '<td class="num">' + s.waitTime + '</td></tr>'
+      : '<tr style="opacity:0.25"><td class="num">' + (i + 1) + '</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>'
+    ).join('') + '</table></div>';
+}
+function animateTriage(fcfsOrder, priorityOrder) {
+  const orders = document.getElementById('triageOrders');
+  const n = fcfsOrder.length;
+  createStepPlayer('triagePlayer', 'triageNarration', n, (i) => {
+    orders.innerHTML = servedTable('FCFS order', fcfsOrder, i + 1) + servedTable('Priority order', priorityOrder, i + 1);
+    const f = fcfsOrder[i], p = priorityOrder[i];
+    const html = 'FCFS serves <strong>' + f.caseId + '</strong> next (arrived earliest of those still waiting). ' +
+      'Priority mode extracts the heap\'s top instead: <strong>' + p.caseId + '</strong> ' +
+      '(severity <span class="pill t' + p.severityPriority + '">T' + p.severityPriority + '</span>, the most urgent case still in the queue).';
+    setNarration('triageNarration', i, n, html);
+  });
 }
 
 // ---------------------------------------------------------------------
@@ -971,6 +1281,212 @@ async function runSearch() {
       ? statRow([['Found at index', r.index, 'ok']])
       : statRow([['Result', 'Not found', 'critical']]);
   } catch (e) { out.innerHTML = '<div class="error-box">' + e.message + '</div>'; }
+}
+
+// ---------------------------------------------------------------------
+// Simulation tab -- one end-to-end walkthrough over real PENDING cases
+// pulled straight from case_request, chaining the exact same API calls
+// (and algorithms behind them) as the individual tabs above: indexing,
+// triage, dispatch, routing, and the resupply backbone for context.
+// ---------------------------------------------------------------------
+let simState = null;
+const SIM_STATION = '1'; // Korle Bu -- fixed hub for the dispatch/routing chapters
+
+async function startSimulation() {
+  const body = document.getElementById('simBody');
+  body.innerHTML = '<p class="result-empty">Loading real PENDING cases from case_request&hellip;</p>';
+  document.getElementById('simChapters').innerHTML = '';
+  try {
+    const capRes = await fetchJson('/api/simulation/cases?limit=6');
+    const cases = capRes.cases;
+    if (!cases.length) {
+      body.innerHTML = '<div class="error-box">No PENDING cases found in the database right now &mdash; everything has already been triaged/dispatched/completed.</div>';
+      return;
+    }
+    await buildSimulation(cases);
+  } catch (e) {
+    body.innerHTML = '<div class="error-box">' + e.message + '</div>';
+  }
+}
+
+function restartSimulation() {
+  if (simState) buildSimulation(simState.cases);
+  else startSimulation();
+}
+
+async function buildSimulation(cases) {
+  const body = document.getElementById('simBody');
+  body.innerHTML = '<p class="result-empty">Running triage, dispatch, and routing against these ' + cases.length + ' real cases&hellip;</p>';
+
+  // Arrival order = the order the database already returned them in
+  // (sorted by requested_at) -- case index doubles as TriageComparison's
+  // relative arrivalTime, since real timestamps aren't the simple
+  // integers that comparator expects.
+  const triageParam = cases.map((c, i) => c.caseRef + ':' + i + ':' + c.triageLevel).join(',');
+  const triageResult = await fetchJson('/api/triage?cases=' + encodeURIComponent(triageParam));
+
+  const dispatchParam = cases.map(c => c.caseRef + ':' + c.originFacilityId + ':' + c.triageLevel).join(',');
+  const dispatchResult = await fetchJson('/api/dispatch?station=' + SIM_STATION + '&cases=' + encodeURIComponent(dispatchParam));
+
+  const firstStopRef = dispatchResult.optimalOrder[0];
+  const firstStopCase = dispatchResult.cases.find(c => c.caseRef === firstStopRef);
+  const routeResult = await fetchJson('/api/dijkstra?source=' + SIM_STATION + '&dest=' + firstStopCase.originFacilityId);
+
+  const mstResult = await fetchJson('/api/kruskal');
+
+  simState = { cases, triageResult, dispatchResult, routeResult, mstResult };
+
+  // ---- flat step list across every chapter ----
+  const routeDestIdx = routeResult.visitSteps.findIndex(s => s.id === firstStopCase.originFacilityId);
+  const routeSteps = routeResult.visitSteps.slice(0, routeDestIdx + 1);
+
+  const chapters = [
+    { key: 'arrivals', label: '1. Cases arrive', count: cases.length },
+    { key: 'triage', label: '2. Triage decision', count: cases.length },
+    { key: 'dispatch', label: '3. Dispatch order', count: dispatchResult.optimalOrder.length },
+    { key: 'routing', label: '4. Route the ambulance', count: routeSteps.length },
+    { key: 'resupply', label: '5. Resupply backbone', count: 1 }
+  ];
+  const flat = [];
+  chapters.forEach(ch => { for (let i = 0; i < ch.count; i++) flat.push({ chapter: ch.key, i }); });
+
+  document.getElementById('simChapters').innerHTML = chapters.map(ch =>
+    '<span class="chapter-pill" data-chapter="' + ch.key + '">' + ch.label + '</span>'
+  ).join('');
+
+  resetFit('simulationGraph');
+  focusMap('simulationGraph');
+
+  createStepPlayer('simPlayer', 'simNarration', flat.length, (globalIndex) => {
+    const step = flat[globalIndex];
+    // Each chapter looks at a different, mostly-unrelated set of
+    // nodes/roads (six scattered arrivals, one specific route, the whole
+    // 117-facility backbone) -- re-frame the map fresh at the start of
+    // every chapter instead of keeping whatever the previous chapter zoomed to.
+    if (step.i === 0) resetFit('simulationGraph');
+    updateChapterPills(step.chapter, chapters);
+    if (step.chapter === 'arrivals') renderSimArrivals(cases, step.i);
+    else if (step.chapter === 'triage') renderSimTriage(cases, triageResult, step.i);
+    else if (step.chapter === 'dispatch') renderSimDispatch(dispatchResult, step.i);
+    else if (step.chapter === 'routing') renderSimRouting(routeResult, routeSteps, firstStopCase, step.i);
+    else if (step.chapter === 'resupply') renderSimResupply(mstResult);
+    setNarration('simNarration', globalIndex, flat.length, narrationFor(step, { cases, triageResult, dispatchResult, routeResult, routeSteps, firstStopCase, firstStopRef }));
+  });
+}
+
+function updateChapterPills(activeKey, chapters) {
+  let passedActive = false;
+  chapters.forEach(ch => {
+    const el = document.querySelector('#simChapters [data-chapter="' + ch.key + '"]');
+    if (!el) return;
+    el.classList.remove('active', 'done');
+    if (ch.key === activeKey) { el.classList.add('active'); passedActive = true; }
+    else if (!passedActive) el.classList.add('done');
+  });
+}
+
+function renderSimArrivals(cases, i) {
+  const body = document.getElementById('simBody');
+  body.innerHTML = '<div class="sim-cases">' + cases.map((c, idx) =>
+    '<div class="sim-case' + (idx <= i ? ' revealed' : '') + (idx === i ? ' current' : '') + '">' +
+      '<span class="ref">' + c.caseRef + '</span>' +
+      '<span>' + facilityLabel(c.originFacilityId) + '</span>' +
+      '<span class="pill t' + c.triageLevel + '">T' + c.triageLevel + '</span>' +
+      '<span class="mono" style="color:var(--text-muted)">' + c.requestedAt + '</span>' +
+      '<span style="color:var(--text-muted)">' + c.caseType + '</span>' +
+    '</div>'
+  ).join('') + '</div>';
+  drawGraph('simulationGraph', { highlightNodes: new Set(cases.slice(0, i + 1).map(c => c.originFacilityId)) });
+}
+
+function renderSimTriage(cases, triageResult, i) {
+  const body = document.getElementById('simBody');
+  body.innerHTML = servedTable('FCFS order', triageResult.fcfsOrder, i + 1) +
+    servedTable('Priority order (real severities from the DB)', triageResult.priorityOrder, i + 1);
+  const ids = new Set(cases.map(c => c.originFacilityId));
+  drawGraph('simulationGraph', { highlightNodes: ids });
+}
+
+function renderSimDispatch(dispatchResult, i) {
+  const body = document.getElementById('simBody');
+  body.innerHTML =
+    statRow([
+      ['Greedy penalty', dispatchResult.greedyPenalty.toFixed(2), ''],
+      ['Optimal penalty', dispatchResult.optimalPenalty.toFixed(2), 'ok']
+    ]) +
+    '<table><tr><th>#</th><th>Optimal order</th><th>Facility</th></tr>' +
+    dispatchResult.optimalOrder.map((ref, idx) => {
+      const c = dispatchResult.cases.find(cc => cc.caseRef === ref);
+      return '<tr style="' + (idx > i ? 'opacity:0.25' : idx === i ? 'outline:2px solid var(--accent)' : '') + '">' +
+        '<td class="num">' + (idx + 1) + '</td><td>' + ref + '</td><td>' + facilityLabel(c.originFacilityId) + '</td></tr>';
+    }).join('') + '</table>';
+
+  const caseByRef = {}; dispatchResult.cases.forEach(c => { caseByRef[c.caseRef] = c; });
+  const path = [SIM_STATION, ...dispatchResult.optimalOrder.slice(0, i + 1).map(ref => caseByRef[ref].originFacilityId)];
+  drawGraph('simulationGraph', {
+    startNode: SIM_STATION,
+    highlightNodes: new Set(path),
+    directedPath: path,
+    pathStyle: 'dashed'
+  });
+}
+
+function renderSimRouting(routeResult, routeSteps, firstStopCase, i) {
+  const body = document.getElementById('simBody');
+  const visited = routeSteps.slice(0, i + 1);
+  body.innerHTML = '<table><tr><th>#</th><th>Facility</th><th>Distance</th></tr>' +
+    visited.map((s, idx) => '<tr><td class="num">' + (idx + 1) + '</td><td>' + facilityLabel(s.id) + '</td><td class="num">' + s.distance.toFixed(2) + '</td></tr>').join('') +
+    '</table>';
+
+  const treeEdges = new Set();
+  visited.forEach(s => { if (s.via) treeEdges.add(s.via + '|' + s.id); });
+  const isFinal = i === routeSteps.length - 1;
+  drawGraph('simulationGraph', {
+    startNode: SIM_STATION,
+    endNode: isFinal ? firstStopCase.originFacilityId : null,
+    highlightNodes: new Set(visited.map(s => s.id)),
+    highlightEdges: treeEdges,
+    directedPath: isFinal ? routeResult.path : null
+  });
+}
+
+function renderSimResupply(mstResult) {
+  const body = document.getElementById('simBody');
+  body.innerHTML = statRow([
+    ['MST total weight', mstResult.totalWeight.toFixed(2), 'ok'],
+    ['Roads in the backbone', mstResult.edges.length, '']
+  ]) + '<p class="footnote">Independent of any single case: this is the minimum-cost set of roads that keeps every one of the 117 facilities connected, computed fresh with Kruskal every time &mdash; see the MST tab to watch it get built edge by edge.</p>';
+  const mstSet = new Set(mstResult.edges.map(e => e.from + '|' + e.to));
+  drawGraph('simulationGraph', { mstEdges: mstSet });
+}
+
+function narrationFor(step, ctx) {
+  if (step.chapter === 'arrivals') {
+    const c = ctx.cases[step.i];
+    return 'A real <span class="mono">PENDING</span> row from <span class="mono">case_request</span>: <strong>' + c.caseRef + '</strong> ' +
+      'at ' + facilityLabel(c.originFacilityId) + ', triage <strong>T' + c.triageLevel + '</strong>, requested ' + c.requestedAt + '.';
+  }
+  if (step.chapter === 'triage') {
+    const f = ctx.triageResult.fcfsOrder[step.i], p = ctx.triageResult.priorityOrder[step.i];
+    return 'FCFS would serve <strong>' + f.caseId + '</strong> next (arrival order). ' +
+      'The binary heap instead extracts <strong>' + p.caseId + '</strong> (severity T' + p.severityPriority + ') as its current highest-priority case.';
+  }
+  if (step.chapter === 'dispatch') {
+    const ref = ctx.dispatchResult.optimalOrder[step.i];
+    const c = ctx.dispatchResult.cases.find(cc => cc.caseRef === ref);
+    return 'Dispatching from Korle Bu (the fixed hub for this walkthrough): stop ' + (step.i + 1) + ' is <strong>' + ref + '</strong> ' +
+      'at ' + facilityLabel(c.originFacilityId) + ' (T' + c.triageLevel + ', distance ' + c.distance.toFixed(2) + ') under the <strong>optimal</strong> ordering.';
+  }
+  if (step.chapter === 'routing') {
+    const s = ctx.routeSteps[step.i];
+    const isFinal = step.i === ctx.routeSteps.length - 1;
+    let html = step.i === 0
+      ? 'Dijkstra starts at Korle Bu, distance 0.'
+      : 'Extract <strong>' + facilityLabel(s.id) + '</strong>, distance ' + s.distance.toFixed(2) + ', via ' + facilityLabel(s.via) + '.';
+    if (isFinal) html += ' <strong style="color:var(--ok)">Arrived at ' + ctx.firstStopRef + '\'s facility &mdash; the ambulance route for the top-priority stop.</strong>';
+    return html;
+  }
+  return 'Meanwhile, independent of any single case: the resupply backbone (Kruskal\'s MST) keeps all 117 facilities connected at minimum total road cost.';
 }
 
 // ---------------------------------------------------------------------
